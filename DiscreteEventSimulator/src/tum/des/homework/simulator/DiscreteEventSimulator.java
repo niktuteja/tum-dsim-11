@@ -2,11 +2,30 @@ package tum.des.homework.simulator;
 
 public class DiscreteEventSimulator {
 
+	// flag for determining if the machine is (or should be) stopped.
+	private boolean stopped = false;
+
 	/**
-	 * @param args
+	 * Starts the simulation.
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Whoa, look at me go!");
+	public void start() {
+		while (true) {
+			if (stopped == true)
+				break;
+			
+			// TODO get next event
+			
+			// TODO check for termination event, if so break
+			
+			// TODO execute event
+		}
 	}
+	
+	/**
+	 * Stops the simulation
+	 */
+	public void stop() {
+		this.stopped = true;
+	}
+
 }
