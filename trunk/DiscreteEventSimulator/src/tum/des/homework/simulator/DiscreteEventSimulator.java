@@ -1,5 +1,8 @@
 package tum.des.homework.simulator;
 
+import java.util.Properties;
+
+import tum.des.homework.simulator.events.CustomerArrival;
 import tum.des.homework.simulator.events.EventBase;
 import tum.des.homework.simulator.events.TerminationEvent;
 
@@ -10,12 +13,39 @@ public class DiscreteEventSimulator {
 	
 	// simulation event queue
 	private EventQueue eventQueue = new EventQueue();
+	
+	private long minWaitingTime;
+	
+	private long maxWaitingTime;
 
+	
+	private SimulationState state;
+	
+	
+	public void init(Properties props){
+		
+		state = new SimulationState(this);
+		
+		long terminationTime = Long.parseLong(props.getProperty("termination-time"));
+		long resolution = Long.parseLong(props.getProperty("resolution")); //TODO: move?
+		terminationTime = Utils.secondsToTicks(terminationTime, resolution);
+		
+		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this.state));
+		
+		
+		int numCustomers = Integer.parseInt(props.getProperty("num-customers"));
+		
+		for (int i = 0; i < numCustomers; i++){
+			eventQueue.enqueueEvent(new CustomerArrival(i * Utils.secondsToTicks(10, resolution), state));
+		}
+		
+	}
+	
+	
 	/**
 	 * Starts the simulation.
 	 */
 	public void start() {
-		SimulationState state = new SimulationState(this);
 		
 		while (true) {
 			if (stopped == true)
@@ -26,10 +56,17 @@ public class DiscreteEventSimulator {
 			if (evt == null)
 				throw new IllegalStateException("EventQueue empty");
 			
+			state.setTicks(evt.getExecutionTime());
+			
 			evt.process();
+			
 		}
 		
+		System.out.println("simulation stopped.");
+		
 		// TODO stats
+		
+		
 	}
 	
 	/**

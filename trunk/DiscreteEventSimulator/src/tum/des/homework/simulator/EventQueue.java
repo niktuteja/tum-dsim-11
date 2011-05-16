@@ -13,7 +13,9 @@ public class EventQueue {
 	}
 
 	public EventBase dequeueNextEvent() {
-		return queue.poll();
+		EventBase evt = queue.poll();
+		System.out.println("dequeuing event " + evt);
+		return evt;
 	}
 
 }
