@@ -17,7 +17,6 @@ Goal: Discrete Event Simulator implementation & simple result evaluation
   * Max Queue Length: 0
   * Queue Length on Termination: 0
 
-=== simulation time: 10⁵ sec ===
 === simulation time: 10⁴ sec ===
   * Min Queue Length: 0
   * Max Queue Length: 1
@@ -37,7 +36,7 @@ Goal: Discrete Event Simulator implementation & simple result evaluation
   * Max Queue Length: 1
   * Queue Length on Termination: 0
 
-== service time: [9..11] sec (rand.) ==
+== service time: `[`9..11`]` sec (rand.) ==
 === simulation time: 10⁴ sec ===
   * Min Queue Length: 0
   * Max Queue Length: 3
