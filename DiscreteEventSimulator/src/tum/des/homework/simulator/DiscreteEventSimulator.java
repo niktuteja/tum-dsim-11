@@ -10,65 +10,62 @@ public class DiscreteEventSimulator {
 
 	// flag for determining if the machine is (or should be) stopped.
 	private boolean stopped = false;
-	
+
 	// simulation event queue
-	private EventQueue eventQueue = new EventQueue();
-	
+	private final EventQueue eventQueue = new EventQueue();
+
 	private long minWaitingTime;
-	
+
 	private long maxWaitingTime;
 
-	
 	private SimulationState state;
-	
-	
-	public void init(Properties props){
-		
+
+	private long resolution;
+
+	public void init(Properties props) {
+
 		state = new SimulationState(this);
-		
+
 		long terminationTime = Long.parseLong(props.getProperty("termination-time"));
-		long resolution = Long.parseLong(props.getProperty("resolution")); //TODO: move?
-		terminationTime = Utils.secondsToTicks(terminationTime, resolution);
-		
+		resolution = Long.parseLong(props.getProperty("resolution"));
+		terminationTime = Utils.secondsToTicks(terminationTime, state);
+
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this.state));
-		
-		
+
 		int numCustomers = Integer.parseInt(props.getProperty("num-customers"));
-		
-		for (int i = 0; i < numCustomers; i++){
-			eventQueue.enqueueEvent(new CustomerArrival(i * Utils.secondsToTicks(10, resolution), state));
+
+		for (int i = 0; i < numCustomers; i++) {
+			eventQueue.enqueueEvent(new CustomerArrival(i * Utils.secondsToTicks(10, state), state));
 		}
-		
+
 	}
-	
-	
+
 	/**
 	 * Starts the simulation.
 	 */
 	public void start() {
-		
+
 		while (true) {
 			if (stopped == true)
 				break;
-			
+
 			EventBase evt = eventQueue.dequeueNextEvent();
-			
+
 			if (evt == null)
 				throw new IllegalStateException("EventQueue empty");
-			
+
 			state.setTicks(evt.getExecutionTime());
-			
+
 			evt.process();
-			
+
 		}
-		
+
 		System.out.println("simulation stopped.");
-		
+
 		// TODO stats
-		
-		
+
 	}
-	
+
 	/**
 	 * Stops the simulation
 	 */
@@ -78,6 +75,10 @@ public class DiscreteEventSimulator {
 
 	public EventQueue getEventQueue() {
 		return eventQueue;
+	}
+
+	public long getResolution() {
+		return resolution;
 	}
 
 }
