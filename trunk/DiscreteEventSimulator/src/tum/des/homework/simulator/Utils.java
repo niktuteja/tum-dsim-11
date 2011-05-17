@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class Utils {
 
-	public static Properties loadProperties(String path){
+	public static Properties loadProperties(String path) {
 		Properties props = new Properties();
 		try {
 			props.load(new FileInputStream(path));
@@ -16,20 +16,19 @@ public class Utils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return props;
 	}
-	
-	
-	public static int getRandomNumberBetween(int start, int end){
-		return start + (int)Math.random() * end;
+
+	public static int getRandomNumberBetween(int start, int end) {
+		return start + (int) Math.random() * end;
 	}
-	
-	public static long secondsToTicks(long seconds, long resolution){
-		return seconds * resolution;
+
+	public static long secondsToTicks(long seconds, SimulationState state) {
+		return seconds * state.getResolution();
 	}
-	
-	public static long ticksToSeconds(long ticks, long resolution){
+
+	public static long ticksToSeconds(long ticks, long resolution) {
 		return ticks * resolution;
 	}
 }
