@@ -16,6 +16,8 @@ public class SimulationState {
 	private long ticks = 0;
 	private final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
 	private boolean serverIsBusy = false;
+	private long minQueueOccupation = Long.MAX_VALUE;
+	private long maxQueueOccupation = 0;
 
 	public SimulationState(DiscreteEventSimulator discreteEventSimulator) {
 		this.discreteEventSimulator = discreteEventSimulator;
@@ -40,8 +42,6 @@ public class SimulationState {
 
 	public void setTicks(long time) {
 		this.ticks = time;
-		System.out.println("ticks = " + this.ticks);
-
 	}
 
 	public long getResolution() {
@@ -54,6 +54,14 @@ public class SimulationState {
 
 	public void addToWaitingQueue(EventBase event) {
 		this.waitingQueue.add(event);
+
+		if (waitingQueue.size() < minQueueOccupation) {
+			minQueueOccupation = waitingQueue.size();
+		}
+
+		if (waitingQueue.size() > maxQueueOccupation) {
+			maxQueueOccupation = waitingQueue.size();
+		}
 	}
 
 	public boolean isServerBusy() {
@@ -65,6 +73,25 @@ public class SimulationState {
 	}
 
 	public EventBase dequeueWaitingEvent() {
-		return waitingQueue.poll();
+		EventBase event = waitingQueue.poll();
+
+		if (waitingQueue.size() < minQueueOccupation) {
+			minQueueOccupation = waitingQueue.size();
+		}
+
+		return event;
 	}
+
+	public long getTicks() {
+		return ticks;
+	}
+
+	public long getMinWaitingQueueOccupation() {
+		return minQueueOccupation;
+	}
+
+	public long getMaxWaitingQueueOccupation() {
+		return maxQueueOccupation;
+	}
+
 }

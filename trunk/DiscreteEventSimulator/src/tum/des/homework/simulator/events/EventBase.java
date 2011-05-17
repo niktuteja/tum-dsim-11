@@ -8,6 +8,8 @@ import tum.des.homework.simulator.SimulationState;
  * 
  */
 public abstract class EventBase implements Comparable<EventBase> {
+	private static long sharedTag = 0;
+	private final long tag;
 
 	// holds information about the current system state
 	protected final SimulationState state;
@@ -16,9 +18,9 @@ public abstract class EventBase implements Comparable<EventBase> {
 	protected long executionTime;
 
 	public EventBase(long executionTime, SimulationState state) {
+		this.tag = EventBase.sharedTag++;
 		this.executionTime = executionTime;
 		this.state = state;
-
 	}
 
 	public abstract void process();
@@ -39,5 +41,14 @@ public abstract class EventBase implements Comparable<EventBase> {
 
 	public long getExecutionTime() {
 		return this.executionTime;
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + "(" + getTag() + ")";
+	}
+
+	public long getTag() {
+		return this.tag;
 	}
 }

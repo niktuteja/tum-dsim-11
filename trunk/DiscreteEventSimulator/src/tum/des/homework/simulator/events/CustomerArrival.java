@@ -1,5 +1,6 @@
 package tum.des.homework.simulator.events;
 
+import tum.des.homework.simulator.DiscreteEventSimulator;
 import tum.des.homework.simulator.SimulationState;
 import tum.des.homework.simulator.Utils;
 
@@ -11,11 +12,18 @@ public class CustomerArrival extends EventBase {
 
 	@Override
 	public void process() {
-		System.out.println("customer arrives");
+		//		System.out.println("customer arrives");
 
 		if (!state.isServerBusy()) {
 			System.out.println("Queue is empty. Customer can be processed.");
-			ServiceCompletion completionEvent = new ServiceCompletion(this.getExecutionTime() + Utils.secondsToTicks(11, state), state);
+
+			long serviceTime = Utils.getRandomNumberBetween(DiscreteEventSimulator.getInstance().getMinWaitingTime(),
+					DiscreteEventSimulator.getInstance().getMaxWaitingTime());
+
+			System.out.printf("serviceTime is %d ticks.\n", serviceTime);
+
+			ServiceCompletion completionEvent = new ServiceCompletion(this.getExecutionTime() + serviceTime, state);
+			System.out.println("CustomerArrival created new event: " + completionEvent);
 			state.setServerBusy(true);
 			state.enqueueEvent(completionEvent);
 			return;
@@ -25,10 +33,4 @@ public class CustomerArrival extends EventBase {
 		}
 
 	}
-
-	@Override
-	public String toString() {
-		return "CustomerArrival";
-	}
-
 }

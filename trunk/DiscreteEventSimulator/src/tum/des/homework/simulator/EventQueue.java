@@ -6,7 +6,7 @@ import tum.des.homework.simulator.events.EventBase;
 
 public class EventQueue {
 
-	private PriorityQueue<EventBase> queue = new PriorityQueue<EventBase>();
+	private final PriorityQueue<EventBase> queue = new PriorityQueue<EventBase>();
 
 	public void enqueueEvent(EventBase evt) {
 		queue.add(evt);
@@ -14,8 +14,11 @@ public class EventQueue {
 
 	public EventBase dequeueNextEvent() {
 		EventBase evt = queue.poll();
-		System.out.println("dequeuing event " + evt);
 		return evt;
+	}
+
+	public long size() {
+		return queue.size();
 	}
 
 }
