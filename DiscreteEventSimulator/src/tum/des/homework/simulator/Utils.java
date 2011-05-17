@@ -20,8 +20,8 @@ public class Utils {
 		return props;
 	}
 
-	public static int getRandomNumberBetween(int start, int end) {
-		return start + (int) Math.random() * end;
+	public static long getRandomNumberBetween(long l, long m) {
+		return l + (long) (Math.random() * (m - l));
 	}
 
 	public static long secondsToTicks(long seconds, SimulationState state) {
