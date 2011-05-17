@@ -87,6 +87,8 @@ public class SimulationState {
 	}
 
 	public long getMinWaitingQueueOccupation() {
+		if (maxQueueOccupation < minQueueOccupation)
+			return maxQueueOccupation;
 		return minQueueOccupation;
 	}
 
