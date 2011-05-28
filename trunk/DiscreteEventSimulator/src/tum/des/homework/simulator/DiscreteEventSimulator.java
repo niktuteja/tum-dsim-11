@@ -27,8 +27,16 @@ public class DiscreteEventSimulator {
 
 	private long resolution;
 
+    RandVar interArrivalTimes = new RandVar(50, 100); // TODO: choose proper mean value
+    RandVar serviceTimes = new RandVar(200, 200);     // TODO: setup the mean
+
+
 	private DiscreteEventSimulator() {
 
+        // Test the RandVar class
+        for(int i = 0; i < 100; i++) {
+            System.out.printf("iat = %d, sct = %d\n", interArrivalTimes.getLong(), serviceTimes.getLong());
+        }
 	}
 
 	public void init(Properties props) {
@@ -46,9 +54,9 @@ public class DiscreteEventSimulator {
 
 		int numCustomers = Integer.parseInt(props.getProperty("numCustomers"));
 
-		for (int i = 0; i < numCustomers; i++) {
-			eventQueue.enqueueEvent(new CustomerArrival(i * Utils.secondsToTicks(10, state), state));
-		}
+//		for (int i = 0; i < numCustomers; i++) {
+//			eventQueue.enqueueEvent(new CustomerArrival(i * Utils.secondsToTicks(10, state), state));
+//		}
 
 	}
 
