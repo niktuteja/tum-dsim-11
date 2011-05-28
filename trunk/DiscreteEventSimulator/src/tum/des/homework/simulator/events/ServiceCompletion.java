@@ -1,25 +1,29 @@
 package tum.des.homework.simulator.events;
 
 import tum.des.homework.simulator.SimulationState;
+import tum.des.homework.statistics.Customer;
 
 public class ServiceCompletion extends EventBase {
 
-	public ServiceCompletion(long executionTime, SimulationState state) {
+	private final Customer customer;
+
+	public ServiceCompletion(long executionTime, Customer customer, SimulationState state) {
 		super(executionTime, state);
-		// TODO Auto-generated constructor stub
+		this.customer = customer;
 	}
 
 	@Override
 	public void process() {
 		state.setServerBusy(false);
+		customer.setServiceCompleted();
+		// TODO process stats
+		
 		if (state.getWaitingQueueLength() > 0) {
 			EventBase event = state.dequeueWaitingEvent();
 			event.executionTime = this.executionTime;
 			state.enqueueEvent(event);
 		}
 		//		super.process();
-		// TODO Auto-generated method stub
-
 	}
 
 }
