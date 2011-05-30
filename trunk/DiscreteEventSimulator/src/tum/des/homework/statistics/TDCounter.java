@@ -10,10 +10,8 @@ public class TDCounter extends Counter {
 	 */
 
 	@Override
-	void count(double value) {
-		//
-		// TODO
-		//
+	public void count(double value) {
+		sumPowerOne += value;
 
 		numSamples++;
 		lastSampleSize = value;
@@ -24,9 +22,11 @@ public class TDCounter extends Counter {
 		}
 	}
 
+	// Returns the normalized utilization 
 	@Override
-	double getMean() {
-		return sumPowerOne / numSamples;
+	public double getMean() {
+		long totalDuration = simState.getTicks() - firstSampleTime;
+		return sumPowerOne / totalDuration;
 	}
 
 }

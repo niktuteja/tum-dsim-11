@@ -3,7 +3,7 @@ package tum.des.homework.statistics;
 public class DCounter extends Counter {
 
 	@Override
-	void count(double value) {
+	public void count(double value) {
 		min = value < min ? value : min;
 		max = value > max ? value : max;
 
@@ -12,7 +12,7 @@ public class DCounter extends Counter {
 	}
 
 	@Override
-	double getMean() {
+	public double getMean() {
 		return sumPowerOne / numSamples;
 	}
 }

@@ -10,7 +10,12 @@ public abstract class Counter {
 	double max;
 	long numSamples; // the number of samples taken
 
-	abstract void count(double value);
+	abstract public void count(double value);
 
-	abstract double getMean();
+	abstract public double getMean();
+
+	@Override
+	public String toString() {
+		return String.format("Counter<numSamples=%d, sum=%f, min=%f, max=%f, mean=%f>", numSamples, sumPowerOne, min, max, getMean());
+	}
 }
