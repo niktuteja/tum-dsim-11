@@ -8,16 +8,8 @@ public abstract class Counter {
 	double sumPowerTwo; // sum squared?
 	double min;
 	double max;
-	long numSamples; // the number of samples taken
 
-	void count(double value) {
-		min = value < min ? value : min;
-		max = value > max ? value : max;
+	abstract void count(double value);
 
-		sumPowerOne += value;
-	}
-
-	double getMean() {
-		return sumPowerOne / numSamples;
-	}
+	abstract double getMean();
 }
