@@ -5,6 +5,7 @@ import java.util.Properties;
 import tum.des.homework.simulator.events.CustomerArrival;
 import tum.des.homework.simulator.events.EventBase;
 import tum.des.homework.simulator.events.TerminationEvent;
+import tum.des.homework.statistics.DCounter;
 
 public class DiscreteEventSimulator {
 	private static final DiscreteEventSimulator instance = new DiscreteEventSimulator();
@@ -27,23 +28,18 @@ public class DiscreteEventSimulator {
 
 	private long resolution;
 
-    RandVar interArrivalTimes = new RandVar(50, 100); // TODO: choose proper mean value
-    RandVar serviceTimes = new RandVar(200, 200);     // TODO: setup the mean
-
+	public RandVarExp interArrivalTimes;
+	public RandVarExp serviceTimes;
 
 	private DiscreteEventSimulator() {
 
-        // Test the RandVar class
-        for(int i = 0; i < 100; i++) {
-            System.out.printf("iat = %d, sct = %d\n", interArrivalTimes.getLong(), serviceTimes.getLong());
-        }
 	}
 
 	public void init(Properties props) {
 
 		state = new SimulationState(this);
 
-		long terminationTime = Long.parseLong(props.getProperty("terminationTime"));
+		long terminationTime = (long)Double.parseDouble(props.getProperty("terminationTime"));
 		resolution = Long.parseLong(props.getProperty("resolution"));
 		terminationTime = Utils.secondsToTicks(terminationTime, state);
 
@@ -51,13 +47,12 @@ public class DiscreteEventSimulator {
 		maxServiceTime = Long.parseLong(props.getProperty("maxServiceTime"));
 
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this.state));
+				
+		interArrivalTimes = new RandVarExp(Utils.secondsToTicks(1.0/9.5, state), 100);
+		serviceTimes = new RandVarExp(Utils.secondsToTicks(1.0/10.0, state), 200);
 
-		int numCustomers = Integer.parseInt(props.getProperty("numCustomers"));
-
-//		for (int i = 0; i < numCustomers; i++) {
-//			eventQueue.enqueueEvent(new CustomerArrival(i * Utils.secondsToTicks(10, state), state));
-//		}
-
+		// Add the first customer to start the simulation.
+		eventQueue.enqueueEvent(new CustomerArrival(interArrivalTimes.getLong(), state));
 	}
 
 	/**

@@ -17,16 +17,20 @@ public class CustomerArrival extends EventBase {
 
 	@Override
 	public void process() {
-		//		System.out.println("customer arrives");
-
+		if (executionTime == state.getTicks()) {
+			// executed for the first time, create a new customer
+			long arrivalTime = DiscreteEventSimulator.getInstance().interArrivalTimes.getLong();
+			state.enqueueEvent(new CustomerArrival(this.getExecutionTime() + arrivalTime, state));
+		}
+		
+		//		System.out.println("customer arrives");		
 		if (!state.isServerBusy()) {
 			System.out.println("Queue is empty. Customer can be processed.");
 			
 			customer.setServiceStarted();
 
-			long serviceTime = Utils.getRandomNumberBetween(DiscreteEventSimulator.getInstance().getMinWaitingTime(),
-					DiscreteEventSimulator.getInstance().getMaxWaitingTime());
-
+			long serviceTime = DiscreteEventSimulator.getInstance().serviceTimes.getLong(); 
+							
 			System.out.printf("serviceTime is %d ticks.\n", serviceTime);
 
 			ServiceCompletion completionEvent = new ServiceCompletion(this.getExecutionTime() + serviceTime, customer, state);

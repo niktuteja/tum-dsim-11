@@ -31,4 +31,8 @@ public class Utils {
 	public static long ticksToSeconds(long ticks, long resolution) {
 		return ticks * resolution;
 	}
+
+	public static long secondsToTicks(double seconds, SimulationState state) {
+		return (long)(seconds * state.getResolution());
+	}
 }
