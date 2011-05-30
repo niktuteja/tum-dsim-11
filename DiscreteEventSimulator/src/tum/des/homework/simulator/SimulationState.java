@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import tum.des.homework.simulator.events.EventBase;
+import tum.des.homework.statistics.DCounter;
+import tum.des.homework.statistics.TDCounter;
 
 /**
  * 
@@ -18,6 +20,13 @@ public class SimulationState {
 	private boolean serverIsBusy = false;
 	private long minQueueOccupation = Long.MAX_VALUE;
 	private long maxQueueOccupation = 0;
+
+	DCounter waitingQueueLength = new DCounter();
+	DCounter waitingTime = new DCounter();
+	DCounter processingTime = new DCounter();
+	DCounter retentionTime = new DCounter();
+	DCounter customerBlocked = new DCounter();
+	TDCounter utilization = new TDCounter();
 
 	public SimulationState(DiscreteEventSimulator discreteEventSimulator) {
 		this.discreteEventSimulator = discreteEventSimulator;

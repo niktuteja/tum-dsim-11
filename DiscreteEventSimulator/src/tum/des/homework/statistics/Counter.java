@@ -8,6 +8,7 @@ public abstract class Counter {
 	double sumPowerTwo; // sum squared?
 	double min;
 	double max;
+	long numSamples; // the number of samples taken
 
 	abstract void count(double value);
 
