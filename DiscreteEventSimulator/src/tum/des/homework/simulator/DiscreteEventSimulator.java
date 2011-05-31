@@ -3,6 +3,7 @@ package tum.des.homework.simulator;
 import java.util.Properties;
 
 import tum.des.homework.simulator.events.EventBase;
+import tum.des.homework.util.Log;
 
 public class DiscreteEventSimulator {
 	SimulationState state;
@@ -27,11 +28,9 @@ public class DiscreteEventSimulator {
 
 			state.setTicks(evt.getExecutionTime());
 
-			System.out.printf("Now = %d ticks: Processing event %s\n", state.getTicks(), evt);
+			Log.v("DiscreteEventSimulator", "Now = %d ticks: Processing event %s\n", state.getTicks(), evt);
 
 			evt.process();
-
-			System.out.println();
 
 		}
 

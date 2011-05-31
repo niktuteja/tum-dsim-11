@@ -1,13 +1,13 @@
 package tum.des.homework.simulator.events;
 
 import tum.des.homework.simulator.SimulationState;
-import tum.des.homework.statistics.Customer;
+import tum.des.homework.statistics.CustomerStats;
 
 public class ServiceCompletion extends EventBase {
 
-	private final Customer customer;
+	private final CustomerStats customer;
 
-	public ServiceCompletion(long executionTime, Customer customer, SimulationState state) {
+	public ServiceCompletion(long executionTime, CustomerStats customer, SimulationState state) {
 		super(executionTime, state);
 		this.customer = customer;
 	}

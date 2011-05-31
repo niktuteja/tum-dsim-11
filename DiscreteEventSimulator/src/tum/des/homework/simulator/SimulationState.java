@@ -24,21 +24,21 @@ public class SimulationState {
 
 	long resolution;
 
+	public long numCustomers;
+
 	public RandVarExp interArrivalTimes;
 	public RandVarExp serviceTimes;
 
 	long ticks = 0;
 	final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
 	boolean serverIsBusy = false;
-	long minQueueOccupation = Long.MAX_VALUE;
-	long maxQueueOccupation = 0;
 
-	DCounter waitingQueueLength = new DCounter(this);
-	DCounter waitingTime = new DCounter(this);
-	DCounter processingTime = new DCounter(this);
-	DCounter retentionTime = new DCounter(this);
-	DCounter customerBlocked = new DCounter(this);
-	TDCounter utilization = new TDCounter(this);
+	public DCounter waitingQueueLength = new DCounter(this);
+	public DCounter waitingTime = new DCounter(this);
+	public DCounter processingTime = new DCounter(this);
+	public DCounter retentionTime = new DCounter(this);
+	public DCounter customerBlocked = new DCounter(this);
+	public TDCounter utilization = new TDCounter(this);
 
 	public SimulationState(Properties props) {
 		long terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
@@ -49,6 +49,8 @@ public class SimulationState {
 
 		interArrivalTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 9.5, this), 100);
 		serviceTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 10.0, this), 200);
+		//		interArrivalTimes = new RandVarUni(0, 500, 100);
+		//		serviceTimes = new RandVarUni(0, 50, 200);
 
 		// Add the first customer to start the simulation.
 		eventQueue.enqueueEvent(new CustomerArrival(interArrivalTimes.getLong(), this));
@@ -63,7 +65,6 @@ public class SimulationState {
 	 */
 	public void addTicks(long ticks) {
 		this.ticks += ticks;
-
 	}
 
 	public void enqueueEvent(EventBase evt) {
@@ -85,14 +86,7 @@ public class SimulationState {
 
 	public void addToWaitingQueue(EventBase event) {
 		this.waitingQueue.add(event);
-
-		if (waitingQueue.size() < minQueueOccupation) {
-			minQueueOccupation = waitingQueue.size();
-		}
-
-		if (waitingQueue.size() > maxQueueOccupation) {
-			maxQueueOccupation = waitingQueue.size();
-		}
+		waitingQueueLength.count(waitingQueue.size());
 	}
 
 	public boolean isServerBusy() {
@@ -105,11 +99,7 @@ public class SimulationState {
 
 	public EventBase dequeueWaitingEvent() {
 		EventBase event = waitingQueue.poll();
-
-		if (waitingQueue.size() < minQueueOccupation) {
-			minQueueOccupation = waitingQueue.size();
-		}
-
+		waitingQueueLength.count(waitingQueue.size());
 		return event;
 	}
 
@@ -117,19 +107,10 @@ public class SimulationState {
 		return ticks;
 	}
 
-	public long getMinWaitingQueueOccupation() {
-		if (maxQueueOccupation < minQueueOccupation)
-			return maxQueueOccupation;
-		return minQueueOccupation;
-	}
-
-	public long getMaxWaitingQueueOccupation() {
-		return maxQueueOccupation;
-	}
-
 	@Override
 	public String toString() {
 		StringBuffer s = new StringBuffer();
+		s.append("numCustomers = " + numCustomers + "\n");
 		s.append("waitingQueueLength = " + waitingQueueLength + "\n");
 		s.append("waitingTime = " + waitingTime + "\n");
 		s.append("processingTime = " + processingTime + "\n");
@@ -138,5 +119,4 @@ public class SimulationState {
 		s.append("utilization = " + utilization + "\n");
 		return s.substring(0);
 	}
-
 }

@@ -32,8 +32,15 @@ public class TDCounter extends Counter {
 	// Returns the normalized utilization 
 	@Override
 	public double getMean() {
-		long totalDuration = simState.getTicks() - firstSampleTime;
+		long totalDuration = lastSampleTime - firstSampleTime;
 		return sumPowerOne / totalDuration;
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"TDCounter<numSamples=%d, sum=%f, min=%f, max=%f, firstSampleTime=%d, lastSampleTime=%d, totalDuration=%d, mean=%f>",
+				numSamples, sumPowerOne, min, max, firstSampleTime, lastSampleTime, lastSampleTime - firstSampleTime, getMean());
 	}
 
 }
