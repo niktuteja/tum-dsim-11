@@ -47,8 +47,9 @@ public class SimulationState {
 
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this));
 
-		interArrivalTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 9.5, this), 100);
-		serviceTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 10.0, this), 200);
+// FIXME		
+//		interArrivalTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 9.5, this), 100);
+//		serviceTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 10.0, this), 200);
 		//		interArrivalTimes = new RandVarUni(0, 500, 100);
 		//		serviceTimes = new RandVarUni(0, 50, 200);
 
