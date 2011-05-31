@@ -1,19 +1,30 @@
 package tum.des.homework.simulator;
 
-import java.util.Random;
+import java.util.Properties;
 
-public class RandVarUni {
+public class RandVarUni extends RandVar {
 	long min;
 	long max;
-	Random randomNumberGenerator;
+	
 
-	public RandVarUni(long min, long max, long seed) {
+	public RandVarUni(String prefix, Properties p)
+	{
+		super(prefix, p);
+		this.min = Long.parseLong(p.getProperty(prefix+".min", "0"));
+		this.max = Long.parseLong(p.getProperty(prefix+".max", "1"));
+	}
+	
+	public RandVarUni(long min, long max) {
+		this(min, max, null);
+	}
+	
+	public RandVarUni(long min, long max, Long seed) {
+		super(seed);
 		this.min = min;
 		this.max = max;
-		this.randomNumberGenerator = new Random(seed);
 	}
 
 	public long getLong() {
-		return min + (long) (randomNumberGenerator.nextDouble() * (max - min));
+		return min + (long)(getGenerator().nextDouble() * (1 + max - min));
 	}
 }

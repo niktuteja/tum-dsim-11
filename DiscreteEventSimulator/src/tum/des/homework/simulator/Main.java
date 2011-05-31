@@ -13,14 +13,12 @@ public class Main {
 		DiscreteEventSimulator sim = new DiscreteEventSimulator();
 
 		Properties props = Utils.loadProperties("properties.properties");
-
-		if (props.containsKey("log.level"))
-			;
-		Log.setLevel(LogLevel.valueOf(props.getProperty("log.level")));
-
-		//		LogLevel.valueOf(arg0)
-
+		
+		if (props.containsKey("log.level"));
+			Log.setLevel(LogLevel.valueOf(props.getProperty("log.level")));
+			
 		sim.init(props);
+		
 
 		// start simulation
 		sim.start();
