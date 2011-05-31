@@ -17,6 +17,8 @@ public class DiscreteEventSimulator {
 	 */
 	public void start() {
 
+		System.out.println("simulation started.");
+
 		while (true) {
 			if (state.stopped == true)
 				break;
