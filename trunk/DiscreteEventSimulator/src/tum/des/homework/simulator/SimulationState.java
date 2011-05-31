@@ -26,8 +26,8 @@ public class SimulationState {
 
 	public long numCustomers;
 
-	public RandVarExp interArrivalTimes;
-	public RandVarExp serviceTimes;
+	public RandVar interArrivalTimes;
+	public RandVar serviceTimes;
 
 	long ticks = 0;
 	final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
@@ -47,11 +47,8 @@ public class SimulationState {
 
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this));
 
-// FIXME		
-//		interArrivalTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 9.5, this), 100);
-//		serviceTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 10.0, this), 200);
-		//		interArrivalTimes = new RandVarUni(0, 500, 100);
-		//		serviceTimes = new RandVarUni(0, 50, 200);
+		interArrivalTimes = DistributionFactory.getDistribution("interArrivalTimes", props);
+		serviceTimes = DistributionFactory.getDistribution("serviceTimes", props);
 
 		// Add the first customer to start the simulation.
 		eventQueue.enqueueEvent(new CustomerArrival(interArrivalTimes.getLong(), this));
