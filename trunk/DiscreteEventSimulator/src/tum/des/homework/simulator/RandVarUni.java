@@ -14,6 +14,6 @@ public class RandVarUni {
 	}
 
 	public long getLong() {
-		return Utils.getRandomNumberBetween(min, max);
+		return min + (long) (randomNumberGenerator.nextDouble() * (max - min));
 	}
 }
