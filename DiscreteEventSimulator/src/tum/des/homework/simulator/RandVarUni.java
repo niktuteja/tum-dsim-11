@@ -10,8 +10,8 @@ public class RandVarUni extends RandVar {
 	public RandVarUni(String prefix, Properties p)
 	{
 		super(prefix, p);
-		this.min = Long.parseLong(p.getProperty(prefix+".min", "0"));
-		this.max = Long.parseLong(p.getProperty(prefix+".max", "1"));
+		this.min = getScale()*Long.parseLong(p.getProperty(prefix+".min", "0"));
+		this.max = getScale()*Long.parseLong(p.getProperty(prefix+".max", "1"));
 	}
 	
 	public RandVarUni(long min, long max) {
