@@ -10,6 +10,10 @@ public abstract class Counter {
 	double max;
 	long numSamples; // the number of samples taken
 
+	public Counter(SimulationState simState) {
+		this.simState = simState;
+	}
+
 	abstract public void count(double value);
 
 	abstract public double getMean();

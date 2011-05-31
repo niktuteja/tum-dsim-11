@@ -1,9 +1,12 @@
 package tum.des.homework.simulator;
 
 import java.util.LinkedList;
+import java.util.Properties;
 import java.util.Queue;
 
+import tum.des.homework.simulator.events.CustomerArrival;
 import tum.des.homework.simulator.events.EventBase;
+import tum.des.homework.simulator.events.TerminationEvent;
 import tum.des.homework.statistics.DCounter;
 import tum.des.homework.statistics.TDCounter;
 
@@ -13,27 +16,46 @@ import tum.des.homework.statistics.TDCounter;
  * 
  */
 public class SimulationState {
+	// flag for determining if the machine is (or should be) stopped.
+	boolean stopped = false;
 
-	private final DiscreteEventSimulator discreteEventSimulator;
-	private long ticks = 0;
-	private final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
-	private boolean serverIsBusy = false;
-	private long minQueueOccupation = Long.MAX_VALUE;
-	private long maxQueueOccupation = 0;
+	// simulation event queue
+	final EventQueue eventQueue = new EventQueue();
 
-	DCounter waitingQueueLength = new DCounter();
-	DCounter waitingTime = new DCounter();
-	DCounter processingTime = new DCounter();
-	DCounter retentionTime = new DCounter();
-	DCounter customerBlocked = new DCounter();
-	TDCounter utilization = new TDCounter();
+	long resolution;
 
-	public SimulationState(DiscreteEventSimulator discreteEventSimulator) {
-		this.discreteEventSimulator = discreteEventSimulator;
+	public RandVarExp interArrivalTimes;
+	public RandVarExp serviceTimes;
+
+	long ticks = 0;
+	final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
+	boolean serverIsBusy = false;
+	long minQueueOccupation = Long.MAX_VALUE;
+	long maxQueueOccupation = 0;
+
+	DCounter waitingQueueLength = new DCounter(this);
+	DCounter waitingTime = new DCounter(this);
+	DCounter processingTime = new DCounter(this);
+	DCounter retentionTime = new DCounter(this);
+	DCounter customerBlocked = new DCounter(this);
+	TDCounter utilization = new TDCounter(this);
+
+	public SimulationState(Properties props) {
+		long terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
+		resolution = Long.parseLong(props.getProperty("resolution"));
+		terminationTime = Utils.secondsToTicks(terminationTime, this);
+
+		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this));
+
+		interArrivalTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 9.5, this), 100);
+		serviceTimes = new RandVarExp(Utils.secondsToTicks(1.0 / 10.0, this), 200);
+
+		// Add the first customer to start the simulation.
+		eventQueue.enqueueEvent(new CustomerArrival(interArrivalTimes.getLong(), this));
 	}
 
 	public void stopSimulation() {
-		discreteEventSimulator.stop();
+		stopped = true;
 	}
 
 	/**
@@ -46,7 +68,7 @@ public class SimulationState {
 
 	public void enqueueEvent(EventBase evt) {
 		// TODO check if time < time_now ?
-		discreteEventSimulator.getEventQueue().enqueueEvent(evt);
+		eventQueue.enqueueEvent(evt);
 	}
 
 	public void setTicks(long time) {
@@ -54,7 +76,7 @@ public class SimulationState {
 	}
 
 	public long getResolution() {
-		return discreteEventSimulator.getResolution();
+		return resolution;
 	}
 
 	public int getWaitingQueueLength() {
@@ -103,6 +125,18 @@ public class SimulationState {
 
 	public long getMaxWaitingQueueOccupation() {
 		return maxQueueOccupation;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append("waitingQueueLength = " + waitingQueueLength + "\n");
+		s.append("waitingTime = " + waitingTime + "\n");
+		s.append("processingTime = " + processingTime + "\n");
+		s.append("retentionTime = " + retentionTime + "\n");
+		s.append("customerBlocked = " + customerBlocked + "\n");
+		s.append("utilization = " + utilization + "\n");
+		return s.substring(0);
 	}
 
 }
