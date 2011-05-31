@@ -3,12 +3,16 @@ package tum.des.homework.simulator;
 import java.util.Properties;
 
 public class RandVarExp extends RandVar {
-	long mean;
+	double mean;
 
 	RandVarExp(String prefix, Properties p)
 	{
 		super(prefix, p);
-		this.mean = Long.parseLong(p.getProperty(prefix+".mean"));
+		this.mean = getScale()*Double.parseDouble(p.getProperty(prefix+".mean"));
+		
+		String lambda = p.getProperty(prefix+".lambda");
+		if (lambda != null)
+			this.mean = 1/(getScale()*Double.parseDouble(lambda));
 	}
 	
 	public RandVarExp(long mean, Long seed) {
