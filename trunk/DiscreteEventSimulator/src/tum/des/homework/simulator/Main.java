@@ -10,7 +10,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		DiscreteEventSimulator sim = DiscreteEventSimulator.getInstance();
+		DiscreteEventSimulator sim = new DiscreteEventSimulator();
 
 		Properties props = Utils.loadProperties("properties.properties");
 		
