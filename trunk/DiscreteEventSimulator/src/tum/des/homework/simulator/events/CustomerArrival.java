@@ -19,20 +19,14 @@ public class CustomerArrival extends EventBase {
 	public void process() {
 		// For Vinny:
 		// If executed for the first time, create a new customer
-		//
-		//		if (executionTime == state.getTicks()) {
-		//			long arrivalTime = state.interArrivalTimes.getLong();
-		//			state.enqueueEvent(new CustomerArrival(this.getExecutionTime() + arrivalTime, state));
-		//		}
+		if (this.getExecutionTime() == state.getTicks()) {
+			long arrivalTime = state.interArrivalTimes.getLong();
+			state.enqueueEvent(new CustomerArrival(this.getExecutionTime()
+					+ arrivalTime, state));
+		}
 
 		//		System.out.println("customer arrives");		
 		if (!state.isServerBusy()) {
-
-			// Insert the next customer arrival event into the queue.
-			if (executionTime == state.getTicks()) {
-				long arrivalTime = state.interArrivalTimes.getLong();
-				state.enqueueEvent(new CustomerArrival(this.getExecutionTime() + arrivalTime, state));
-			}
 
 			state.customerBlocked.count(0);
 			Log.v("CustomerArrival", "Queue is empty. Customer can be processed.");

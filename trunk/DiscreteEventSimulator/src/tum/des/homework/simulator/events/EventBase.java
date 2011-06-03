@@ -15,7 +15,7 @@ public abstract class EventBase implements Comparable<EventBase> {
 	protected final SimulationState state;
 
 	// when will the event be executed? 
-	protected long executionTime;
+	private long executionTime;
 
 	public EventBase(long executionTime, SimulationState state) {
 		this.tag = EventBase.sharedTag++;
