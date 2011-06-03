@@ -97,7 +97,7 @@ public class SimulationState {
 
 	public EventBase dequeueWaitingEvent() {
 		EventBase event = waitingQueue.poll();
-		waitingQueueLength.count(waitingQueue.size());
+		waitingQueueLength.count(-1);
 		return event;
 	}
 
