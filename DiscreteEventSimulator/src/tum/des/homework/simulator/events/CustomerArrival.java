@@ -17,7 +17,6 @@ public class CustomerArrival extends EventBase {
 
 	@Override
 	public void process() {
-		// For Vinny:
 		// If executed for the first time, create a new customer
 		if (this.getExecutionTime() == state.getTicks()) {
 			long arrivalTime = state.interArrivalTimes.getLong();
@@ -40,7 +39,6 @@ public class CustomerArrival extends EventBase {
 			Log.v("CustomerArrival", "created new event: " + completionEvent);
 			state.setServerBusy(true);
 			state.enqueueEvent(completionEvent);
-			return;
 		} else {
 			Log.v("CustomerArrival", "Queue is not empty. Customer starts waiting.");
 			state.customerBlocked.count(1);

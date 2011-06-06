@@ -6,7 +6,6 @@ public class DCounter extends Counter {
 
 	public DCounter(SimulationState simState) {
 		super(simState);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
