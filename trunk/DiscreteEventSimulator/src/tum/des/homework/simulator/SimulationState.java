@@ -41,10 +41,12 @@ public class SimulationState {
 	public TDCounter utilization = new TDCounter(this);
 
 	public SimulationState(Properties props) {
-		long terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
 		resolution = Long.parseLong(props.getProperty("resolution"));
+		
+		long terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
+		//ensure this.resolution is set
 		terminationTime = Utils.secondsToTicks(terminationTime, this);
-
+		
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this));
 
 		interArrivalTimes = DistributionFactory.getDistribution("interArrivalTimes", props);

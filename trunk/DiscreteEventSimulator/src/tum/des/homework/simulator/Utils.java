@@ -28,11 +28,11 @@ public class Utils {
 		return seconds * state.getResolution();
 	}
 
-	public static long ticksToSeconds(long ticks, long resolution) {
-		return ticks * resolution;
-	}
-
 	public static long secondsToTicks(double seconds, SimulationState state) {
 		return (long)(seconds * state.getResolution());
+	}
+	
+	public static long ticksToSeconds(long ticks, SimulationState state) {
+		return ticks * state.getResolution();
 	}
 }

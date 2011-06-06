@@ -5,7 +5,7 @@ import java.util.Properties;
 public class RandVarExp extends RandVar {
 	double mean;
 
-	RandVarExp(String prefix, Properties p)
+	public RandVarExp(String prefix, Properties p)
 	{
 		super(prefix, p);
 		this.mean = getScale()*Double.parseDouble(p.getProperty(prefix+".mean"));
