@@ -11,12 +11,13 @@ public class DCounter extends Counter {
 	@Override
 	public void count(double value) {
 		sumPowerOne += value;
-// FIXME apply min max accordingly		
-//		min = value < min ? value : min;
-//		max = value > max ? value : max;
 		
 		// TODO also inc if negative count?!
 		numSamples++;
+		
+		min = sumPowerOne < min ? sumPowerOne : min;
+		max = sumPowerOne > max ? sumPowerOne : max;
+		
 	}
 
 	@Override
