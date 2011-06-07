@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 import tum.des.homework.simulator.events.CustomerArrival;
 import tum.des.homework.simulator.events.EventBase;
 import tum.des.homework.simulator.events.TerminationEvent;
@@ -46,26 +44,22 @@ public class SimulationState {
 
 	public SimulationState(Properties props) {
 		resolution = Long.parseLong(props.getProperty("resolution"));
-		
+
 		String maxSize = props.getProperty("waitingQueue.maxSize");
-		if (maxSize != null)
-		{
-			try
-			{
-				this.waitingQueueMaxSize  = Long.parseLong(maxSize);
-			}
-			catch (NumberFormatException e)
-			{
+		if (maxSize != null) {
+			try {
+				this.waitingQueueMaxSize = Long.parseLong(maxSize);
+			} catch (NumberFormatException e) {
 				// swallow
 			}
 		}
-		
+
 		long terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
 		//ensure this.resolution is set
 		terminationTime = Utils.secondsToTicks(terminationTime, this);
-		
+
 		eventQueue = new EventQueue(props);
-		
+
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this));
 
 		interArrivalTimes = DistributionFactory.getDistribution("interArrivalTimes", props);
@@ -104,13 +98,10 @@ public class SimulationState {
 	}
 
 	public void addToWaitingQueue(EventBase event) {
-		if (waitingQueue.size() < waitingQueueMaxSize)
-		{
+		waitingQueueLength.count(waitingQueue.size());
+		if (waitingQueue.size() < waitingQueueMaxSize) {
 			this.waitingQueue.add(event);
-			waitingQueueLength.count(+1);
-		}
-		else
-		{
+		} else {
 			// FIXME add blocking counter
 		}
 	}
@@ -124,8 +115,8 @@ public class SimulationState {
 	}
 
 	public EventBase dequeueWaitingEvent() {
+		//		waitingQueueLength.count(waitingQueue.size());
 		EventBase event = waitingQueue.poll();
-		waitingQueueLength.count(-1);
 		return event;
 	}
 
@@ -143,6 +134,10 @@ public class SimulationState {
 		s.append("retentionTime = " + retentionTime + "\n");
 		s.append("customerBlocked = " + customerBlocked + "\n");
 		s.append("utilization = " + utilization + "\n");
+
+		s.append("|| x        || " + waitingTime.getMean() + "||" + processingTime.getMean() + "|| " + retentionTime.getMean() + "|| "
+				+ waitingQueueLength.getMean() + "|| " + customerBlocked.getMean() + "|| " + utilization.getMean() + "||");
+
 		return s.substring(0);
 	}
 }
