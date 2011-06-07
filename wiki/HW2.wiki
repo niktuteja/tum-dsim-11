@@ -1,0 +1,27 @@
+= Run 1 =
+
+terminationTime:1e7
+resolution:100
+log.level=DEBUG
+
+interArrivalTimes.dist=Exp
+interArrivalTimes.seed=100
+interArrivalTimes.mean=0.095
+interArrivalTimes.min=10
+interArrivalTimes.max=10
+interArrivalTimes.scale=@resolution
+
+serviceTimes.dist=Exp
+serviceTimes.seed=200
+serviceTimes.mean=0.1
+serviceTimes.min=10
+serviceTimes.max=10
+serviceTimes.scale=@resolution
+
+numCustomers = 111020201
+waitingQueueLength = Counter<numSamples=216178101, sum=5862179.000000, min=0.000000, max=5862188.000000, mean=0.027117>
+waitingTime = Counter<numSamples=105158021, sum=2775872424122615.000000, min=0.000000, max=2775872424122615.000000, mean=26397153.519298>
+processingTime = Counter<numSamples=105158020, sum=999999391.000000, min=0.000000, max=999999391.000000, mean=9.509492>
+retentionTime = Counter<numSamples=105158020, sum=2775873371282816.000000, min=0.000000, max=2775873371282816.000000, mean=26397162.777340>
+customerBlocked = Counter<numSamples=216178161, sum=111020140.000000, min=0.000000, max=111020140.000000, mean=0.513559>
+utilization = TDCounter<numSamples=105158020, sum=999999391.000000, min=0.000000, max=0.000000, firstSampleTime=0, lastSampleTime=999999980, totalDuration=999999980, mean=0.999999>
