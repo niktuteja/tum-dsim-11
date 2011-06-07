@@ -25,3 +25,27 @@ processingTime = Counter<numSamples=105158020, sum=999999391.000000, min=0.00000
 retentionTime = Counter<numSamples=105158020, sum=2775873371282816.000000, min=0.000000, max=2775873371282816.000000, mean=26397162.777340>
 customerBlocked = Counter<numSamples=216178161, sum=111020140.000000, min=0.000000, max=111020140.000000, mean=0.513559>
 utilization = TDCounter<numSamples=105158020, sum=999999391.000000, min=0.000000, max=0.000000, firstSampleTime=0, lastSampleTime=999999980, totalDuration=999999980, mean=0.999999>
+
+
+
+
+
+Teil b)
+*System D*
+numCustomers = 90909091
+waitingQueueLength = Counter<numSamples=0, sum=0.000000, min=0.000000, max=0.000000, mean=NaN>
+waitingTime = Counter<numSamples=90909090, sum=0.000000, min=0.000000, max=0.000000, mean=0.000000>
+processingTime = Counter<numSamples=90909089, sum=909090890.000000, min=0.000000, max=909090890.000000, mean=10.000000>
+retentionTime = Counter<numSamples=90909089, sum=909090890.000000, min=0.000000, max=909090890.000000, mean=10.000000>
+customerBlocked = Counter<numSamples=90909090, sum=0.000000, min=0.000000, max=0.000000, mean=0.000000>
+utilization = TDCounter<numSamples=90909089, sum=909090890.000000, min=0.000000, max=0.000000, firstSampleTime=0, lastSampleTime=999999989, totalDuration=999999989, mean=0.909091>
+
+
+*System E*
+numCustomers = 94195856
+waitingQueueLength = Counter<numSamples=178391533, sum=9.000000, min=0.000000, max=127.000000, mean=0.000000>
+waitingTime = Counter<numSamples=94195846, sum=8368758421.000000, min=0.000000, max=8368758421.000000, mean=88.844241>
+processingTime = Counter<numSamples=94195845, sum=941958450.000000, min=0.000000, max=941958450.000000, mean=10.000000>
+retentionTime = Counter<numSamples=94195845, sum=9310716705.000000, min=0.000000, max=9310716705.000000, mean=98.844240>
+customerBlocked = Counter<numSamples=183391617, sum=89195771.000000, min=0.000000, max=89195771.000000, mean=0.486368>
+utilization = TDCounter<numSamples=94195845, sum=941958450.000000, min=0.000000, max=0.000000, firstSampleTime=0, lastSampleTime=999999992, totalDuration=999999992, mean=0.941958>
