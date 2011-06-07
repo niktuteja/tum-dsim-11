@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import tum.des.homework.simulator.events.CustomerArrival;
 import tum.des.homework.simulator.events.EventBase;
 import tum.des.homework.simulator.events.TerminationEvent;
@@ -20,7 +22,7 @@ public class SimulationState {
 	boolean stopped = false;
 
 	// simulation event queue
-	final EventQueue eventQueue = new EventQueue();
+	final EventQueue eventQueue;
 
 	long resolution;
 
@@ -40,12 +42,29 @@ public class SimulationState {
 	public DCounter customerBlocked = new DCounter(this);
 	public TDCounter utilization = new TDCounter(this);
 
+	private long waitingQueueMaxSize = Long.MAX_VALUE;
+
 	public SimulationState(Properties props) {
 		resolution = Long.parseLong(props.getProperty("resolution"));
+		
+		String maxSize = props.getProperty("waitingQueue.maxSize");
+		if (maxSize != null)
+		{
+			try
+			{
+				this.waitingQueueMaxSize  = Long.parseLong(maxSize);
+			}
+			catch (NumberFormatException e)
+			{
+				// swallow
+			}
+		}
 		
 		long terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
 		//ensure this.resolution is set
 		terminationTime = Utils.secondsToTicks(terminationTime, this);
+		
+		eventQueue = new EventQueue(props);
 		
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this));
 
@@ -85,8 +104,15 @@ public class SimulationState {
 	}
 
 	public void addToWaitingQueue(EventBase event) {
-		this.waitingQueue.add(event);
-		waitingQueueLength.count(+1);
+		if (waitingQueue.size() < waitingQueueMaxSize)
+		{
+			this.waitingQueue.add(event);
+			waitingQueueLength.count(+1);
+		}
+		else
+		{
+			// FIXME add blocking counter
+		}
 	}
 
 	public boolean isServerBusy() {
