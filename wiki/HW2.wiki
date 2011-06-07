@@ -7,6 +7,9 @@
 || E        || 7.462226571439804E7       || 10.0                         || 7.46222749683248E7          || 8770115.776784122        || 0.5403003258424842            || 0.999999994      ||
 || F        || 30.333425737001942        || 9.509129780292152            || 39.84255565296178           || 3.157095067771892        || 0.4322639233437828            || 0.864466318593399||
 
+
+*As customers we would prefers System D because it has the shortest waiting time and a comparably short processing time.*
+
 SYSTEM A:
 terminationTime=1e7
 resolution=100
