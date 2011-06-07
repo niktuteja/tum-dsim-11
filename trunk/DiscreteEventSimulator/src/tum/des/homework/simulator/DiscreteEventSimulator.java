@@ -1,5 +1,6 @@
 package tum.des.homework.simulator;
 
+import java.util.Date;
 import java.util.Properties;
 
 import tum.des.homework.simulator.events.EventBase;
@@ -15,6 +16,7 @@ public class DiscreteEventSimulator {
 	/**
 	 * Starts the simulation.
 	 */
+	@SuppressWarnings("deprecation")
 	public void start() {
 
 		System.out.println("simulation started.");
@@ -29,6 +31,11 @@ public class DiscreteEventSimulator {
 				throw new IllegalStateException("EventQueue empty");
 
 			state.setTicks(evt.getExecutionTime());
+
+			// Show that we are still alive by printing a message every 10 realtime second.
+			if ((new Date()).getSeconds() % 10 == 0) {
+				Log.d("DiscreteEventSimulator", "[now = %d ticks]", state.getTicks());
+			}
 
 			Log.v("DiscreteEventSimulator", "Now = %d ticks: Processing event %s\n", state.getTicks(), evt);
 
