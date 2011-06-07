@@ -2,6 +2,8 @@ package tum.des.homework.simulator;
 
 import java.util.Properties;
 
+import tum.des.homework.util.Log;
+
 public class RandVarUni extends RandVar {
 	long min;
 	long max;
@@ -10,8 +12,8 @@ public class RandVarUni extends RandVar {
 	public RandVarUni(String prefix, Properties p)
 	{
 		super(prefix, p);
-		this.min = getScale()*Long.parseLong(p.getProperty(prefix+".min", "0"));
-		this.max = getScale()*Long.parseLong(p.getProperty(prefix+".max", "1"));
+		this.min = (long)(getScale()*Long.parseLong(p.getProperty(prefix+".min", "0")));
+		this.max = (long)(getScale()*Long.parseLong(p.getProperty(prefix+".max", "1")));
 	}
 	
 	public RandVarUni(long min, long max) {
@@ -25,6 +27,8 @@ public class RandVarUni extends RandVar {
 	}
 
 	public long getLong() {
-		return min + (long)(getGenerator().nextDouble() * (1 + max - min));
+		long v = min + (long)(getGenerator().nextDouble() * (1 + max - min));
+		Log.v("RandVarUni", "%d", v);
+		return v;
 	}
 }

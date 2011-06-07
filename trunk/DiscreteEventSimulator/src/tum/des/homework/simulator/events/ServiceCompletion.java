@@ -2,7 +2,6 @@ package tum.des.homework.simulator.events;
 
 import tum.des.homework.simulator.SimulationState;
 import tum.des.homework.statistics.CustomerStats;
-import tum.des.homework.util.Log;
 
 public class ServiceCompletion extends EventBase {
 
@@ -17,18 +16,24 @@ public class ServiceCompletion extends EventBase {
 	public void process() {
 		state.setServerBusy(false);
 		customer.setServiceCompleted();
-		// TODO process stats
-		
-//		Log.e("ServiceCompletion", "processed customer");
 		
 		if (state.getWaitingQueueLength() > 0) {
 			EventBase event = state.dequeueWaitingEvent();
-// (Martin) I think this is a bad idea, cause we have no clue whether the event arrived earlier or not.
-//			event.executionTime = this.executionTime;
-//			state.enqueueEvent(event);
 			event.process();
 		}
-//				super.process();
 	}
 
+//	@Override
+//	public int compareTo(EventBase evt) {
+//		if (evt == null)
+//			throw new NullPointerException();
+//
+//		// HACK service completion events are more important than anything else 
+//		// if (!(evt instanceof ServiceCompletion) && this.getExecutionTime() == evt.getExecutionTime())
+//		//	return -1;
+//		
+//		return super.compareTo(evt);
+//
+//	}
+	
 }

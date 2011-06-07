@@ -8,6 +8,8 @@ public class CustomerArrival extends EventBase {
 
 	// customer object for statistics tracking
 	private final CustomerStats customerStats;
+	
+	private boolean didReproduce = false;
 
 	public CustomerArrival(long executionTime, SimulationState state) {
 		super(executionTime, state);
@@ -18,13 +20,13 @@ public class CustomerArrival extends EventBase {
 	@Override
 	public void process() {
 		// If executed for the first time, create a new customer
-		if (this.getExecutionTime() == state.getTicks()) {
+		if (!didReproduce) {
+			didReproduce = true;
 			long arrivalTime = state.interArrivalTimes.getLong();
-			state.enqueueEvent(new CustomerArrival(this.getExecutionTime()
+			state.enqueueEvent(new CustomerArrival(state.getTicks()
 					+ arrivalTime, state));
 		}
 
-		//		System.out.println("customer arrives");		
 		if (!state.isServerBusy()) {
 
 			state.customerBlocked.count(0);
@@ -35,7 +37,7 @@ public class CustomerArrival extends EventBase {
 
 			Log.v("CustomerArrival", "serviceTime is %d ticks.\n", serviceTime);
 
-			ServiceCompletion completionEvent = new ServiceCompletion(this.getExecutionTime() + serviceTime, customerStats, state);
+			ServiceCompletion completionEvent = new ServiceCompletion(state.getTicks() + serviceTime, customerStats, state);
 			Log.v("CustomerArrival", "created new event: " + completionEvent);
 			state.setServerBusy(true);
 			state.enqueueEvent(completionEvent);
@@ -45,5 +47,10 @@ public class CustomerArrival extends EventBase {
 			state.addToWaitingQueue(this);
 		}
 
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("ServiceCompletion(Texec=%d)", this.getExecutionTime());
 	}
 }

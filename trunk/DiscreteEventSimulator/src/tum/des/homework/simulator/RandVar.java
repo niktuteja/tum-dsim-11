@@ -5,7 +5,7 @@ import java.util.Random;
 
 public abstract class RandVar {
 	private Random randomNumberGenerator;
-	private long scale = 1;
+	private double scale = 1;
 	
 	protected RandVar(String prefix, Properties p)
 	{
@@ -22,7 +22,7 @@ public abstract class RandVar {
 				scale = p.getProperty(scale.substring(1), null);
 			
 			if (scale != null)
-				this.scale = Long.parseLong(scale);
+				this.scale = Double.parseDouble(scale);
 		}
 			
 	}
@@ -36,7 +36,7 @@ public abstract class RandVar {
 	}
 	
 
-	long getScale() {
+	double getScale() {
 		return scale;
 	}
 	

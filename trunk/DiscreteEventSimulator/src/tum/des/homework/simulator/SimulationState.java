@@ -86,7 +86,7 @@ public class SimulationState {
 
 	public void addToWaitingQueue(EventBase event) {
 		this.waitingQueue.add(event);
-		waitingQueueLength.count(waitingQueue.size());
+		waitingQueueLength.count(+1);
 	}
 
 	public boolean isServerBusy() {
