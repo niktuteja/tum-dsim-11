@@ -31,8 +31,9 @@ public class DiscreteEventSimulator {
 			state.setTicks(evt.getExecutionTime());
 
 			// Show that we are still alive by printing a message every 10 realtime second.
-			if (state.getTicks() % (10000 * state.getResolution()) == 0) {
-				Log.d("DiscreteEventSimulator", "Heartbeat: [now = %d ticks]", state.getTicks());
+			if (state.getTicks() % (1000 * state.getResolution()) == 0) {
+				Log.d("DiscreteEventSimulator", "Heartbeat: [now = %d ticks] %.0f %% done", state.getTicks(), ((float) state.getTicks())
+						/ ((float) state.terminationTime) * 100.0f);
 			}
 
 			Log.v("DiscreteEventSimulator", "Now = %d ticks: Processing event %s\n", state.getTicks(), evt);

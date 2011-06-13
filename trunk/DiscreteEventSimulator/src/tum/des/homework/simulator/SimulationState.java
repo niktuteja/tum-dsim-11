@@ -9,6 +9,7 @@ import tum.des.homework.simulator.events.EventBase;
 import tum.des.homework.simulator.events.TerminationEvent;
 import tum.des.homework.statistics.DCounter;
 import tum.des.homework.statistics.TDCounter;
+import tum.des.homework.util.Log;
 
 /**
  * 
@@ -22,11 +23,14 @@ public class SimulationState {
 	// simulation event queue
 	final EventQueue eventQueue;
 
+	Properties props;
+
 	long resolution;
 
 	public long numCustomers;
 
 	public RandVar interArrivalTimes;
+	public RandVar wetInterArrivalTimes;
 	public RandVar serviceTimes;
 
 	long ticks = 0;
@@ -39,10 +43,19 @@ public class SimulationState {
 	public DCounter retentionTime = new DCounter(this);
 	public DCounter customerBlocked = new DCounter(this);
 	public TDCounter utilization = new TDCounter(this);
+	public long dryQueueSlots = Long.MAX_VALUE;
+
+	public boolean dryQueueSlotsFull = false;
 
 	private long waitingQueueMaxSize = Long.MAX_VALUE;
 
+	private final RandVar dryInterArrivalTimes;
+
+	public long terminationTime;
+
 	public SimulationState(Properties props) {
+		this.props = props;
+
 		resolution = Long.parseLong(props.getProperty("resolution"));
 
 		String maxSize = props.getProperty("waitingQueue.maxSize");
@@ -54,7 +67,7 @@ public class SimulationState {
 			}
 		}
 
-		long terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
+		terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
 		//ensure this.resolution is set
 		terminationTime = Utils.secondsToTicks(terminationTime, this);
 
@@ -62,8 +75,13 @@ public class SimulationState {
 
 		eventQueue.enqueueEvent(new TerminationEvent(terminationTime, this));
 
-		interArrivalTimes = DistributionFactory.getDistribution("interArrivalTimes", props);
+		dryInterArrivalTimes = DistributionFactory.getDistribution("interArrivalTimes", props);
+		wetInterArrivalTimes = DistributionFactory.getDistribution("wetInterArrivalTimes", props);
 		serviceTimes = DistributionFactory.getDistribution("serviceTimes", props);
+
+		interArrivalTimes = dryInterArrivalTimes;
+
+		dryQueueSlots = Long.parseLong(props.getProperty("dryQueueSlots"));
 
 		// Add the first customer to start the simulation.
 		eventQueue.enqueueEvent(new CustomerArrival(interArrivalTimes.getLong(), this));
@@ -101,6 +119,19 @@ public class SimulationState {
 		waitingQueueLength.count(waitingQueue.size());
 		if (waitingQueue.size() < waitingQueueMaxSize) {
 			this.waitingQueue.add(event);
+
+			// Sheet 3 addition (dry & wet waiting slots)
+			if (!dryQueueSlotsFull && waitingQueue.size() > dryQueueSlots) {
+				interArrivalTimes = wetInterArrivalTimes;
+				dryQueueSlotsFull = true;
+				Log.d("simstate", "now wet");
+			}
+			if (dryQueueSlotsFull && waitingQueue.size() <= dryQueueSlots) {
+				interArrivalTimes = dryInterArrivalTimes;
+				dryQueueSlotsFull = false;
+				Log.d("simstate", "now dry");
+			}
+
 		} else {
 			// FIXME add blocking counter
 		}

@@ -28,6 +28,7 @@ public class RandVarExp extends RandVar {
 	public long getLong() {
 		double uniformRandomNumber = getGenerator().nextDouble();
 		long v = (long) (-Math.log(uniformRandomNumber) / lambda);
+		//		Log.d("randexp", "value = %d", v);
 		return v;
 	}
 }
