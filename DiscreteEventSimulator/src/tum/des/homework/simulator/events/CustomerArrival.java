@@ -8,7 +8,7 @@ public class CustomerArrival extends EventBase {
 
 	// customer object for statistics tracking
 	private final CustomerStats customerStats;
-	
+
 	private boolean didReproduce = false;
 
 	public CustomerArrival(long executionTime, SimulationState state) {
@@ -23,8 +23,7 @@ public class CustomerArrival extends EventBase {
 		if (!didReproduce) {
 			didReproduce = true;
 			long arrivalTime = state.interArrivalTimes.getLong();
-			state.enqueueEvent(new CustomerArrival(state.getTicks()
-					+ arrivalTime, state));
+			state.enqueueEvent(new CustomerArrival(state.getTicks() + arrivalTime, state));
 		}
 
 		if (!state.isServerBusy()) {
@@ -48,9 +47,9 @@ public class CustomerArrival extends EventBase {
 		}
 
 	}
-	
+
 	@Override
 	public String toString() {
-		return String.format("ServiceCompletion(Texec=%d)", this.getExecutionTime());
+		return String.format("CustomerArrival(Texec=%d)", this.getExecutionTime());
 	}
 }
