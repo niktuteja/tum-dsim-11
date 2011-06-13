@@ -1,6 +1,5 @@
 package tum.des.homework.simulator;
 
-import java.util.Date;
 import java.util.Properties;
 
 import tum.des.homework.simulator.events.EventBase;
@@ -16,7 +15,6 @@ public class DiscreteEventSimulator {
 	/**
 	 * Starts the simulation.
 	 */
-	@SuppressWarnings("deprecation")
 	public void start() {
 
 		System.out.println("simulation started.");
@@ -33,7 +31,7 @@ public class DiscreteEventSimulator {
 			state.setTicks(evt.getExecutionTime());
 
 			// Show that we are still alive by printing a message every 10 realtime second.
-			if (state.getTicks() % (10000*state.getResolution()) == 0) {
+			if (state.getTicks() % (10000 * state.getResolution()) == 0) {
 				Log.d("DiscreteEventSimulator", "Heartbeat: [now = %d ticks]", state.getTicks());
 			}
 
