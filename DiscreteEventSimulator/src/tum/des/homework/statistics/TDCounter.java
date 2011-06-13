@@ -12,13 +12,10 @@ public class TDCounter extends Counter {
 	long lastSampleTime;
 	double lastSampleSize;
 
-	/* Slides: "Time between the last change of the system state 
-	 * and the current simulation time has to be considered" 
-	 */
-
 	@Override
 	public void count(double value) {
-		sumPowerOne += value;
+		// Changed according to Alexanders feedback from sheet 2 (daniel)
+		sumPowerOne += value * (simState.getTicks() - lastSampleTime);
 
 		numSamples++;
 		lastSampleSize = value;
