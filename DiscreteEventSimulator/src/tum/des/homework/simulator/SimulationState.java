@@ -1,5 +1,6 @@
 package tum.des.homework.simulator;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Properties;
 import java.util.Queue;
@@ -36,7 +37,7 @@ public class SimulationState {
 	public RandVar deadlines;
 
 	long ticks = 0;
-	public final Queue<CustomerArrival> waitingQueue = new PriorityQueue<CustomerArrival>(1, new DeadlineComparator());
+	public final Queue<CustomerArrival> waitingQueue;
 	boolean serverIsBusy = false;
 
 	public DCounter waitingQueueLength = new DCounter(this);
@@ -69,6 +70,21 @@ public class SimulationState {
 				// swallow
 			}
 		}
+		
+		String drySlots = props.getProperty("waitingQueue.drySlots");
+		if (maxSize != null) {
+			try {
+				this.dryQueueSlots = Long.parseLong(drySlots);
+			} catch (NumberFormatException e) {
+				// swallow
+			}
+		}
+		
+		Comparator<?> comp = EventComparatorFactory.getComparator("waitingQueue", props);
+		if (comp != null)
+			waitingQueue = new PriorityQueue<CustomerArrival>(1, new DeadlineComparator());
+		else
+			waitingQueue = new PriorityQueue<CustomerArrival>(1);
 
 		terminationTime = (long) Double.parseDouble(props.getProperty("terminationTime"));
 		//ensure this.resolution is set
@@ -85,7 +101,6 @@ public class SimulationState {
 
 		interArrivalTimes = dryInterArrivalTimes;
 
-		dryQueueSlots = Long.parseLong(props.getProperty("dryQueueSlots"));
 
 		// Add the first customer to start the simulation.
 		eventQueue.enqueueEvent(new CustomerArrival(interArrivalTimes.getLong(), this));
