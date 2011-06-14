@@ -18,6 +18,8 @@ public class CustomerArrival extends EventBase {
 
 		customerStats = new CustomerStats(executionTime, state, deadline);
 		state.numCustomers++;
+
+		state.enqueueEvent(new CustomerDeadline(deadline, customerStats, this, state));
 	}
 
 	@Override
