@@ -2,18 +2,19 @@ package tum.des.homework.statistics;
 
 import tum.des.homework.simulator.SimulationState;
 import tum.des.homework.simulator.events.CustomerArrival;
+import tum.des.homework.simulator.events.CustomerDeadline;
 
 public class CustomerStats {
 	private final long initialArrivalTime;
 	private long serviceInitTime;
 	private long serviceCompletionTime;
 	private final SimulationState state;
-	public long deadline;
+	public CustomerDeadline deadlineEvent;
 
-	public CustomerStats(long initialArrivalTime, SimulationState state, long deadline) {
+	public CustomerStats(long initialArrivalTime, SimulationState state) {
 		this.initialArrivalTime = initialArrivalTime;
 		this.state = state;
-		this.deadline = deadline;
+		this.deadlineEvent = null;
 	}
 
 	public void setServiceStarted() {
@@ -41,6 +42,7 @@ public class CustomerStats {
 
 		state.satisfiedCustomers.count(1);
 
+		state.eventQueue.removeEvent(deadlineEvent);
 	}
 
 	public long getInitialArrivalTime() {
@@ -59,6 +61,9 @@ public class CustomerStats {
 		state.satisfiedCustomers.count(0);
 
 		// remove the CustomerArrival from the waiting queue
-		state.eventQueue.removeEvent(arrivalEvent);
+		state.waitingQueue.remove(arrivalEvent);
+
+		// ?
+		//		state.utilization.count(state.getWaitingQueueLength() > 0 ? 1 : 0);
 	}
 }
