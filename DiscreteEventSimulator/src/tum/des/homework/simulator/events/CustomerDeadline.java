@@ -17,20 +17,8 @@ public class CustomerDeadline extends EventBase {
 
 	@Override
 	public void process() {
-		customerStats.cancelByDeadline();
-
-		// remove the CustomerArrival from the waiting queue
-		state.eventQueue.removeEvent(customerArrivalEvent);
-
+		customerStats.cancelByDeadline(customerArrivalEvent);
 		Log.v("Deadline", "customer removed because of deadline");
-
-		//		state.setServerBusy(false);
-		//		customer.setServiceCompleted();
-		//
-		//		if (state.getWaitingQueueLength() > 0) {
-		//			EventBase event = state.dequeueWaitingEvent();
-		//			event.process();
-		//		}
 	}
 
 }
