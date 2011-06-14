@@ -21,7 +21,7 @@ public class SimulationState {
 	boolean stopped = false;
 
 	// simulation event queue
-	final EventQueue eventQueue;
+	public final EventQueue eventQueue;
 
 	Properties props;
 

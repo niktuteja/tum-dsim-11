@@ -29,14 +29,16 @@ public class CustomerStats {
 
 		state.utilization.count(state.getWaitingQueueLength() > 0 ? 1 : 0);
 
-		// check wheter it's a happy customer or an unsatisfied customer
-		if (serviceCompletionTime <= deadline) {
-			// a satisfied customer
-			state.satisfiedCustomers.count(1);
-		} else {
-			// an unsatisfied customer
-			state.satisfiedCustomers.count(0);
-		}
+		//		// check whether it's a happy customer or an unsatisfied customer
+		//		if (serviceCompletionTime <= deadline) {
+		//			// a satisfied customer
+		//			state.satisfiedCustomers.count(1);
+		//		} else {
+		//			// an unsatisfied customer
+		//			state.satisfiedCustomers.count(0);
+		//		}
+
+		state.satisfiedCustomers.count(1);
 
 	}
 
@@ -50,5 +52,9 @@ public class CustomerStats {
 
 	public long getServiceInitTime() {
 		return serviceInitTime;
+	}
+
+	public void cancelByDeadline() {
+		state.satisfiedCustomers.count(0);
 	}
 }

@@ -10,30 +10,24 @@ public class EventQueue {
 	private final PriorityQueue<EventBase> queue = new PriorityQueue<EventBase>();
 	private long maxSize = Long.MAX_VALUE;
 
-	public EventQueue(Properties p)
-	{
+	public EventQueue(Properties p) {
 		String maxSize = p.getProperty("eventQueue.maxSize");
-		if (maxSize != null)
-		{
-			try
-			{
-				this.maxSize  = Long.parseLong(maxSize);
-			}
-			catch (NumberFormatException e)
-			{
+		if (maxSize != null) {
+			try {
+				this.maxSize = Long.parseLong(maxSize);
+			} catch (NumberFormatException e) {
 				// swallow
 			}
 		}
 	}
-	
+
 	public boolean enqueueEvent(EventBase evt) {
-		
-		if (queue.size() < this.maxSize)
-		{
+
+		if (queue.size() < this.maxSize) {
 			queue.add(evt);
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -44,6 +38,10 @@ public class EventQueue {
 
 	public long size() {
 		return queue.size();
+	}
+
+	public void removeEvent(EventBase event) {
+		queue.remove(event);
 	}
 
 }
