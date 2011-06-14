@@ -1,6 +1,7 @@
 package tum.des.homework.statistics;
 
 import tum.des.homework.simulator.SimulationState;
+import tum.des.homework.simulator.events.CustomerArrival;
 
 public class CustomerStats {
 	private final long initialArrivalTime;
@@ -54,7 +55,10 @@ public class CustomerStats {
 		return serviceInitTime;
 	}
 
-	public void cancelByDeadline() {
+	public void cancelByDeadline(CustomerArrival arrivalEvent) {
 		state.satisfiedCustomers.count(0);
+
+		// remove the CustomerArrival from the waiting queue
+		state.eventQueue.removeEvent(arrivalEvent);
 	}
 }
