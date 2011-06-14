@@ -5,12 +5,14 @@
 || B        || 30.09549696229931|| 2.743334411349833|| 0.6896125894480629||
 || C       || 50.81662633870892|| 4.848532810952254|| 0.8186634390105957||
 
-Observations: 
+==Observations== 
   * avg waiting queue length is about half of the number of dry waiting queue slots
   * avg utilization increases with the number of dry waiting queue slots
   * avg waiting time also increases with the number of dry waiting queue slots
 
-*Answer:* todo
+==Answer==
+For all three systems customers are less willing to wait in the rain (50%) than inside in order to get their beer. Increasing the amount of dry waiting slots yields to more customers willing to wait and thus impacting the length of the waiting queue and of course the average waiting time.
+Related to this the system is better utilized with more dry slots due to higher inter arrival times.
 
 
 =Ex2=
