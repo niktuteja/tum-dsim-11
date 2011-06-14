@@ -35,7 +35,7 @@ public class SimulationState {
 	public RandVar deadlines;
 
 	long ticks = 0;
-	final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
+	public final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
 	boolean serverIsBusy = false;
 
 	public DCounter waitingQueueLength = new DCounter(this);
