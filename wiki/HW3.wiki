@@ -1,0 +1,2 @@
+|| system || avg waiting time || avg waiting queue lengt || avg utilization ||
+|| A        || 14.789756702265771|| 1.3457173709888353|| 15.995240829990482||
