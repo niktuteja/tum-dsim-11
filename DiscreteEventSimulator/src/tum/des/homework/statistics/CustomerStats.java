@@ -7,10 +7,12 @@ public class CustomerStats {
 	private long serviceInitTime;
 	private long serviceCompletionTime;
 	private final SimulationState state;
+	public long deadline;
 
-	public CustomerStats(long initialArrivalTime, SimulationState state) {
+	public CustomerStats(long initialArrivalTime, SimulationState state, long deadline) {
 		this.initialArrivalTime = initialArrivalTime;
 		this.state = state;
+		this.deadline = deadline;
 	}
 
 	public void setServiceStarted() {
@@ -26,6 +28,16 @@ public class CustomerStats {
 		state.retentionTime.count(serviceCompletionTime - initialArrivalTime);
 
 		state.utilization.count(serviceCompletionTime - serviceInitTime);
+
+		// check wheter it's a happy customer or an unsatisfied customer
+		if (serviceCompletionTime <= deadline) {
+			// a satisfied customer
+			state.satisfiedCustomers.count(1);
+		} else {
+			// an unsatisfied customer
+			state.satisfiedCustomers.count(0);
+		}
+
 	}
 
 	public long getInitialArrivalTime() {

@@ -13,7 +13,10 @@ public class CustomerArrival extends EventBase {
 
 	public CustomerArrival(long executionTime, SimulationState state) {
 		super(executionTime, state);
-		customerStats = new CustomerStats(executionTime, state);
+
+		long deadline = state.getTicks() + state.deadlines.getLong();
+
+		customerStats = new CustomerStats(executionTime, state, deadline);
 		state.numCustomers++;
 	}
 

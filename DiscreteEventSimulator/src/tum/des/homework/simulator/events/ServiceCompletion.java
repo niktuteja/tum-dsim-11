@@ -16,24 +16,24 @@ public class ServiceCompletion extends EventBase {
 	public void process() {
 		state.setServerBusy(false);
 		customer.setServiceCompleted();
-		
+
 		if (state.getWaitingQueueLength() > 0) {
 			EventBase event = state.dequeueWaitingEvent();
 			event.process();
 		}
 	}
 
-//	@Override
-//	public int compareTo(EventBase evt) {
-//		if (evt == null)
-//			throw new NullPointerException();
-//
-//		// HACK service completion events are more important than anything else 
-//		// if (!(evt instanceof ServiceCompletion) && this.getExecutionTime() == evt.getExecutionTime())
-//		//	return -1;
-//		
-//		return super.compareTo(evt);
-//
-//	}
-	
+	//	@Override
+	//	public int compareTo(EventBase evt) {
+	//		if (evt == null)
+	//			throw new NullPointerException();
+	//
+	//		// HACK service completion events are more important than anything else 
+	//		// if (!(evt instanceof ServiceCompletion) && this.getExecutionTime() == evt.getExecutionTime())
+	//		//	return -1;
+	//		
+	//		return super.compareTo(evt);
+	//
+	//	}
+
 }

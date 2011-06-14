@@ -32,6 +32,7 @@ public class SimulationState {
 	public RandVar interArrivalTimes;
 	public RandVar wetInterArrivalTimes;
 	public RandVar serviceTimes;
+	public RandVar deadlines;
 
 	long ticks = 0;
 	final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
@@ -43,6 +44,7 @@ public class SimulationState {
 	public DCounter retentionTime = new DCounter(this);
 	public DCounter customerBlocked = new DCounter(this);
 	public TDCounter utilization = new TDCounter(this);
+	public DCounter satisfiedCustomers = new DCounter(this);
 	public long dryQueueSlots = Long.MAX_VALUE;
 
 	public boolean dryQueueSlotsFull = false;
@@ -78,6 +80,7 @@ public class SimulationState {
 		dryInterArrivalTimes = DistributionFactory.getDistribution("interArrivalTimes", props);
 		wetInterArrivalTimes = DistributionFactory.getDistribution("wetInterArrivalTimes", props);
 		serviceTimes = DistributionFactory.getDistribution("serviceTimes", props);
+		deadlines = DistributionFactory.getDistribution("deadlines", props);
 
 		interArrivalTimes = dryInterArrivalTimes;
 
@@ -165,9 +168,11 @@ public class SimulationState {
 		s.append("retentionTime = " + retentionTime + "\n");
 		s.append("customerBlocked = " + customerBlocked + "\n");
 		s.append("utilization = " + utilization + "\n");
+		s.append("satisfiedCustomers = " + satisfiedCustomers + "\n");
 
-		s.append("|| system || avg waiting time || avg waiting queue lengt || avg utilization ||");
-		s.append("|| x        || " + waitingTime.getMean() + "|| " + waitingQueueLength.getMean() + "|| " + utilization.getMean() + "||");
+		s.append("|| system || avg waiting time || avg waiting queue length || avg utilization || satisfied customers % ||\n");
+		s.append("|| x        || " + waitingTime.getMean() + "|| " + waitingQueueLength.getMean() + "|| " + utilization.getMean() + "||"
+				+ satisfiedCustomers.getMean() * 100.0f + "||");
 
 		return s.substring(0);
 	}
