@@ -27,7 +27,7 @@ public class CustomerStats {
 		// retentionTime = Verweildauer = Wartezeit + Bedienzeit
 		state.retentionTime.count(serviceCompletionTime - initialArrivalTime);
 
-		state.utilization.count(serviceCompletionTime - serviceInitTime);
+		state.utilization.count(state.getWaitingQueueLength() > 0 ? 1 : 0);
 
 		// check wheter it's a happy customer or an unsatisfied customer
 		if (serviceCompletionTime <= deadline) {
