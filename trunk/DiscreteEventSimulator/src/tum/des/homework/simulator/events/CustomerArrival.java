@@ -7,7 +7,7 @@ import tum.des.homework.util.Log;
 public class CustomerArrival extends EventBase {
 
 	// customer object for statistics tracking
-	private final CustomerStats customerStats;
+	final CustomerStats customerStats;
 
 	private boolean didReproduce = false;
 

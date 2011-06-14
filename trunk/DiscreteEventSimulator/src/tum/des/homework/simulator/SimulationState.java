@@ -1,10 +1,11 @@
 package tum.des.homework.simulator;
 
-import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Properties;
 import java.util.Queue;
 
 import tum.des.homework.simulator.events.CustomerArrival;
+import tum.des.homework.simulator.events.DeadlineComparator;
 import tum.des.homework.simulator.events.EventBase;
 import tum.des.homework.simulator.events.TerminationEvent;
 import tum.des.homework.statistics.DCounter;
@@ -35,7 +36,7 @@ public class SimulationState {
 	public RandVar deadlines;
 
 	long ticks = 0;
-	public final Queue<EventBase> waitingQueue = new LinkedList<EventBase>();
+	public final Queue<CustomerArrival> waitingQueue = new PriorityQueue<CustomerArrival>(1, new DeadlineComparator());
 	boolean serverIsBusy = false;
 
 	public DCounter waitingQueueLength = new DCounter(this);
@@ -118,7 +119,7 @@ public class SimulationState {
 		return this.waitingQueue.size();
 	}
 
-	public void addToWaitingQueue(EventBase event) {
+	public void addToWaitingQueue(CustomerArrival event) {
 		waitingQueueLength.count(waitingQueue.size());
 		if (waitingQueue.size() < waitingQueueMaxSize) {
 			this.waitingQueue.add(event);
