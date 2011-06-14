@@ -8,10 +8,9 @@
 *Answer:* todo
 
 Observations: 
-
-- avg waiting queue length is about half of the number of dry waiting queue slots
-- avg utilization increases with the number of dry waiting queue slots
-- avg waiting time also increases with the number of dry waiting queue slots
+  * avg waiting queue length is about half of the number of dry waiting queue slots
+  * avg utilization increases with the number of dry waiting queue slots
+  * avg waiting time also increases with the number of dry waiting queue slots
 
 =Ex2=
 
@@ -21,7 +20,6 @@ Observations:
 || C        || 4882.927825401|| 0.5800323757143135|| 0.3872474302212253||88.15566657901657||
 
 Observations:
-
-- waiting time, queue length and utilization stay the same, while the customer satisfaction changes heavily
+  * waiting time, queue length and utilization stay the same, while the customer satisfaction changes heavily
 
 *Answer:* todo
