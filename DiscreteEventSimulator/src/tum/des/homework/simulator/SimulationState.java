@@ -19,6 +19,7 @@ import tum.des.homework.util.Log;
  * 
  */
 public class SimulationState {
+
 	// flag for determining if the machine is (or should be) stopped.
 	boolean stopped = false;
 
@@ -35,6 +36,7 @@ public class SimulationState {
 	public RandVar wetInterArrivalTimes;
 	public RandVar serviceTimes;
 	public RandVar deadlines;
+	public boolean waitingQueueUseDeadlines = false;
 
 	long ticks = 0;
 	public final Queue<CustomerArrival> waitingQueue;
@@ -75,6 +77,15 @@ public class SimulationState {
 		if (maxSize != null) {
 			try {
 				this.dryQueueSlots = Long.parseLong(drySlots);
+			} catch (NumberFormatException e) {
+				// swallow
+			}
+		}
+		
+		String wqdl = props.getProperty("waitingQueue.deadlines");
+		if (maxSize != null) {
+			try {
+				waitingQueueUseDeadlines = Boolean.parseBoolean(wqdl);
 			} catch (NumberFormatException e) {
 				// swallow
 			}
@@ -186,15 +197,17 @@ public class SimulationState {
 		s.append("utilization = " + utilization + "\n");
 		s.append("satisfiedCustomers = " + satisfiedCustomers + "\n");
 
-		// For Ex1
-		s.append("|| system || avg waiting time || avg waiting queue lengt || avg utilization ||\n");
-		s.append("|| x        || " + waitingTime.getMean() + "|| " + waitingQueueLength.getMean() + "|| " + utilization.getMean() + "||\n");
-
+//		// For Ex1
+//		String fmt = "|| %6.6s || %20.20s || %20.20s || %20.20s ||\n";
+//		s.append(String.format(fmt, "system","avg waiting time","avg waiting queue length","avg utilization"));
+//		s.append(String.format(fmt, "x",waitingTime.getMean(),waitingQueueLength.getMean(),utilization.getMean()));
+		
 		// For Ex2
-		s.append("|| system || avg waiting time || avg waiting queue length || avg utilization || satisfied customers % ||\n");
-		s.append("|| x        || " + waitingTime.getMean() + "|| " + waitingQueueLength.getMean() + "|| " + utilization.getMean() + "||"
-				+ satisfiedCustomers.getMean() * 100.0f + "||\n");
+		s.append("\n");
+		String fmt = "|| %6.6s || %20.20s || %20.20s || %20.20s || %20.20s ||\n";
+		s.append(String.format(fmt, "system","avg waiting time","avg waiting queue length","avg utilization", "satisfied customers %"));
+		s.append(String.format(fmt, "x",waitingTime.getMean(),waitingQueueLength.getMean(),utilization.getMean(), satisfiedCustomers.getMean() * 100.0f));
 
-		return s.substring(0);
+		return s.toString();
 	}
 }

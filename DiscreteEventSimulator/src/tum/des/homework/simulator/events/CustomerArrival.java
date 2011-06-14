@@ -16,14 +16,16 @@ public class CustomerArrival extends EventBase {
 
 		customerStats = new CustomerStats(executionTime, state);
 
-		long deadline = executionTime + state.deadlines.getLong();
-		CustomerDeadline deadlineEvent = new CustomerDeadline(deadline, customerStats, this, state);
-
-		customerStats.deadlineEvent = deadlineEvent;
+		if (state.waitingQueueUseDeadlines)
+		{
+			long deadline = executionTime + state.deadlines.getLong();
+			CustomerDeadline deadlineEvent = new CustomerDeadline(deadline, customerStats, this, state);
+	
+			customerStats.deadlineEvent = deadlineEvent;
+			state.enqueueEvent(deadlineEvent);
+		}
 
 		state.numCustomers++;
-
-		state.enqueueEvent(deadlineEvent);
 	}
 
 	@Override
