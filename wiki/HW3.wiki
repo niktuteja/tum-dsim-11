@@ -22,10 +22,14 @@ Related to this the system is better utilized with more dry slots due to higher 
 || B        || 5068.169948129948|| 0.5207692307692308|| 0.530910170578998||80.94867669678058||
 || C        || 7256.7885071723285|| 0.7334295699741681|| 0.579158023740802||94.04958179186103||
 
-Observations:
- * todo
+==Observations==
+  * Deadlines yield to less satisfied customers (If they matter waiting)
+  * Utilization of the system is less if we introduce deadlines
+  * Also the avg waiting time & waiting queue length decreases
 
-*Answer:* todo
+==Answer==
+Since Customers tend to step out of the waiting queue if they need to wait for a long time, the system has less customers to serve (less utilization) and the waiting times / queue length decrease.
+For System C Customers are more satisfied because they are willing to wait longer than in System B.
 
 =Ex3=
 
