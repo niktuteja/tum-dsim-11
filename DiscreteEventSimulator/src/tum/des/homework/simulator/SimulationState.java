@@ -124,12 +124,12 @@ public class SimulationState {
 			if (!dryQueueSlotsFull && waitingQueue.size() > dryQueueSlots) {
 				interArrivalTimes = wetInterArrivalTimes;
 				dryQueueSlotsFull = true;
-				Log.d("simstate", "now wet");
+				Log.v("simstate", "now wet");
 			}
 			if (dryQueueSlotsFull && waitingQueue.size() <= dryQueueSlots) {
 				interArrivalTimes = dryInterArrivalTimes;
 				dryQueueSlotsFull = false;
-				Log.d("simstate", "now dry");
+				Log.v("simstate", "now dry");
 			}
 
 		} else {
@@ -166,8 +166,8 @@ public class SimulationState {
 		s.append("customerBlocked = " + customerBlocked + "\n");
 		s.append("utilization = " + utilization + "\n");
 
-		s.append("|| x        || " + waitingTime.getMean() + "||" + processingTime.getMean() + "|| " + retentionTime.getMean() + "|| "
-				+ waitingQueueLength.getMean() + "|| " + customerBlocked.getMean() + "|| " + utilization.getMean() + "||");
+		s.append("|| system || avg waiting time || avg waiting queue lengt || avg utilization ||");
+		s.append("|| x        || " + waitingTime.getMean() + "|| " + waitingQueueLength.getMean() + "|| " + utilization.getMean() + "||");
 
 		return s.substring(0);
 	}
