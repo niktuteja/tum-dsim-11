@@ -15,7 +15,7 @@ public class TDCounter extends Counter {
 	@Override
 	public void count(double value) {
 		// Changed according to Alexanders feedback from sheet 2 (daniel)
-		sumPowerOne += value * (simState.getTicks() - lastSampleTime);
+		sumPowerOne += lastSampleSize * (simState.getTicks() - lastSampleTime);
 
 		numSamples++;
 		lastSampleSize = value;
