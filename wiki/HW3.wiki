@@ -5,12 +5,13 @@
 || B        || 30.09549696229931|| 2.743334411349833|| 0.6896125894480629||
 || C       || 50.81662633870892|| 4.848532810952254|| 0.8186634390105957||
 
-*Answer:* todo
-
 Observations: 
   * avg waiting queue length is about half of the number of dry waiting queue slots
   * avg utilization increases with the number of dry waiting queue slots
   * avg waiting time also increases with the number of dry waiting queue slots
+
+*Answer:* todo
+
 
 =Ex2=
 
