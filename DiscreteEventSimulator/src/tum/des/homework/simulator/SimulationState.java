@@ -170,9 +170,14 @@ public class SimulationState {
 		s.append("utilization = " + utilization + "\n");
 		s.append("satisfiedCustomers = " + satisfiedCustomers + "\n");
 
+		// For Ex1
+		s.append("|| system || avg waiting time || avg waiting queue lengt || avg utilization ||\n");
+		s.append("|| x        || " + waitingTime.getMean() + "|| " + waitingQueueLength.getMean() + "|| " + utilization.getMean() + "||\n");
+
+		// For Ex2
 		s.append("|| system || avg waiting time || avg waiting queue length || avg utilization || satisfied customers % ||\n");
 		s.append("|| x        || " + waitingTime.getMean() + "|| " + waitingQueueLength.getMean() + "|| " + utilization.getMean() + "||"
-				+ satisfiedCustomers.getMean() * 100.0f + "||");
+				+ satisfiedCustomers.getMean() * 100.0f + "||\n");
 
 		return s.substring(0);
 	}
