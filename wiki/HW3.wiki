@@ -24,3 +24,8 @@ Observations:
  * todo
 
 *Answer:* todo
+
+=Ex3=
+
+|| system || avg waiting time || avg waiting queue length || avg utilization || satisfied customers % ||
+|| C2        || 8081.942106548586|| 0.8248874211948364|| 0.5914543202096728||95.06369748238477||
