@@ -34,7 +34,8 @@ For System C Customers are more satisfied because they are willing to wait longe
 =Ex3=
 
 || system || avg waiting time || avg waiting queue length || avg utilization || satisfied customers % ||
-|| C2        || 8081.942106548586|| 0.8248874211948364|| 0.5914543202096728||95.06369748238477||
+|| C (FIFO)      || 7256.7885071723285|| 0.7334295699741681|| 0.579158023740802||94.04958179186103||
+|| C (EDF)       || 8081.942106548586|| 0.8248874211948364|| 0.5914543202096728||95.06369748238477||
 
 ==Observations==
   * With EDF we have longer avg waiting times and a longer queue size
