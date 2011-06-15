@@ -49,8 +49,8 @@ public class SimulationState {
 	public DCounter customerBlocked = new DCounter(this);
 	public TDCounter utilization = new TDCounter(this);
 	public DCounter satisfiedCustomers = new DCounter(this);
+	
 	public long dryQueueSlots = Long.MAX_VALUE;
-
 	public boolean dryQueueSlotsFull = false;
 
 	private long waitingQueueMaxSize = Long.MAX_VALUE;
@@ -91,9 +91,10 @@ public class SimulationState {
 			}
 		}
 		
-		Comparator<?> comp = EventComparatorFactory.getComparator("waitingQueue", props);
+		@SuppressWarnings("unchecked")
+		Comparator<CustomerArrival> comp = (Comparator<CustomerArrival>) EventComparatorFactory.getComparator("waitingQueue", props);
 		if (comp != null)
-			waitingQueue = new PriorityQueue<CustomerArrival>(1, new DeadlineComparator());
+			waitingQueue = new PriorityQueue<CustomerArrival>(1, comp);
 		else
 			waitingQueue = new PriorityQueue<CustomerArrival>(1);
 
@@ -147,10 +148,12 @@ public class SimulationState {
 
 	public void addToWaitingQueue(CustomerArrival event) {
 		waitingQueueLength.count(waitingQueue.size());
+		
 		if (waitingQueue.size() < waitingQueueMaxSize) {
 			this.waitingQueue.add(event);
+			customerBlocked.count(0);
 
-			// Sheet 3 addition (dry & wet waiting slots)
+			// Sheet 3, Ex. 1, addition (dry & wet waiting slots)
 			if (!dryQueueSlotsFull && waitingQueue.size() > dryQueueSlots) {
 				interArrivalTimes = wetInterArrivalTimes;
 				dryQueueSlotsFull = true;
@@ -163,7 +166,7 @@ public class SimulationState {
 			}
 
 		} else {
-			// FIXME add blocking counter
+			customerBlocked.count(1);
 		}
 	}
 
@@ -197,12 +200,6 @@ public class SimulationState {
 		s.append("utilization = " + utilization + "\n");
 		s.append("satisfiedCustomers = " + satisfiedCustomers + "\n");
 
-//		// For Ex1
-//		String fmt = "|| %6.6s || %20.20s || %20.20s || %20.20s ||\n";
-//		s.append(String.format(fmt, "system","avg waiting time","avg waiting queue length","avg utilization"));
-//		s.append(String.format(fmt, "x",waitingTime.getMean(),waitingQueueLength.getMean(),utilization.getMean()));
-		
-		// For Ex2
 		s.append("\n");
 		String fmt = "|| %6.6s || %20.20s || %20.20s || %20.20s || %20.20s ||\n";
 		s.append(String.format(fmt, "system","avg waiting time","avg waiting queue length","avg utilization", "satisfied customers %"));
