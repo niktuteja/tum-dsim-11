@@ -53,7 +53,6 @@ public class CustomerArrival extends EventBase {
 			state.enqueueEvent(completionEvent);
 		} else {
 			Log.v("CustomerArrival", "Queue is not empty. Customer starts waiting.");
-			state.customerBlocked.count(1);
 			state.addToWaitingQueue(this);
 		}
 

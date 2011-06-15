@@ -45,8 +45,5 @@ public class DiscreteEventSimulator {
 
 		System.out.println("simulation stopped.");
 		System.out.println(state);
-
-		// TODO stats
-
 	}
 }

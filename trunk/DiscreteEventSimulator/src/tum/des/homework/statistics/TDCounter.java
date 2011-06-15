@@ -5,7 +5,6 @@ import tum.des.homework.simulator.SimulationState;
 public class TDCounter extends Counter {
 	public TDCounter(SimulationState simState) {
 		super(simState);
-		// TODO Auto-generated constructor stub
 	}
 
 	long firstSampleTime;

@@ -31,15 +31,6 @@ public class CustomerStats {
 
 		state.utilization.count(state.getWaitingQueueLength() > 0 ? 1 : 0);
 
-		//		// check whether it's a happy customer or an unsatisfied customer
-		//		if (serviceCompletionTime <= deadline) {
-		//			// a satisfied customer
-		//			state.satisfiedCustomers.count(1);
-		//		} else {
-		//			// an unsatisfied customer
-		//			state.satisfiedCustomers.count(0);
-		//		}
-
 		state.satisfiedCustomers.count(1);
 
 		state.eventQueue.removeEvent(deadlineEvent);
@@ -62,8 +53,5 @@ public class CustomerStats {
 
 		// remove the CustomerArrival from the waiting queue
 		state.waitingQueue.remove(arrivalEvent);
-
-		// ?
-		//		state.utilization.count(state.getWaitingQueueLength() > 0 ? 1 : 0);
 	}
 }
