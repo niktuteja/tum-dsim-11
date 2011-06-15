@@ -43,5 +43,5 @@ For System C Customers are more satisfied because they are willing to wait longe
   * Better utilization
 
 ==Answer==
-Taking the Customers with earlier deadlines out of the queue first yields into more Customers being able to be served, since not as much tend to step out of the queue. This increases the utilization and satisfaction.
+Taking the Customers with earlier deadlines out of the queue first, yields into more Customers being able to be served, since Customers who intent to leave the queue are served preferably. This increases the utilization and satisfaction.
 Moreover Customers that are willing to wait longer stay longer in the system ==> longer waiting queue size + waiting times.
