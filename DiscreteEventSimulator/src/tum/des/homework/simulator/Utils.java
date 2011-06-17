@@ -33,6 +33,10 @@ public class Utils {
 	}
 	
 	public static long ticksToSeconds(long ticks, SimulationState state) {
-		return ticks * state.getResolution();
+		return ticks / state.getResolution();
+	}
+	
+	public static double ticksToSeconds(double ticks, SimulationState state) {
+		return ticks / state.getResolution();
 	}
 }

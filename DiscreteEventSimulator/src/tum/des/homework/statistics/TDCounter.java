@@ -1,6 +1,7 @@
 package tum.des.homework.statistics;
 
 import tum.des.homework.simulator.SimulationState;
+import tum.des.homework.simulator.Utils;
 
 public class TDCounter extends Counter {
 	public TDCounter(SimulationState simState) {
@@ -25,7 +26,7 @@ public class TDCounter extends Counter {
 		}
 	}
 
-	// Returns the normalized utilization 
+	// Returns the normalized utilization
 	@Override
 	public double getMean() {
 		long totalDuration = lastSampleTime - firstSampleTime;
