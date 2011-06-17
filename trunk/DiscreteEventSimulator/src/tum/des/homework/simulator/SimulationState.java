@@ -74,7 +74,7 @@ public class SimulationState {
 		}
 		
 		String drySlots = props.getProperty("waitingQueue.drySlots");
-		if (maxSize != null) {
+		if (drySlots != null) {
 			try {
 				this.dryQueueSlots = Long.parseLong(drySlots);
 			} catch (NumberFormatException e) {
@@ -83,7 +83,7 @@ public class SimulationState {
 		}
 		
 		String wqdl = props.getProperty("waitingQueue.deadlines");
-		if (maxSize != null) {
+		if (wqdl != null) {
 			try {
 				waitingQueueUseDeadlines = Boolean.parseBoolean(wqdl);
 			} catch (NumberFormatException e) {
@@ -109,7 +109,9 @@ public class SimulationState {
 		dryInterArrivalTimes = DistributionFactory.getDistribution("interArrivalTimes", props);
 		wetInterArrivalTimes = DistributionFactory.getDistribution("wetInterArrivalTimes", props);
 		serviceTimes = DistributionFactory.getDistribution("serviceTimes", props);
-		deadlines = DistributionFactory.getDistribution("deadlines", props);
+		
+		if (waitingQueueUseDeadlines)
+			deadlines = DistributionFactory.getDistribution("deadlines", props);
 
 		interArrivalTimes = dryInterArrivalTimes;
 

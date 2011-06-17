@@ -9,8 +9,9 @@ public class DistributionFactory {
 	{
 		RandVar rv = null;
 		String dist = props.getProperty(prefix+".dist");
-		if (dist == null)
+		if (dist == null) {
 			throw new IllegalArgumentException("Prop: " + prefix+".dist" + " not set");
+		}
 		
 		try {
 			Class<?> clazz = Class.forName("tum.des.homework.simulator.RandVar"+dist);
