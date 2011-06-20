@@ -38,4 +38,12 @@ public class Rng {
 		return String.format("Rng<a=%d, c=%d, z_0=%d, m=%d>", a, c, z_0, m);
 	}
 
+	public double autoCorrelation(int lag) {
+		if (lag > 10) {
+			return 0;
+		}
+
+		return 1;
+	}
+
 }
