@@ -18,6 +18,10 @@ public class CustomerArrival extends SimEvent
 	 */
 	public CustomerArrival (long time)
 	{
+		//FIXME:
+		if (time < 0)
+			System.err.println("customer arrival time < 0! : " + time);
+		
 		value = time;
 	}
 	/**
