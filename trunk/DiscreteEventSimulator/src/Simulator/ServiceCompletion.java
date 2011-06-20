@@ -18,6 +18,10 @@ public class ServiceCompletion extends SimEvent
 	 */
 	public ServiceCompletion (long time)
 	{
+		//FIXME:
+		if (time < 0)
+			System.err.println("service completion time < 0! : " + time);
+		
 		value = time;
 	}
 	/**
@@ -35,7 +39,7 @@ public class ServiceCompletion extends SimEvent
 			CounterCollection.cc.dc_cwt.count((double) (c.serviceInitTime - c.arrivalTime)/ SimState.s.real_time_to_sim_time);
 			CounterCollection.cc.dc_cst.count((c.serviceCompletionTime - c.serviceInitTime)/ SimState.s.real_time_to_sim_time);
 			
-			if ((double) (c.serviceInitTime - c.arrivalTime) < 60*SimState.s.real_time_to_sim_time)
+			if ((double) (c.serviceInitTime - c.arrivalTime) < 60 * SimState.s.real_time_to_sim_time)
 			{
 				CounterCollection.cc.dc_sc.count(1);
 			}
