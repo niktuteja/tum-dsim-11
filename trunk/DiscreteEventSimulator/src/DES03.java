@@ -1,4 +1,5 @@
 import Analysis.CounterCollection;
+import RNG.Rng;
 import RandVar.Constant;
 import RandVar.Exponential;
 import RandVar.RandVar;
@@ -42,6 +43,8 @@ public class DES03 {
 		//		for (int i = 0; i < 100; i++) {
 		//			System.out.println(r.nextDouble());
 		//		}
+
+		exercise1d();
 
 		//Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
@@ -90,6 +93,28 @@ public class DES03 {
 
 		CounterCollection.cc.report();
 
+	}
+
+	private static void calculateAutoCorrelations(Rng rng, int maxLag, int sampleSize) {
+		for (int lag = 0; lag < maxLag; lag++) {
+			for (int i = 0; i < sampleSize; i++) {
+				rng.nextDouble();
+			}
+			System.out.printf("\t%s autoCorrelation(lag=%d) = %f\n", rng, lag, rng.autoCorrelation(lag));
+		}
+	}
+
+	private static void exercise1d() {
+		System.out.println("Exercise 1d: autocorrelations");
+
+		System.out.println("Config A");
+		calculateAutoCorrelations(new Rng(16807, 0, 1, 2147483647), 10, 10000);
+
+		System.out.println("Config B:");
+		calculateAutoCorrelations(new Rng(65539, 1, 0, 201), 10, 10000);
+
+		System.out.println("Config C:");
+		calculateAutoCorrelations(new Rng(65539, 19, 0, 201), 10, 10000);
 	}
 
 	static void exercise1a() {
