@@ -18,7 +18,7 @@ public abstract class RandVar {
 	 * Attribute: java random number generator. Creates random numbers between 0
 	 * and 1 uniformly distributed
 	 */
-	public Rng rng = new Rng();
+	public Rng rng;
 
 	/**
 	 * Abstract method type() shall return the name of the distribution
@@ -29,13 +29,6 @@ public abstract class RandVar {
 	 * Abstract method getRV() returns uniform distributed samples
 	 */
 	public abstract double getRV();
-
-	/**
-	 * Method sets the seed of the rng
-	 */
-	public void setSeed(int seed) {
-		rng = new Rng(seed);
-	}
 
 	/**
 	 * Abstract method returns the greatest long that is smaller than the

@@ -11,6 +11,7 @@ package Simulator;
 import java.util.Vector;
 
 import Analysis.CounterCollection;
+import RNG.Rng;
 import RandVar.*;
 public class SimState
 {
@@ -60,6 +61,7 @@ public class SimState
 	long maxQueueSize = Long.MAX_VALUE;
 	/**
 	 * Attribute: maximum allowed queue size 
+	 * (Ex3: number of dry waiting slots)
 	 */		
 	long preferablePlaces = -1;
 	/**
@@ -195,9 +197,6 @@ public class SimState
 		queueingStrategy = FIFO;
 		this.real_time_to_sim_time = real_time_to_sim_time;
 	}
-	
-	
-	
 	
 	/* SimState constructor
 	 * Using the given arguments to initialize the SimState
