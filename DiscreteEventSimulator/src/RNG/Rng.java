@@ -22,6 +22,11 @@ public class Rng {
 		this(16807, 0, 1, 2147483647); // m = 2^31 - 1
 	}
 
+	public Rng(long seed) {
+		this();
+		this.z_0 = seed;
+	}
+
 	public double nextDouble() {
 		z_new = (a * z_old + c) % m;
 		z_old = z_new;
