@@ -1,6 +1,6 @@
 package RNG;
 
-public class Rng{
+public class Rng {
 	long a; // multiplier
 	long z_0; // seed
 	long c; // increment
@@ -17,16 +17,18 @@ public class Rng{
 
 		this.z_old = z_0;
 	}
-	
-	/** @deprecated (VD)*/
+
+	/** @deprecated (VD) */
+	@Deprecated
 	public Rng() {
 		this(16807, 0, 1, 2147483647); // m = 2^31 - 1
 	}
 
-	/** @deprecated (VD)*/
+	/** @deprecated (VD) */
+	@Deprecated
 	public Rng(long seed) {
 		this();
-		this.z_0 = seed;
+		setSeed(seed);
 	}
 
 	public double nextDouble() {
@@ -51,6 +53,7 @@ public class Rng{
 
 	public void setSeed(long seed) {
 		this.z_0 = seed;
+		this.z_old = this.z_0;
 	}
 
 }
