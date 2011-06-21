@@ -50,6 +50,7 @@ public class Exponential extends RandVar {
 	/**
 	 * Returns the name of the distribution
 	 */
+	@Override
 	public String type() {
 		return "exponential distribution";
 	}
@@ -59,8 +60,23 @@ public class Exponential extends RandVar {
 	 * 
 	 * @return the sample
 	 */
+	@Override
 	public double getRV() {
 		double nextDouble = rng.nextDouble();
+
+		//
+		// Prevent log(0) from being called.
+		//
+		// Note: this might skew the results. another way to fix this
+		// would be to add a small delta (e.g. 0.0000000001) each time we hit zero.
+		//
+		// If the Rng implementation is bugged this could also turn into an
+		// endless loop. :-)
+		//
+		while (nextDouble == 0.0) {
+			nextDouble = rng.nextDouble();
+		}
+
 		double rv = (-(Math.log(nextDouble) * (1 / lambda)));
 		return rv;
 	}
@@ -70,6 +86,7 @@ public class Exponential extends RandVar {
 	 * 
 	 * @return the mean
 	 */
+	@Override
 	public double getMean() {
 		return (1 / lambda);
 	}
@@ -79,6 +96,7 @@ public class Exponential extends RandVar {
 	 * 
 	 * @return the variance
 	 */
+	@Override
 	public double getVariance() {
 		return (1 / (lambda * lambda));
 	}
@@ -89,6 +107,7 @@ public class Exponential extends RandVar {
 	 * @param the
 	 *            new mean value
 	 */
+	@Override
 	public void setMean(double m) {
 		if (m > 0) {
 			lambda = (1 / m);
@@ -100,6 +119,7 @@ public class Exponential extends RandVar {
 	/**
 	 * Interface
 	 */
+	@Override
 	public void setMeanAndStdDeviation(double m, double s) {
 		System.out.println("not applicable");
 	}
@@ -107,6 +127,7 @@ public class Exponential extends RandVar {
 	/**
 	 * Interface
 	 */
+	@Override
 	public void setStdDeviation(double s) {
 		System.out.println("not applicable");
 	}
@@ -115,6 +136,7 @@ public class Exponential extends RandVar {
 	 * Function prints the statistical characteristics of the random variable to
 	 * the console
 	 */
+	@Override
 	public void report() {
 		System.out.println(type());
 		System.out.println("parameters:");

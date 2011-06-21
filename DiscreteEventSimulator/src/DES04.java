@@ -18,12 +18,11 @@ import Simulator.SimulationTermination;
  * @since 2011-06-10
  */
 public class DES04 {
-	
+
 	private static Rng CONFIG_A = new Rng(16807, 0, 1, 2147483647);
-	private static Rng CONFIG_B = new Rng(65539, 1, 0, 201); 
+	private static Rng CONFIG_B = new Rng(65539, 1, 0, 201);
 	private static Rng CONFIG_C = new Rng(65539, 19, 0, 201);
-	
-	
+
 	/**
 	 * Main executing function
 	 * 
@@ -33,12 +32,12 @@ public class DES04 {
 	public static void main(String[] args) {
 		// Initialize SimState with the given arguments
 
-//		testRNG();
-//		exercise1d();
-//		exercise2a();
-		//exercise2b();
-		//exercise2c();
-		exercise3b();
+		//		testRNG();
+		//		exercise1d();
+		//		exercise2a();
+		//		exercise2b();
+		exercise2c();
+		//		exercise3a();
 
 		//Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
@@ -54,11 +53,11 @@ public class DES04 {
 		while (SimState.s.stop != true) {
 			// Get the next SimEvent from the EventChain
 			SimEvent e = SimState.s.ec.removeOldestEvent();
-			
-//			if (SimState.s.now > 0 && SimState.s.simulationDuration % SimState.s.now == 10000){
-//				System.out.println(".");
-//			}
-			
+
+			//			if (SimState.s.now > 0 && SimState.s.simulationDuration % SimState.s.now == 10000){
+			//				System.out.println(".");
+			//			}
+
 			if (e != null) {
 				if (SimState.s.now > e.value) {
 					System.err.println("_____________________________________________________");
@@ -124,10 +123,10 @@ public class DES04 {
 		long simulation_duration = 10000000 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		SimState.s = new SimState (iat, sct, simulation_duration, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize, preferablePlaces, real_time_to_sim_time);
 		//-------------------------------------------------------------------
 	}
-	
+
 	private static void exercise2b() {
 		//System:-------------- M / M / 1 - INF -----------------------
 		long real_time_to_sim_time = 100;
@@ -136,22 +135,22 @@ public class DES04 {
 		long simulation_duration = 10000000 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		SimState.s = new SimState (iat, sct, simulation_duration, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize, preferablePlaces, real_time_to_sim_time);
 		//-------------------------------------------------------------------
 	}
-	
+
 	private static void exercise2c() {
 		//System:-------------- M / M / 1 - INF -----------------------
 		long real_time_to_sim_time = 100;
-		RandVar iat = new Erlang(10, (double) 9/10 / real_time_to_sim_time, CONFIG_B);
+		RandVar iat = new Erlang(10, (double) 9 / 10 / real_time_to_sim_time, CONFIG_B);
 		RandVar sct = new Erlang(10, (double) 1 / real_time_to_sim_time, CONFIG_C);
 		long simulation_duration = 10000000 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		SimState.s = new SimState (iat, sct, simulation_duration, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize, preferablePlaces, real_time_to_sim_time);
 		//-------------------------------------------------------------------
 	}
-	
+
 	private static void exercise3a() {
 		//System:-------------- M / M / 1 - INF -----------------------
 		long real_time_to_sim_time = 100;
@@ -160,22 +159,23 @@ public class DES04 {
 		long endTransient = 100 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		SimState.s = new SimState (iat, sct, 1e-4, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		SimState.s = new SimState(iat, sct, 1e-4, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
 		//-------------------------------------------------------------------
 	}
-	
+
 	private static void exercise3b() {
 		//System:-------------- M / M / 1 - INF -----------------------
 		long real_time_to_sim_time = 100;
 		RandVar iat = new Exponential((double) 8 / real_time_to_sim_time, CONFIG_B);
 		RandVar sct = new Exponential((double) 10 / real_time_to_sim_time, CONFIG_C);
-//		long simulation_duration = 10000000 * real_time_to_sim_time;
+		//		long simulation_duration = 10000000 * real_time_to_sim_time;
 		long endTransient = 100 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		SimState.s = new SimState (iat, sct, 1e-6, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		SimState.s = new SimState(iat, sct, 1e-6, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
 		//-------------------------------------------------------------------
-	}	
+	}
+
 	private static void testRNG() {
 		//Test the RNG by printing some values
 		Rng r = CONFIG_A;
