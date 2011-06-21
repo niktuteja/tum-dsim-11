@@ -32,12 +32,12 @@ public class DES04 {
 	public static void main(String[] args) {
 		// Initialize SimState with the given arguments
 
-		//		testRNG();
-		//		exercise1d();
-		//		exercise2a();
-		//		exercise2b();
-		exercise2c();
-		//		exercise3a();
+		//	testRNG();
+			exercise1d(); System.exit(0);
+		//	exercise2a();
+		//	exercise2b();
+		//	exercise2c();
+		//	exercise3a();
 
 		//Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
@@ -95,6 +95,8 @@ public class DES04 {
 
 	private static void calculateAutoCorrelations(Rng rng, int maxLag, int sampleSize) {
 		for (int lag = 0; lag < maxLag; lag++) {
+			rng.resetRandomNumbersArray(sampleSize + lag);
+			
 			for (int i = 0; i < sampleSize; i++) {
 				rng.nextDouble();
 			}
