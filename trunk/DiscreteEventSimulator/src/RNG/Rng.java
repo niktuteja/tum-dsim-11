@@ -34,7 +34,9 @@ public class Rng {
 	public double nextDouble() {
 		z_new = (a * z_old + c) % m;
 		z_old = z_new;
-		double next = (double) z_new / (double) (m - 1);
+		double next = (double) (z_new+1) / ((double) (m + 1));
+		// FIXME initial code:
+//		double next = (double) (z_new) / ((double) (m - 1));
 		return next;
 	}
 
