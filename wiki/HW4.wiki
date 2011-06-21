@@ -275,7 +275,7 @@ maximum:                  31221.0
 interval length: 999999550
 }}}
 
-*System C* with `]0;1[` RNG
+*System C* with `]0;1[` RNG (different results!)
 {{{
 
 E[inter-arrival time] = 11.11111111111111
