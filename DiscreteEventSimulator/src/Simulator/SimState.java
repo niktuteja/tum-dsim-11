@@ -80,8 +80,10 @@ public class SimState
 	
 	public final int FIFO = 0;
 	public final int EDF = 1;
+	public double deltaSteadyState = 0;
 	
 	public static SimState s;
+	public long endTransientPhase = -1;
 	/**
 	 * SimState constructor
 	 * Initializes the simulation with default parameters
@@ -283,6 +285,25 @@ public class SimState
 		this.real_time_to_sim_time = real_time_to_sim_time;
 	}
 	
+	public SimState (RandVar iat, RandVar sct, double deltaSteadyState, long endTransientPhase, long maxQueueSize, long preferablePlaces, long real_time_to_sim_time)
+	{
+		this.endTransientPhase  = endTransientPhase;
+		ec = new EventChain ();
+		queue = new Vector<Customer> (10);
+		stop = false;
+		this.iat = iat;
+		this.sct = sct;
+		this.cet = null;
+		simulationDuration = -1;
+		serverBusy = false;
+		min = 0;
+		max = 0;
+		this.maxQueueSize = maxQueueSize;
+		this.preferablePlaces = preferablePlaces;
+		queueingStrategy = FIFO;
+		this.real_time_to_sim_time = real_time_to_sim_time;
+		this.deltaSteadyState = deltaSteadyState;
+	}
 	//Function returns the customer with the closest deadline and removes it from the queue.
 	//Bad implementation! Use something sorted.
 	public Customer getEdfCustomer ()

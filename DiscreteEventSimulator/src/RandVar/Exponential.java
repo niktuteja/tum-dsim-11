@@ -60,7 +60,8 @@ public class Exponential extends RandVar {
 	 * @return the sample
 	 */
 	public double getRV() {
-		double rv = (-(Math.log(rng.nextDouble()) * (1 / lambda)));
+		double nextDouble = rng.nextDouble();
+		double rv = (-(Math.log(nextDouble) * (1 / lambda)));
 		return rv;
 	}
 

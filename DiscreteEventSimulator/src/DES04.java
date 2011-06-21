@@ -13,7 +13,7 @@ import Simulator.SimulationTermination;
  * 
  * DES04 class Main class reading the arguments and performing the simulation.
  * 
- * @author Bader, Dšlle, Pšhlmann
+ * @author Bader, Dï¿½lle, Pï¿½hlmann
  * @version 1.0.0
  * @since 2011-06-10
  */
@@ -33,18 +33,20 @@ public class DES04 {
 	public static void main(String[] args) {
 		// Initialize SimState with the given arguments
 
-		//testRNG();
-		//exercise1d();
-		exercise2a();
+//		testRNG();
+//		exercise1d();
+//		exercise2a();
 		//exercise2b();
 		//exercise2c();
+		exercise3b();
 
 		//Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
 
 		//Insert the first and the last event
 		SimState.s.ec.insert(new CustomerArrival(0));
-		SimState.s.ec.insert(new SimulationTermination(SimState.s.simulationDuration));
+		if (SimState.s.simulationDuration >= 0)
+			SimState.s.ec.insert(new SimulationTermination(SimState.s.simulationDuration));
 
 		/**
 		 * Simulation is done here
@@ -150,6 +152,30 @@ public class DES04 {
 		//-------------------------------------------------------------------
 	}
 	
+	private static void exercise3a() {
+		//System:-------------- M / M / 1 - INF -----------------------
+		long real_time_to_sim_time = 100;
+		RandVar iat = new Exponential((double) 8 / real_time_to_sim_time, CONFIG_A);
+		RandVar sct = new Exponential((double) 10 / real_time_to_sim_time, CONFIG_B);
+		long endTransient = 100 * real_time_to_sim_time;
+		long maxQueueSize = Long.MAX_VALUE;
+		long preferablePlaces = -1;
+		SimState.s = new SimState (iat, sct, 1e-4, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		//-------------------------------------------------------------------
+	}
+	
+	private static void exercise3b() {
+		//System:-------------- M / M / 1 - INF -----------------------
+		long real_time_to_sim_time = 100;
+		RandVar iat = new Exponential((double) 8 / real_time_to_sim_time, CONFIG_B);
+		RandVar sct = new Exponential((double) 10 / real_time_to_sim_time, CONFIG_C);
+//		long simulation_duration = 10000000 * real_time_to_sim_time;
+		long endTransient = 100 * real_time_to_sim_time;
+		long maxQueueSize = Long.MAX_VALUE;
+		long preferablePlaces = -1;
+		SimState.s = new SimState (iat, sct, 1e-6, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		//-------------------------------------------------------------------
+	}	
 	private static void testRNG() {
 		//Test the RNG by printing some values
 		Rng r = CONFIG_A;
