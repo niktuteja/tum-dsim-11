@@ -94,7 +94,7 @@ public class DES04 {
 	}
 
 	private static void calculateAutoCorrelations(Rng rng, int maxLag, int sampleSize) {
-		for (int lag = 0; lag < maxLag; lag++) {
+		for (int lag = 1; lag <= maxLag; lag++) {
 			rng.resetSamplesCache(sampleSize + lag);
 			
 			for (int i = 0; i < sampleSize; i++) {
