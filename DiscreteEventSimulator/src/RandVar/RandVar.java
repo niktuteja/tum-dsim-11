@@ -157,4 +157,20 @@ public abstract class RandVar {
 		System.out.println("stdDev: " + getStdDeviation());
 		System.out.println("variance: " + getVariance());
 	}
+
+	public double getRVtime() {
+		double value = this.getRV();
+
+		//
+		// Prevent negative times
+		//
+		// If the Rng implementation is bugged this could also turn into an
+		// endless loop. :-)
+		//
+		while (value < 0 || Double.isInfinite(value)) {
+			value = getRV();
+		}
+
+		return value;
+	}
 }

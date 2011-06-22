@@ -33,11 +33,11 @@ public class DES04 {
 		// Initialize SimState with the given arguments
 
 		//	testRNG();
-			exercise1d(); System.exit(0);
-		//	exercise2a();
+		//			exercise1d(); System.exit(0);
+		//		exercise2a();
 		//	exercise2b();
-		//	exercise2c();
-		//	exercise3a();
+		exercise2c();
+		//		exercise3a();
 
 		//Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
@@ -54,9 +54,9 @@ public class DES04 {
 			// Get the next SimEvent from the EventChain
 			SimEvent e = SimState.s.ec.removeOldestEvent();
 
-			//			if (SimState.s.now > 0 && SimState.s.simulationDuration % SimState.s.now == 10000){
-			//				System.out.println(".");
-			//			}
+			if (SimState.s.now > 0 && SimState.s.simulationDuration % SimState.s.now == 10000) {
+				System.out.println(".");
+			}
 
 			if (e != null) {
 				if (SimState.s.now > e.value) {
@@ -96,11 +96,11 @@ public class DES04 {
 	private static void calculateAutoCorrelations(Rng rng, int maxLag, int sampleSize) {
 		for (int lag = 1; lag <= maxLag; lag++) {
 			rng.resetSamplesCache(sampleSize + lag);
-			
+
 			for (int i = 0; i < sampleSize; i++) {
 				rng.nextDouble();
 			}
-			
+
 			System.out.printf("\t%s autoCorrelation(lag=%d) = %f\n", rng, lag, rng.autoCorrelation(lag));
 		}
 	}
@@ -143,10 +143,10 @@ public class DES04 {
 	}
 
 	private static void exercise2c() {
-		//System:-------------- M / M / 1 - INF -----------------------
+		//System:-------------- E10 / E10 / 1 - INF -----------------------
 		long real_time_to_sim_time = 100;
-		RandVar iat = new Erlang(10, (double) 9 / 10 / real_time_to_sim_time, CONFIG_B);
-		RandVar sct = new Erlang(10, (double) 1 / real_time_to_sim_time, CONFIG_C);
+		RandVar iat = new Erlang(10, 0.9 / real_time_to_sim_time, CONFIG_B);
+		RandVar sct = new Erlang(10, 1.0 / real_time_to_sim_time, CONFIG_C);
 		long simulation_duration = 10000000 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;

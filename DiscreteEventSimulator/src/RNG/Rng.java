@@ -1,7 +1,5 @@
 package RNG;
 
-import java.util.ArrayList;
-
 import Analysis.DiscreteCounter;
 
 public class Rng {
@@ -12,11 +10,11 @@ public class Rng {
 
 	long z_new; // z_i
 	long z_old; // z_i-1
-	
+
 	//s. http://en.wikipedia.org/wiki/Autocorrelation
 	DiscreteCounter counter;
 	DiscreteCounter counterS;
-	
+
 	double[] randomNumbers = new double[0];
 	int samplesCount = 0;
 	int autoCorrelationMaxLag = 10;
@@ -28,7 +26,7 @@ public class Rng {
 		this.m = m;
 
 		this.z_old = z_0;
-		
+
 		this.counter = new DiscreteCounter("LCG random numbers");
 	}
 
@@ -49,26 +47,26 @@ public class Rng {
 		z_new = (a * z_old + c) % m;
 		z_old = z_new;
 
-		// Generates values in [0;1]
-		double next = (double) (z_new + 1) / ((double) (m + 1));
+		// Generates values in ]0;1[
+		//		double next = (double) (z_new + 1) / ((double) (m + 1));
 
-		// Code for generating values in ]0;1[: 
-		//		double next = (double) (z_new) / ((double) (m - 1));
-		
+		// Code for generating values in [0;1]: 
+		double next = (double) (z_new) / ((double) (m - 1));
+
 		counter.count(next);
-		
+
 		//cache
 		if (samplesCount < randomNumbers.length)
 			randomNumbers[samplesCount++] = next;
-		
+
 		return next;
 	}
-	
+
 	public void resetSamplesCache(int size) {
-		 randomNumbers = new double[size];
-		 samplesCount = 0;
+		randomNumbers = new double[size];
+		samplesCount = 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Rng<a=%d, c=%d, z_0=%d, m=%d>", a, c, z_0, m);
@@ -79,28 +77,28 @@ public class Rng {
 		if (lag > autoCorrelationMaxLag) {
 			return 0;
 		}
-			
+
 		double mu_t = counter.getMean();
 		double stddev_t = Math.sqrt(counter.getVariance());
-		
+
 		for (int i = 0; i < lag; i++) {
 			double next = nextDouble();
 			counter.count(next);
-			
+
 			if (samplesCount < randomNumbers.length)
 				randomNumbers[samplesCount++] = next;
 		}
-		
+
 		double mu_s = counter.getMean(); //s = t + lag
 		double stddev_s = counter.getStdDev();
-		
+
 		DiscreteCounter covCounter = new DiscreteCounter("covariation");
-		
-		for (int i = 0; i < randomNumbers.length-lag; i++) {
+
+		for (int t = 0; t < randomNumbers.length - lag; t++) {
 			//for calculating E[(X_t * X_s]
-			covCounter.count(randomNumbers[i] * randomNumbers[i+lag]);
+			covCounter.count(randomNumbers[t] * randomNumbers[t + lag]); //t + lag = s
 		}
-		
+
 		//return cov(X_t, X_s) / (stddev_t * stddev_s)
 		return (covCounter.getMean() - mu_s * mu_t) / (stddev_t * stddev_s);
 	}
