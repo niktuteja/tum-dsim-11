@@ -4,12 +4,11 @@ import RNG.Rng;
 
 /**
  * Discrete Event Simulation SS2011
- *
- * Constant class
- * Generates Erlang-k distributed samples
- *
+ * 
+ * Constant class Generates Erlang-k distributed samples
+ * 
  * @author Vincenz Dšlle
- * @version 1.0.0 
+ * @version 1.0.0
  * @since 2011-06-20
  */
 
@@ -18,12 +17,12 @@ public class Erlang extends RandVar {
 	 * Attribute: mean = k / lambda
 	 */
 	public double lambda;
-	
+
 	public int k;
-	
+
 	/**
-	 * Constructor of the Erlang-k class lambda is initialized with the value
-	 * 1 => mean = 1
+	 * Constructor of the Erlang-k class lambda is initialized with the value 1
+	 * => mean = 1
 	 */
 	public Erlang(int k) {
 		this.k = k;
@@ -56,24 +55,26 @@ public class Erlang extends RandVar {
 	/**
 	 * Returns the name of the distribution
 	 */
+	@Override
 	public String type() {
 		return "Erlang-k distribution";
 	}
 
 	/**
-	 * Function generates a double value according to the set attributes
-	 * by convolution using Exp.
+	 * Function generates a double value according to the set attributes by
+	 * convolution using Exp.
 	 * 
 	 * @return the sample
 	 */
+	@Override
 	public double getRV() {
-		Exponential exp = new Exponential(lambda, rng);
+		Exponential exp = new Exponential(lambda * k, rng);
 		double rv = 0;
-		
+
 		for (int i = 0; i < k; i++) {
 			rv += exp.getRV();
 		}
-		
+
 		return rv;
 	}
 
@@ -82,6 +83,7 @@ public class Erlang extends RandVar {
 	 * 
 	 * @return the mean
 	 */
+	@Override
 	public double getMean() {
 		return (k / lambda);
 	}
@@ -91,6 +93,7 @@ public class Erlang extends RandVar {
 	 * 
 	 * @return the variance
 	 */
+	@Override
 	public double getVariance() {
 		return (k / (lambda * lambda));
 	}
@@ -101,6 +104,7 @@ public class Erlang extends RandVar {
 	 * @param the
 	 *            new mean value
 	 */
+	@Override
 	public void setMean(double m) {
 		if (m > 0) {
 			lambda = (1 / m);
@@ -112,6 +116,7 @@ public class Erlang extends RandVar {
 	/**
 	 * Interface
 	 */
+	@Override
 	public void setMeanAndStdDeviation(double m, double s) {
 		System.out.println("not applicable");
 	}
@@ -119,6 +124,7 @@ public class Erlang extends RandVar {
 	/**
 	 * Interface
 	 */
+	@Override
 	public void setStdDeviation(double s) {
 		System.out.println("not applicable");
 	}
@@ -127,6 +133,7 @@ public class Erlang extends RandVar {
 	 * Function prints the statistical characteristics of the random variable to
 	 * the console
 	 */
+	@Override
 	public void report() {
 		System.out.println(type());
 		System.out.println("parameters:");

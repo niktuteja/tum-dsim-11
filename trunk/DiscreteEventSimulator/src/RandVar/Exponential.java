@@ -63,20 +63,6 @@ public class Exponential extends RandVar {
 	@Override
 	public double getRV() {
 		double nextDouble = rng.nextDouble();
-
-		//
-		// Prevent log(0) from being called.
-		//
-		// Note: this might skew the results. another way to fix this
-		// would be to add a small delta (e.g. 0.0000000001) each time we hit zero.
-		//
-		// If the Rng implementation is bugged this could also turn into an
-		// endless loop. :-)
-		//
-		while (nextDouble == 0.0) {
-			nextDouble = rng.nextDouble();
-		}
-
 		double rv = (-(Math.log(nextDouble) * (1 / lambda)));
 		return rv;
 	}
