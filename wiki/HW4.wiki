@@ -1,3 +1,43 @@
+# Exercise 1
+
+{{{
+Exercise 1d: autocorrelations
+Config A
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=1) = -0.000345
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=2) = -0.023245
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=3) = 0.013618
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=4) = 0.009607
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=5) = 0.033895
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=6) = 0.048647
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=7) = -0.009872
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=8) = -0.013410
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=9) = 0.027197
+	Rng<a=16807, c=0, z_0=1, m=2147483647> autoCorrelation(lag=10) = -0.044695
+Config B:
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=1) = 0.065444
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=2) = -0.026106
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=3) = -0.200174
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=4) = -0.010777
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=5) = -0.148246
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=6) = -0.043911
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=7) = -0.144806
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=8) = 0.039050
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=9) = 0.065441
+	Rng<a=65539, c=1, z_0=0, m=201> autoCorrelation(lag=10) = 0.000437
+Config C:
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=1) = 0.219221
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=2) = 0.089798
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=3) = 0.047284
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=4) = -0.101878
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=5) = 0.004081
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=6) = -0.033557
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=7) = 0.095628
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=8) = 0.012555
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=9) = -0.005459
+	Rng<a=65539, c=19, z_0=0, m=201> autoCorrelation(lag=10) = -0.040798
+
+}}}
+
 # Exercise 2
 
 || System || WQL mean || WQL min || WQL max ||
