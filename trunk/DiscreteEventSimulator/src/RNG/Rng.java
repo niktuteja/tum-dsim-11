@@ -36,8 +36,6 @@ public class Rng {
 	@Deprecated
 	public Rng() {
 		this(16807, 0, 1, 2147483647); // m = 2^31 - 1
-		
-		this.counter = new DiscreteCounter("LCG random numbers");
 	}
 
 	/** @deprecated (VD) */
@@ -45,8 +43,6 @@ public class Rng {
 	public Rng(long seed) {
 		this();
 		setSeed(seed);
-		
-		this.counter = new DiscreteCounter("LCG random numbers");
 	}
 
 	public double nextDouble() {
@@ -61,14 +57,16 @@ public class Rng {
 		
 		counter.count(next);
 		
+		//cache
 		if (samplesCount < randomNumbers.length)
 			randomNumbers[samplesCount++] = next;
 		
 		return next;
 	}
 	
-	public void resetRandomNumbersArray(int size) {
+	public void resetSamplesCache(int size) {
 		 randomNumbers = new double[size];
+		 samplesCount = 0;
 	}
 	
 	@Override
@@ -76,6 +74,7 @@ public class Rng {
 		return String.format("Rng<a=%d, c=%d, z_0=%d, m=%d>", a, c, z_0, m);
 	}
 
+	//basis: wikipedia
 	public double autoCorrelation(int lag) {
 		if (lag > autoCorrelationMaxLag) {
 			return 0;
@@ -92,18 +91,18 @@ public class Rng {
 				randomNumbers[samplesCount++] = next;
 		}
 		
-		double mu_s = counter.getMean();
-		double stddev_s = Math.sqrt(counter.getVariance());
+		double mu_s = counter.getMean(); //s = t + lag
+		double stddev_s = counter.getStdDev();
 		
-		DiscreteCounter rCounter = new DiscreteCounter("autocorrelation R");
+		DiscreteCounter covCounter = new DiscreteCounter("covariation");
 		
 		for (int i = 0; i < randomNumbers.length-lag; i++) {
-			//calculate E[(X_t, mu_t)(X_s, mu_s)]
-			rCounter.count((randomNumbers[i] - mu_t) * (randomNumbers[i+lag] - mu_s));
+			//for calculating E[(X_t * X_s]
+			covCounter.count(randomNumbers[i] * randomNumbers[i+lag]);
 		}
 		
-		
-		return rCounter.getMean() / (stddev_t * stddev_s);
+		//return cov(X_t, X_s) / (stddev_t * stddev_s)
+		return (covCounter.getMean() - mu_s * mu_t) / (stddev_t * stddev_s);
 	}
 
 	public void setSeed(long seed) {
