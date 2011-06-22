@@ -95,11 +95,12 @@ public class DES04 {
 
 	private static void calculateAutoCorrelations(Rng rng, int maxLag, int sampleSize) {
 		for (int lag = 0; lag < maxLag; lag++) {
-			rng.resetRandomNumbersArray(sampleSize + lag);
+			rng.resetSamplesCache(sampleSize + lag);
 			
 			for (int i = 0; i < sampleSize; i++) {
 				rng.nextDouble();
 			}
+			
 			System.out.printf("\t%s autoCorrelation(lag=%d) = %f\n", rng, lag, rng.autoCorrelation(lag));
 		}
 	}
