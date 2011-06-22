@@ -36,8 +36,8 @@ public class DES04 {
 		//			exercise1d(); System.exit(0);
 		//		exercise2a();
 		//	exercise2b();
-		exercise2c();
-		//		exercise3a();
+		//		exercise2c();
+		exercise3b();
 
 		//Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
@@ -84,7 +84,7 @@ public class DES04 {
 		// reporting
 		System.out.println("E[inter-arrival time] = " + SimState.s.iat.getMean() / SimState.s.real_time_to_sim_time);
 		System.out.println("E[service completion time] = " + SimState.s.sct.getMean() / SimState.s.real_time_to_sim_time);
-		System.out.println("simulation duration = " + SimState.s.simulationDuration / SimState.s.real_time_to_sim_time);
+		System.out.println("simulation duration = " + SimState.s.now / SimState.s.real_time_to_sim_time);
 		System.out.println("minimum queue length = " + SimState.s.min);
 		System.out.println("maximum queue length = " + SimState.s.max);
 		System.out.println("___________________________________________________________________");
@@ -162,7 +162,7 @@ public class DES04 {
 		long endTransient = 100 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		SimState.s = new SimState(iat, sct, 1e-4, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
+		SimState.s = new SimState(iat, sct, 1e-6, endTransient, maxQueueSize, preferablePlaces, real_time_to_sim_time);
 		//-------------------------------------------------------------------
 	}
 
