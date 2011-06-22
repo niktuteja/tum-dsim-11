@@ -46,7 +46,9 @@ Config C:
 || C         || 15610.316  ||0 || 31221 ||
 
 *Answer:*
-Even though system A and B use the same configuration there is a relatively big difference in the maximum waiting queue length. This shows how much influence the RNG implementation has on the simulation results.
+Even though system A and B use the same configuration there is a relatively big difference in the maximum waiting queue length. This shows how much influence the RNG implementation has on the simulation results. 
+
+(The Erlang-k distribution for System C was probably not implemented correctly ;))
 
 *System A*
 {{{
