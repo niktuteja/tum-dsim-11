@@ -1,5 +1,4 @@
 package Analysis;
-
 import Simulator.SimState;
 
 /**

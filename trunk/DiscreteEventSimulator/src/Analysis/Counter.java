@@ -1,4 +1,6 @@
 package Analysis;
+import java.io.*;
+import java.util.Scanner;
 
 /**
  * Counter class
@@ -31,7 +33,11 @@ abstract class Counter
 	 */
 	String observedVariable = "";
 	/**
-	 * Constructor uses the reset() methode to initialize
+	 * Attribute: Object for data output to a text file 
+	 */
+	PrintWriter file;
+	/**
+	 * Constructor uses the reset() method to initialize
 	 */
 	public Counter ()
 	{
@@ -48,11 +54,11 @@ abstract class Counter
 	}
 	
 	/**
-	 * Abstract methode getMean () used to define the interface of all counters
+	 * Abstract method getMean () used to define the interface of all counters
 	 */
 	public abstract double getMean ();
 	/**
-	 * Abstract methode getVariance () used to define the interface of all counters
+	 * Abstract method getVariance () used to define the interface of all counters
 	 */
 	public abstract double getVariance ();
 	/**
@@ -103,6 +109,7 @@ abstract class Counter
 		sumPowerTwo = 0;
 		min = Double.MAX_VALUE;
 		max = Double.MIN_VALUE;
+		file = null;
 	}
 	/**
 	 * Function only sets the min and the max counted value.
@@ -114,6 +121,54 @@ abstract class Counter
 	{
 		min = (x < min ? x : min);
 		max = (x > max ? x : max);
+		if (file != null)
+			write(x);
+	}
+	/**
+	 * Writes the value to a text file
+	 *@param x the value to write
+	 */
+	public void write (double x)
+	{
+		file.print(x + " ");
+	}
+	/**
+	 * Sets up the PrintWriter for file output or removes it
+	 */
+	public boolean enableWrite(boolean enabled)
+	{
+		if (enabled) {
+			String filename = this.getClass().getSimpleName() + "_" + observedVariable + ".txt";
+			try {
+				file = new PrintWriter(new BufferedWriter(new FileWriter(new File(filename))));
+			} catch (IOException ex) {
+				file = null;
+				return false;
+			}
+			
+			return true;
+		} else {
+			if (file != null)
+				file.close();
+			file = null;
+			return true;
+		}
+	}
+	/**
+	 * reads a file and counts the values
+	 */
+	public boolean readFile(String filename)
+	{
+		try {
+			Scanner s = new Scanner(new BufferedReader(new FileReader(filename)));
+			
+			while (s.hasNext())
+				count(Double.parseDouble(s.next()));
+			
+		} catch (FileNotFoundException ex) {
+			return false;
+		}
+		return true;
 	}
 	/**
 	 * Function prints all statistic values
