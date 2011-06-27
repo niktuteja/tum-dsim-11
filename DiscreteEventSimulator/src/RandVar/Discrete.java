@@ -3,7 +3,7 @@ package RandVar;
 /**
  * Discrete Event Simulation WS2010/2011
  *
- * Exponential class
+ * Discrete class
  * Generates exponential distributed samples
  *
  * @author Alexander Klein
@@ -11,30 +11,21 @@ package RandVar;
  * @since 2010-11-08
  */
 
-public class  Exponential extends RandVar
+public class  Discrete extends RandVar
 {
 	/**
 	 * Attribute: mean = 1 / lambda
 	 */
-	public double lambda;
+	public double mean;
 
-	/**
-	 * Constructor of the Exponential class
-	 * lambda is initialized with the value 1
-	 * => mean = 1
-	 */
-	public Exponential ()
+	public Discrete ()
 	{
-		lambda = 1;
+		mean = 1;
 	}
 
-	/**
-	 * Constructor of the Exponential class
-	 *@param la the lambda value
-	 */
-	public Exponential (double la)
+	public Discrete (double mean)
 	{
-		lambda = la;
+		this.mean = mean;
 	}
 
 	/**
@@ -42,7 +33,7 @@ public class  Exponential extends RandVar
 	 */
 	public String type()
 	{
-		return "exponential distribution";
+		return "discrete distribution";
 	}
 
 	/**
@@ -51,7 +42,7 @@ public class  Exponential extends RandVar
 	 */
 	public double getRV () 
 	{
-        return (- (Math.log (rng.nextDouble()+Double.MIN_VALUE) * ( 1 / lambda) ));
+        return mean;
     }
 
 	/**
@@ -60,7 +51,7 @@ public class  Exponential extends RandVar
 	 */
 	public double getMean() 
 	{ 
-		return (1 / lambda); 
+		return mean; 
 	}
 
 	/**
@@ -69,23 +60,16 @@ public class  Exponential extends RandVar
 	 */
 	public double getVariance() 
 	{
-		return (1 / (lambda * lambda));
+		return 0;
 	}
 	
 	/**
 	 * Method sets the mean according to the given parameter
 	 *@param the new mean value
 	 */
-	public void setMean(double m)
+	public void setMean(double mean)
 	{
-        if (m > 0)
-		{
-            lambda = (1 / m);
-        }
-		else
-		{
-            System.out.println("mean > 0 required");
-		}
+        this.mean = mean;
     }
 
 	/**
@@ -110,7 +94,7 @@ public class  Exponential extends RandVar
 	{
 		System.out.println(type());
 		System.out.println("parameters:");
-		System.out.println("lambda = " + lambda);		
+		System.out.println("mean = " + mean);		
 		super.report ();
 	}
 }

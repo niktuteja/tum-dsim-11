@@ -1,7 +1,5 @@
 package Analysis;
 
-import Simulator.SimState;
-
 /**
  * CounterCollection class
  * Consists of Counters and Histograms
@@ -52,7 +50,8 @@ public class CounterCollection
 		
 		//Time dependent values
 		cc_su = new TDCounter           ("server utilization over time");
-		cc_qo = new TerminationTDCounter("queue occupancy over time");
+		cc_qo = new TDCounter           ("queue occupancy over time");
+		
 	}
 	/**
 	 * Function calls the reset method of all counters and histograms

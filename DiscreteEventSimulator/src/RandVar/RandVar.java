@@ -1,24 +1,11 @@
 package RandVar;
 
-/**
- * RandVar Class
- * 
- * Generates random numbers and provides the
- * basis class for other random variables
- *
- * @author Alexander Klein
- * @version 1.0.0 
- * @since 2010-11-24
- */
-
-import RNG.Rng;
-
 public abstract class RandVar {
 	/**
 	 * Attribute: java random number generator. Creates random numbers between 0
 	 * and 1 uniformly distributed
 	 */
-	public Rng rng;
+	public Rng rng = new Rng();
 
 	/**
 	 * Abstract method type() shall return the name of the distribution
@@ -29,6 +16,13 @@ public abstract class RandVar {
 	 * Abstract method getRV() returns uniform distributed samples
 	 */
 	public abstract double getRV();
+
+	/**
+	 * Method sets the seed of the rng
+	 */
+	public void setSeed(int seed) {
+		rng.z = seed;
+	}
 
 	/**
 	 * Abstract method returns the greatest long that is smaller than the
@@ -127,7 +121,7 @@ public abstract class RandVar {
 	 * 
 	 * @param m
 	 *            the value to set
-	 *@param s
+	 * @param s
 	 *            the value to set
 	 */
 	public abstract void setMeanAndStdDeviation(double m, double s);
@@ -138,7 +132,7 @@ public abstract class RandVar {
 	 * 
 	 * @param m
 	 *            the value to set
-	 *@param s
+	 * @param s
 	 *            the value to set
 	 */
 	public void setMeanAndCvar(double m, double c) {
@@ -156,21 +150,5 @@ public abstract class RandVar {
 		System.out.println("cvar: " + getCvar());
 		System.out.println("stdDev: " + getStdDeviation());
 		System.out.println("variance: " + getVariance());
-	}
-
-	public double getRVtime() {
-		double value = this.getRV();
-
-		//
-		// Prevent negative times
-		//
-		// If the Rng implementation is bugged this could also turn into an
-		// endless loop. :-)
-		//
-		while (value < 0 || Double.isInfinite(value)) {
-			value = getRV();
-		}
-
-		return value;
 	}
 }
