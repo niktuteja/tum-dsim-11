@@ -1,3 +1,4 @@
+import Analysis.ContinuousHistogram;
 import Analysis.CounterCollection;
 import Analysis.DiscreteHistogram;
 import Analysis.Histogram;
@@ -48,6 +49,13 @@ public class DES05 {
 		SimState.s.ec.insert(new CustomerArrival(0));
 		SimState.s.ec.insert(new SimulationTermination(SimState.s.simulationDuration));
 
+		// ----- Setup histograms -------
+		CounterCollection.cc.customerWaitingTimeHistogram = new DiscreteHistogram("customer waiting time", 0, 20, 100);
+
+		// The wql histogram should probably be a continous histogram because the cc_qo counter is
+		// also a time-based counter. (see CounterCollection.ss.cc_qo)
+		CounterCollection.cc.waitingQueueLengthHistogram = new ContinuousHistogram("waiting queue length", 0, 20, 100);
+
 		/**
 		 * Simulation is done here
 		 */
@@ -86,8 +94,11 @@ public class DES05 {
 		System.out.println("maximum queue length = " + SimState.s.max);
 		System.out.println("___________________________________________________________________");
 
-		CounterCollection.cc.report();
+		// ---- Print the histograms -------
+		CounterCollection.cc.waitingQueueLengthHistogram.report();
+		CounterCollection.cc.customerWaitingTimeHistogram.report();
 
+		CounterCollection.cc.report();
 	}
 
 	private static void exercise1d() {
