@@ -1,29 +1,30 @@
 package Analysis;
 
 /**
- * CounterCollection class
- * Consists of Counters and Histograms
+ * CounterCollection class Consists of Counters and Histograms
  * 
  * @author Alexander Klein
- * @version 1.0.0 
+ * @version 1.0.0
  * @since 2005-11-06
  */
-public class CounterCollection
-{
+public class CounterCollection {
 	/**
 	 * Refer the CounterCollection constructor for attribute abbreviations
 	 */
-	
-	public DiscreteCounter		dc_cwt;
-	public DiscreteCounter		dc_cst;
-	public DiscreteCounter		dc_ciat;
-	public DiscreteCounter		dc_bp;
-	public DiscreteCounter		dc_uc;
-	public DiscreteCounter		dc_sc;
 
-	public TDCounter	cc_su;
-	public TDCounter	cc_qo;
-	
+	public DiscreteCounter dc_cwt;
+	public DiscreteCounter dc_cst;
+	public DiscreteCounter dc_ciat;
+	public DiscreteCounter dc_bp;
+	public DiscreteCounter dc_uc;
+	public DiscreteCounter dc_sc;
+
+	public TDCounter cc_su;
+	public TDCounter cc_qo;
+
+	// --- Histograms
+	public Histogram waitingQueueLengthHistogram;
+	public Histogram customerWaitingTimeHistogram;
 
 	/**
 	 * Example of how to use the trace object
@@ -31,33 +32,33 @@ public class CounterCollection
 	//public Trace traceExample = new Trace ("example");
 
 	/**
-	 * Attribute: static CounterCollection c 
-	 * Events in the EventChain use this public static CounterCollection 
+	 * Attribute: static CounterCollection c Events in the EventChain use this
+	 * public static CounterCollection
 	 */
 	public static CounterCollection cc;
+
 	/**
 	 * Constructor initializes all counters and histograms
 	 */
-	public CounterCollection ()
-	{
+	public CounterCollection() {
 		//
-		dc_cwt = new DiscreteCounter  ("waiting time per customer");
-		dc_cst = new DiscreteCounter  ("service time per customer");
-		dc_ciat = new DiscreteCounter ("customer interarrival time");
-		dc_bp  = new DiscreteCounter  ("blocking probability");
-		dc_uc  = new DiscreteCounter  ("unsatisfied customer");
-		dc_sc  = new DiscreteCounter  ("satisfied customer");
-		
+		dc_cwt = new DiscreteCounter("waiting time per customer");
+		dc_cst = new DiscreteCounter("service time per customer");
+		dc_ciat = new DiscreteCounter("customer interarrival time");
+		dc_bp = new DiscreteCounter("blocking probability");
+		dc_uc = new DiscreteCounter("unsatisfied customer");
+		dc_sc = new DiscreteCounter("satisfied customer");
+
 		//Time dependent values
-		cc_su = new TDCounter           ("server utilization over time");
-		cc_qo = new TDCounter           ("queue occupancy over time");
-		
+		cc_su = new TDCounter("server utilization over time");
+		cc_qo = new TDCounter("queue occupancy over time");
+
 	}
+
 	/**
 	 * Function calls the reset method of all counters and histograms
 	 */
-	public void reset()
-	{
+	public void reset() {
 		dc_cwt.reset();
 		dc_cst.reset();
 		dc_bp.reset();
@@ -67,11 +68,11 @@ public class CounterCollection
 		cc_qo.reset();
 		cc_su.reset();
 	}
+
 	/**
 	 * Function calls the reset method of all counters and histograms
 	 */
-	public void report ()
-	{
+	public void report() {
 		dc_cwt.report();
 		dc_cst.report();
 		dc_ciat.report();
