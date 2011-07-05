@@ -10,9 +10,11 @@ public class DES06 {
 	 *            if no arguments are given, all subsections will run.
 	 */
 	public static void main(String[] args) {
-		exercise2a();
+		exercise1a();
 	}
 
+	
+	// (VD) FIXME?!
 	private static void exercise1a() {
 		// System A:-------------- M / M / 1 - Infty -----------------------
 		long real_time_to_sim_time = 100;
@@ -41,6 +43,10 @@ public class DES06 {
 		runSimulation();
 	}
 
+	private static void exercise1c() {
+		//TODO
+	}
+	
 	private static void exercise2a() {
 		// System A:-------------- M / M / 1 - Infty -----------------------
 		long real_time_to_sim_time = 100;
@@ -57,8 +63,8 @@ public class DES06 {
 		SimState.s.ec.insert(new BatchArrival(0, Math.round(na.getRV())));
 		runSimulation();
 	}
-
-	static void runSimulation() {
+	
+	private static void runSimulation() {
 		// Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
 
@@ -112,6 +118,7 @@ public class DES06 {
 		System.out.println("maximum queue length = " + SimState.s.max);
 		// Report includes histograms
 		CounterCollection.cc.report();
+		CounterCollection.cc.fileReport();
 		System.out
 				.println("___________________________________________________________________");
 
