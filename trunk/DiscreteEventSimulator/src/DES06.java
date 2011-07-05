@@ -29,17 +29,23 @@ public class  DES06
 	{
 		//System A:-------------- M / M / 1 - Infty -----------------------
 		long real_time_to_sim_time = 100;
+		long sctNormal = 8;
 		RandVar iat = new Exponential((double) 10 / real_time_to_sim_time);
 		iat.setSeed(1);
-		RandVar sct = new Exponential((double) 8 / real_time_to_sim_time);
+		RandVar sct = new Exponential((double) sctNormal / real_time_to_sim_time);
 		sct.setSeed(15);
 
-		long simulation_duration = (long) (Math.pow(10,3)*real_time_to_sim_time);
+		long simulation_duration = (long) (Math.pow(10,5)*real_time_to_sim_time);
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		long lazyCashierThreshold = 10;
-		double lazyCashierSpeedUp = 0.1;
-		SimState.s = new SimState ( iat, sct, simulation_duration, maxQueueSize, preferablePlaces, lazyCashierThreshold, lazyCashierSpeedUp, real_time_to_sim_time);
+		long lazyCashierThreshold = 50;
+		double lazyCashierSpeedUp = 0.25;
+		
+		RandVar sctSpeedUp = new Exponential((double) (sctNormal+sctNormal*lazyCashierSpeedUp) / real_time_to_sim_time);
+		sct.setSeed(15);
+		
+		SimState.s = new SimState ( iat, sct, simulation_duration, maxQueueSize, preferablePlaces, lazyCashierThreshold, lazyCashierSpeedUp, sctSpeedUp, real_time_to_sim_time);
+		SimState.s.ec.insert (new CustomerArrival (0));
 		runSimulation();
 	}
 	
@@ -52,9 +58,11 @@ public class  DES06
 		RandVar sct = new Exponential((double) 10 / real_time_to_sim_time);
 		sct.setSeed(15);
 		
-		long simulation_duration = (long) (Math.pow(10,4)*real_time_to_sim_time);
-		RandVar na = new Uniform(1,10);
+		long simulation_duration = (long) (Math.pow(10,5)*real_time_to_sim_time);
+//		RandVar na = new Uniform(1,10);
+		RandVar na = new Constant(2);
 		SimState.s = new SimState ( iat, sct, na, simulation_duration, real_time_to_sim_time);
+		SimState.s.ec.insert (new BatchArrival (0, 2));
 		runSimulation();
 	}
 
@@ -64,7 +72,6 @@ public class  DES06
 		CounterCollection.cc = new CounterCollection();
 
 		//Insert the first and the last event
-		SimState.s.ec.insert (new CustomerArrival (0));
 		SimState.s.ec.insert (new SimulationTermination(SimState.s.simulationDuration));
 		
 		/**
