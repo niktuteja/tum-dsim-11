@@ -41,12 +41,6 @@ public class CustomerArrival extends SimEvent
 		 */
 		long iat = Math.round(SimState.s.iat.getRV());
 
-		if (SimState.s.isBatchMode)
-		{
-			long na = Math.round(SimState.s.na.getRV());
-			SimState.s.ec.insert (new BatchArrival(SimState.s.now + iat, na));
-		}			
-		
 		if (SimState.s.serverBusy == false) 
 		{
 			if (!SimState.s.isBatchMode)
@@ -58,11 +52,6 @@ public class CustomerArrival extends SimEvent
 			
 			//Insert the ServiceCompletion event in the EventChain
 			long sct = Math.round(SimState.s.sct.getRV());
-			if (SimState.s.queue.size() > SimState.s.lazyCashierThreshold)
-			{
-				// should not happen, but well
-				sct -= sct*SimState.s.lazyCashierSpeedUp;
-			}
 			SimState.s.ec.insert ((SimEvent) new ServiceCompletion (SimState.s.now + sct));
 
 			SimState.s.serverBusy = true;

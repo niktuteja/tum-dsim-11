@@ -83,6 +83,7 @@ public class SimState
 	
 	public boolean isBatchMode = false;
 	public RandVar na = null;
+	public RandVar sctSpeedUp;
 	
 	public static SimState s;
 	/**
@@ -211,7 +212,7 @@ public class SimState
 	 *@param real_time_to_sim_time used to modify the statistics
 	 *dependent customer arrivals
 	 */
-	public SimState (RandVar iat, RandVar sct, long sd, long maxQueueSize, long preferablePlaces, long lazyCashierThreshold, double lazyCashierSpeedUp, long real_time_to_sim_time)
+	public SimState (RandVar iat, RandVar sct, long sd, long maxQueueSize, long preferablePlaces, long lazyCashierThreshold, double lazyCashierSpeedUp, RandVar sctSpeedUp, long real_time_to_sim_time)
 	{
 		ec = new EventChain ();
 		queue = new Vector<Customer> (10);
@@ -229,6 +230,7 @@ public class SimState
 		this.real_time_to_sim_time = real_time_to_sim_time;
 		this.lazyCashierSpeedUp = lazyCashierSpeedUp;
 		this.lazyCashierThreshold = lazyCashierThreshold;
+		this.sctSpeedUp = sctSpeedUp;
 	}
 	
 	
