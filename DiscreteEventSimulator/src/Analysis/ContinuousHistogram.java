@@ -7,7 +7,7 @@ public class ContinuousHistogram extends Histogram {
 	/**
 	 * Attribute: Simulation time of the last sample
 	 */
-	public long lastSampleTime = 0;
+	public long lastSampleTime = -1;
 	/**
 	 * Attribute: Simulation time of the first sample
 	 */
@@ -25,19 +25,23 @@ public class ContinuousHistogram extends Histogram {
 	}
 
 	@Override
-	public void count(double x) { // TODO: check
-		double tmp = SimState.s.now - lastSampleTime;
+	public void count(double x) {
+		double deltaT = SimState.s.now - lastSampleTime;
 		// If this statement is true there must be an error in the simulation
 		// => abort
-		if (tmp < 0) {
+		if (deltaT < 0) {
 			System.out.println("last = " + lastSampleTime + " now = "
 					+ SimState.s.now);
 			System.exit(-1);
 		}
 
-		int binNumber = getBinNumber(lastSampleSize * tmp);
-		bins.set(binNumber, bins.get(binNumber).doubleValue() + 1);
-
+		// ignore if first sample
+		if (lastSampleTime >= 0)
+		{
+			int binNumber = getBinNumber(lastSampleSize * deltaT);
+			bins.set(binNumber, bins.get(binNumber).doubleValue() + 1);
+		}
+		
 		lastSampleTime = SimState.s.now;
 		lastSampleSize = x;
 	}
@@ -45,7 +49,7 @@ public class ContinuousHistogram extends Histogram {
 	@Override
 	public double divisor() {
 		long tmp = lastSampleTime - firstSampleTime;
-		return (tmp > 0 ? (double) tmp : 1); // TODO: check
+		return (tmp > 0 ? (double) tmp : 1);
 	}
 
 }

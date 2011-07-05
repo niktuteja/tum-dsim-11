@@ -35,7 +35,7 @@ public class ServiceCompletion extends SimEvent {
 			// ---- Update the histograms ------
 			double customerWaitingTime = (double) (c.serviceInitTime - c.arrivalTime) / SimState.s.real_time_to_sim_time;
 
-			CounterCollection.cc.waitingQueueLengthHistogram.count(customerWaitingTime);
+			CounterCollection.cc.customerWaitingTimeHistogram.count(customerWaitingTime);
 
 			CounterCollection.cc.dc_cwt.count(customerWaitingTime);
 			CounterCollection.cc.dc_cst.count((c.serviceCompletionTime - c.serviceInitTime) / SimState.s.real_time_to_sim_time);

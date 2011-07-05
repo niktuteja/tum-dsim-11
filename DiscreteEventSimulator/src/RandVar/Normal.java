@@ -5,7 +5,7 @@ package RandVar;
  * 
  * Normal class Generates normal distributed samples
  * 
- * @author Dšlle
+ * @author Dï¿½lle
  * @version 1.0.0
  * @since 2010-11-08
  */
@@ -66,7 +66,7 @@ public class Normal extends RandVar {
 		x2 = y * v2;
 		
 		//scale
-		return getMean() + getStdDeviation() * x1; //TODO: what about x2?
+		return getMean() + getStdDeviation() * x1; //TODO: @Alex: what about x2?
 	}
 
 	/**

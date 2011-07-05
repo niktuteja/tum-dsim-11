@@ -40,7 +40,7 @@ public abstract class Histogram {
 	 */
 	public String observedVariable;
 	
-	public int numObservedVariables = 0;
+	public int numSamples = 0;
 	
 	/**
 	 * Attribute: String representing the type of the histogram
@@ -80,7 +80,7 @@ public abstract class Histogram {
 		for (int i = 0; i < numIntervals; i++) {
 			bins.set(i, new Double(0));
 		}
-		numObservedVariables = 0;
+		numSamples = 0;
 		
 		file = null;
 	}
