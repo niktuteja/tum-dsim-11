@@ -21,7 +21,7 @@ public class  DES06
 	 */
 	public static void main(String[] args) 
 	{
-			exercise1a();
+			exercise2a();
 	}
 	
 
@@ -40,6 +40,21 @@ public class  DES06
 		long lazyCashierThreshold = 10;
 		double lazyCashierSpeedUp = 0.1;
 		SimState.s = new SimState ( iat, sct, simulation_duration, maxQueueSize, preferablePlaces, lazyCashierThreshold, lazyCashierSpeedUp, real_time_to_sim_time);
+		runSimulation();
+	}
+	
+	private static void exercise2a() 
+	{
+		//System A:-------------- M / M / 1 - Infty -----------------------
+		long real_time_to_sim_time = 100;
+		RandVar iat = new Exponential((double) 9 / real_time_to_sim_time);
+		iat.setSeed(1);
+		RandVar sct = new Exponential((double) 10 / real_time_to_sim_time);
+		sct.setSeed(15);
+		
+		long simulation_duration = (long) (Math.pow(10,4)*real_time_to_sim_time);
+		RandVar na = new Uniform(1,10);
+		SimState.s = new SimState ( iat, sct, na, simulation_duration, real_time_to_sim_time);
 		runSimulation();
 	}
 

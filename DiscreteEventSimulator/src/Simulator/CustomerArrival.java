@@ -40,11 +40,21 @@ public class CustomerArrival extends SimEvent
 		 * If server is not busy insert the CustomerArrival in the server and set him to busy state
 		 */
 		long iat = Math.round(SimState.s.iat.getRV());
+
+		if (SimState.s.isBatchMode)
+		{
+			long na = Math.round(SimState.s.na.getRV());
+			SimState.s.ec.insert (new BatchArrival(SimState.s.now + iat, na));
+		}			
 		
 		if (SimState.s.serverBusy == false) 
 		{
-			//Insert the next CustomerArrival in the EventChain
-			SimState.s.ec.insert ((SimEvent) new CustomerArrival (SimState.s.now + iat));
+			if (!SimState.s.isBatchMode)
+			{
+				//Insert the next CustomerArrival in the EventChain
+				SimState.s.ec.insert ((SimEvent) new CustomerArrival (SimState.s.now + iat));
+				CounterCollection.cc.dc_ciat.count((double) iat / SimState.s.real_time_to_sim_time);
+			}
 			
 			//Insert the ServiceCompletion event in the EventChain
 			long sct = Math.round(SimState.s.sct.getRV());
@@ -61,7 +71,6 @@ public class CustomerArrival extends SimEvent
 			
 			SimState.s.customerInServer = c;
 			CounterCollection.cc.dc_bp.count(0);
-			CounterCollection.cc.dc_ciat.count((double) iat / SimState.s.real_time_to_sim_time);
 		}
 		/**
 		 * If server is busy try to insert the CustomerArrival in the queue
@@ -71,27 +80,35 @@ public class CustomerArrival extends SimEvent
 			if (SimState.s.queue.size() < SimState.s.maxQueueSize)
 			{
 				//Check waiting queue size in order to determine the arrival rate
-				//which depends on the current queue size
-				if ((SimState.s.preferablePlaces == -1) || (SimState.s.queue.size() < SimState.s.preferablePlaces))
-				{
-					//Preferable (dry) places are still available => high arrival rate
-					SimState.s.ec.insert ((SimEvent) new CustomerArrival (SimState.s.now + iat));
-					CounterCollection.cc.dc_ciat.count((double) iat / SimState.s.real_time_to_sim_time);
+				// which depends on the current queue size
+				if (!SimState.s.isBatchMode) {
+					if ((SimState.s.preferablePlaces == -1)
+							|| (SimState.s.queue.size() < SimState.s.preferablePlaces)) {
+						// Preferable (dry) places are still available => high
+						// arrival rate
+						SimState.s.ec.insert((SimEvent) new CustomerArrival(
+								SimState.s.now + iat));
+						CounterCollection.cc.dc_ciat.count((double) iat
+								/ SimState.s.real_time_to_sim_time);
+					} else {
+						// No preferable places available => decrease arrival
+						// rate by 50%
+						SimState.s.ec.insert((SimEvent) new CustomerArrival(
+								SimState.s.now + 2 * iat));
+						CounterCollection.cc.dc_ciat.count((double) 2 * iat
+								/ SimState.s.real_time_to_sim_time);
+					}
 				}
-				else
-				{
-					//No preferable places available => decrease arrival rate by 50%
-					SimState.s.ec.insert ((SimEvent) new CustomerArrival (SimState.s.now + 2*iat));
-					CounterCollection.cc.dc_ciat.count((double) 2*iat/ SimState.s.real_time_to_sim_time);
-				}
-
 				SimState.s.queue.add(c);
 				CounterCollection.cc.dc_bp.count(0);
 			}
 			else
 			{
-				SimState.s.ec.insert ((SimEvent) new CustomerArrival (SimState.s.now + iat));
-				CounterCollection.cc.dc_ciat.count((double) iat / SimState.s.real_time_to_sim_time);
+				if (!SimState.s.isBatchMode)
+				{
+					SimState.s.ec.insert ((SimEvent) new CustomerArrival (SimState.s.now + iat));
+					CounterCollection.cc.dc_ciat.count((double) iat / SimState.s.real_time_to_sim_time);
+				}
 				CounterCollection.cc.dc_bp.count(1);
 			}
 		}
