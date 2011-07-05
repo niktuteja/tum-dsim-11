@@ -1,44 +1,42 @@
 package RandVar;
 
-import java.util.Random;
-
 /**
- * Discrete Event Simulation WS2010/2011
+ * Discrete Event Simulation SS2011
  *
- * Normal class
- * Generates exponential distributed samples
+ * NormalAcc class
+ * Generates normal distributed samples
  *
  * @author Alexander Klein
  * @version 1.0.0 
- * @since 2010-11-21
+ * @since 2011-06-21
  */
 
-public class Normal extends RandVar
+public class NormalAcc extends RandVar
 {
 	public double mu;
 	public double sigma;
 	
-	public Random rng;
+	public Rng rng;
 		
 	/**
 	 * Constructor of the Normal class without parameters
 	 * initializes with mu = 0 and sigma = 1 representing
 	 * the standard normal distribution
 	 */
-	public Normal ()
+	public NormalAcc ()
 	{
 		setMeanAndStdDeviation (0, 1);
-		rng = new Random();
+		rng = new Rng();
 	}
 	/**
 	 * Constructor of the Normal class
 	 *@param mean 
 	 *@param stdDev
 	 */
-	public Normal (double mean, double _sigma)
+	public NormalAcc (double mean, double _sigma)
 	{
 		setMeanAndStdDeviation (mean, _sigma);
-		rng = new Random();
+		rng = new Rng();
 	}
 	
 	/**
@@ -55,10 +53,35 @@ public class Normal extends RandVar
 	 */
 	public double getRV ()
 	{
-		
-		return sigma * rng.nextGaussian() + mu;
-	}
+		double v1, v2,w;
+		while(true)
+		{
+			v1 = 2*rng.nextDouble()-1;
+			v2 = 2*rng.nextDouble()-1;
+			w = v1*v1 + v2*v2;
+			if (w <= 1)
+			{
+				double y = Math.pow(-2*Math.log(w)/w,0.5);
+				
+        		return sigma * v1*y + mu;
+				//This method generates two samples according to the normal distribution.
+				//Here, we discard the second number. However, the number could be stored
+				//and used when the function is called for the next time.
+				//return sigma * v2*y + mu;
+			}
+		}
+	
+ 	}
 
+	
+	 /* returns the probability of a given x under the Normal distribution */
+	private double norm_func(double x) 
+	{
+		return 1/Math.sqrt(2*Math.PI*Math.pow(sigma,2))*Math.pow(Math.E, -1*Math.pow(x-mu,2) /(2*Math.pow(sigma,2)));
+	}
+	
+	
+	
 	/**
 	 * Method return the mean of the distribution as double value
 	 *@return the mean
