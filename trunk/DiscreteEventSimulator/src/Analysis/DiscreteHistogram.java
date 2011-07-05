@@ -12,12 +12,12 @@ public class DiscreteHistogram extends Histogram {
 	public void count(double x) {
 		int binNumber = getBinNumber(x);
 		bins.set(binNumber, bins.get(binNumber).doubleValue() + 1);
-		numObservedVariables++;
+		numSamples++;
 	}
 
 	@Override
 	public double divisor() {
-		return numObservedVariables;
+		return numSamples;
 	}
 
 }

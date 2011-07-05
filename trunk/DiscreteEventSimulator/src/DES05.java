@@ -16,7 +16,7 @@ import Simulator.SimulationTermination;
  * 
  * DES05 class Main class performing the simulation.
  * 
- * @author Bader, Dšlle, Pšhlmann
+ * @author Bader, Dï¿½lle, Pï¿½hlmann
  * @version 1.0.0
  * @since 2011-06-21
  */
@@ -33,14 +33,15 @@ public class DES05 {
 	 */
 	public static void main(String[] args) {
 		//Ex 1
-		//		testExercise1a();
-		//		
-		//		exercise1d();
-		//		exercise1e();
-
+//				testExercise1a();
+				
+				//		
+//				exercise1d();
+//				exercise1e();
+				
 		// Ex 2
-		exercise2(STRATEGY_EDF);
-		//		exercise2(STRATEGY_FIFO);
+//		exercise2(STRATEGY_EDF);
+				exercise2(STRATEGY_FIFO);
 
 		//Initialize CounterCollection
 		CounterCollection.cc = new CounterCollection();
@@ -105,7 +106,7 @@ public class DES05 {
 		RandVar randVar = new Normal(10, 2);
 		Histogram hist = new DiscreteHistogram("normal distributed randVar", 0, 20, 100);
 
-		for (int i = 0; i < 10e7; i++) {
+		for (int i = 0; i < 1e7; i++) {
 			hist.count(randVar.getRV());
 		}
 
@@ -115,9 +116,9 @@ public class DES05 {
 
 	private static void exercise1e() {
 		RandVar randVar = new Geometric(0.1);
-		Histogram hist = new DiscreteHistogram("normal distributed randVar", 0, 20, 20);
+		Histogram hist = new DiscreteHistogram("geometric distributed randVar", 0, 20, 20);
 
-		for (int i = 0; i < 10e7; i++) {
+		for (int i = 0; i < 1e7; i++) {
 			hist.count(randVar.getRV());
 		}
 
@@ -126,8 +127,8 @@ public class DES05 {
 
 	private static void testExercise1a() {
 		Histogram hist = new DiscreteHistogram("testVar", 0, 10, 10);
-		hist.count(1.5);
-		hist.count(1.9);
+		hist.count(1.4);
+		hist.count(1.6);
 		hist.count(2.1);
 		hist.count(15);
 
@@ -144,7 +145,7 @@ public class DES05 {
 		RandVar cet = new Exponential((double) 200 * real_time_to_sim_time); // 200s
 		cet.setSeed(300);
 
-		long simulation_duration = 1000000 * real_time_to_sim_time;
+		long simulation_duration = (long)1e7 * real_time_to_sim_time;
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
 		int queueingStrategy = strategy; // 0 == FIFO, 1 == EDF
