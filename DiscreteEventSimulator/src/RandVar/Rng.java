@@ -7,7 +7,7 @@ public class Rng {
 	protected long a, c, z, m;
 	
 	public Rng() {
-		setParameters(1, 16807, 0, 1 << 31 - 1);
+		setParameters(1, 16807, 0, (1 << 31) - 1);
 	}
 	
 	public Rng(long seed, long _a, long _c, long _m) {

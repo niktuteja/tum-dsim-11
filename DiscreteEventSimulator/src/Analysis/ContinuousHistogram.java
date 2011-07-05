@@ -2,54 +2,82 @@ package Analysis;
 
 import Simulator.SimState;
 
-public class ContinuousHistogram extends Histogram {
-
+/**
+ * Class Continuous Histogram
+ *
+ * @author Alexander Klein
+ * @version 1.0.0 
+ * @since 2005-11-06
+ */
+public class ContinuousHistogram extends Histogram
+{
 	/**
 	 * Attribute: Simulation time of the last sample
 	 */
-	public long lastSampleTime = -1;
+	long lastSampleTime;
 	/**
 	 * Attribute: Simulation time of the first sample
 	 */
-	public long firstSampleTime = 0;
+	long firstSampleTime;
 	/**
 	 * Attribute: Number of samples
 	 */
-	public double lastSampleSize = 0;
-
-	public ContinuousHistogram(String oVariable, double lB, double uB,
-			int numIntervals) {
-		super(oVariable, lB, uB);
-
-		setupNumIntervals(numIntervals);
+	double lastSampleSize;
+	/**
+	 * Constructor that uses the given arguments to initialize the histogram 
+	 *@param oVariable name of the observed variable
+	 *@param lb lower bound of the histogram
+	 *@param uB upper bound of the histogram
+	 */
+	public ContinuousHistogram (String oVariable, double lB, double uB)
+	{
+		super (oVariable, lB, uB);
+		type = "continuous";
+		lastSampleTime = 0;
+		firstSampleTime = 0;
+		lastSampleSize = 0;
 	}
-
-	@Override
-	public void count(double x) {
-		double deltaT = SimState.s.now - lastSampleTime;
-		// If this statement is true there must be an error in the simulation
-		// => abort
-		if (deltaT < 0) {
-			System.out.println("last = " + lastSampleTime + " now = "
-					+ SimState.s.now);
-			System.exit(-1);
-		}
-
-		// ignore if first sample
-		if (lastSampleTime >= 0)
+	/**
+	 * Function sets all attributes to initial value
+	 */
+	public void reset()
+	{
+		super.reset();
+		lastSampleTime = 0;
+		firstSampleTime = 0;
+		lastSampleSize = 0;
+	}
+	/**
+	 *Function counts the given argument and sets the attributes according to
+	 *the SimState
+	 *@param x the argument to count
+	 */
+	public void count(double x)
+	{
+		if (numIntervals > 0)
 		{
-			int binNumber = getBinNumber(lastSampleSize * deltaT);
-			bins.set(binNumber, bins.get(binNumber).doubleValue() + 1);
+			double newValue = ((Double) bins.get(getBinNumber(lastSampleSize))).doubleValue() + ((SimState.s.now - lastSampleTime));
+			bins.set (getBinNumber(lastSampleSize), Double.valueOf(newValue));
+			lastSampleTime = SimState.s.now;
+			lastSampleSize = x;
 		}
-		
-		lastSampleTime = SimState.s.now;
-		lastSampleSize = x;
+		if (file != null)
+			write(x);
 	}
-
-	@Override
-	public double divisor() {
-		long tmp = lastSampleTime - firstSampleTime;
-		return (tmp > 0 ? (double) tmp : 1);
+	/**
+	 * Method calculates the divisor required for histogram calculations
+	 *@return calculate divisor
+	 */
+	public double divisor ()
+	{
+		return lastSampleTime - firstSampleTime;
 	}
-
+	/**
+	 * String representing the type of the histogram
+	 *@return type of the histogram
+	 */
+	public String type()
+	{
+		return "continuous";
+	}
 }
