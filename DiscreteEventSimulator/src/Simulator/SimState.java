@@ -78,6 +78,8 @@ public class SimState
 	
 	public final int FIFO = 0;
 	public final int EDF = 1;
+	public long lazyCashierThreshold = Long.MAX_VALUE;
+	public double lazyCashierSpeedUp = 0;
 	
 	public static SimState s;
 	/**
@@ -194,6 +196,36 @@ public class SimState
 		this.preferablePlaces = preferablePlaces;
 		queueingStrategy = FIFO;
 		this.real_time_to_sim_time = real_time_to_sim_time;
+	}
+	
+	/* SimState constructor
+	 * Using the given arguments to initialize the SimState
+	 *@param iat <-> RandVar interArrivalTime 
+	 *@param sct <-> RandVar serviceCompletionTime
+	 *@param sd <-> simulationDuration
+	 *@param maxQueueSize <-> maximum queue size
+	 *@param preferablePlaces Attribute is used in Exercise 3 to modify state
+	 *@param real_time_to_sim_time used to modify the statistics
+	 *dependent customer arrivals
+	 */
+	public SimState (RandVar iat, RandVar sct, long sd, long maxQueueSize, long preferablePlaces, long lazyCashierThreshold, double lazyCashierSpeedUp, long real_time_to_sim_time)
+	{
+		ec = new EventChain ();
+		queue = new Vector<Customer> (10);
+		stop = false;
+		this.iat = iat;
+		this.sct = sct;
+		this.cet = null;
+		simulationDuration = sd;
+		serverBusy = false;
+		min = 0;
+		max = 0;
+		this.maxQueueSize = maxQueueSize;
+		this.preferablePlaces = preferablePlaces;
+		queueingStrategy = FIFO;
+		this.real_time_to_sim_time = real_time_to_sim_time;
+		this.lazyCashierSpeedUp = lazyCashierSpeedUp;
+		this.lazyCashierThreshold = lazyCashierThreshold;
 	}
 	
 	

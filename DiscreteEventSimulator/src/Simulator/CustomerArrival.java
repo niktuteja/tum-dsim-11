@@ -47,7 +47,13 @@ public class CustomerArrival extends SimEvent
 			SimState.s.ec.insert ((SimEvent) new CustomerArrival (SimState.s.now + iat));
 			
 			//Insert the ServiceCompletion event in the EventChain
-			SimState.s.ec.insert ((SimEvent) new ServiceCompletion (SimState.s.now + Math.round(SimState.s.sct.getRV())));
+			long sct = Math.round(SimState.s.sct.getRV());
+			if (SimState.s.queue.size() > SimState.s.lazyCashierThreshold)
+			{
+				// should not happen, but well
+				sct -= sct*SimState.s.lazyCashierSpeedUp;
+			}
+			SimState.s.ec.insert ((SimEvent) new ServiceCompletion (SimState.s.now + sct));
 
 			SimState.s.serverBusy = true;
 
