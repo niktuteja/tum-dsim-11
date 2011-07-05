@@ -13,8 +13,6 @@ public class DES06 {
 		exercise1a();
 	}
 
-	
-	// (VD) FIXME?!
 	private static void exercise1a() {
 		// System A:-------------- M / M / 1 - Infty -----------------------
 		long real_time_to_sim_time = 100;
@@ -28,8 +26,9 @@ public class DES06 {
 		long simulation_duration = (long) (Math.pow(10, 5) * real_time_to_sim_time);
 		long maxQueueSize = Long.MAX_VALUE;
 		long preferablePlaces = -1;
-		long lazyCashierThreshold = 50;
-		double lazyCashierSpeedUp = 0.25;
+		
+		long lazyCashierThreshold = 10;
+		double lazyCashierSpeedUp = 0.50;
 
 		RandVar sctSpeedUp = new Exponential((double) (sctNormal + sctNormal
 				* lazyCashierSpeedUp)
@@ -41,10 +40,6 @@ public class DES06 {
 				sctSpeedUp, real_time_to_sim_time);
 		SimState.s.ec.insert(new CustomerArrival(0));
 		runSimulation();
-	}
-
-	private static void exercise1c() {
-		//TODO
 	}
 	
 	private static void exercise2a() {
