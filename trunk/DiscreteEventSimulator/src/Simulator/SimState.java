@@ -81,6 +81,9 @@ public class SimState
 	public long lazyCashierThreshold = Long.MAX_VALUE;
 	public double lazyCashierSpeedUp = 0;
 	
+	public boolean isBatchMode = false;
+	public RandVar na = null;
+	
 	public static SimState s;
 	/**
 	 * SimState constructor
@@ -226,6 +229,35 @@ public class SimState
 		this.real_time_to_sim_time = real_time_to_sim_time;
 		this.lazyCashierSpeedUp = lazyCashierSpeedUp;
 		this.lazyCashierThreshold = lazyCashierThreshold;
+	}
+	
+	
+	/* SimState constructor
+	 * Using the given arguments to initialize the SimState
+	 *@param iat <-> RandVar interArrivalTime 
+	 *@param sct <-> RandVar serviceCompletionTime
+	 *@param sd <-> simulationDuration
+	 *@param maxQueueSize <-> maximum queue size
+	 *@param preferablePlaces Attribute is used in Exercise 3 to modify state
+	 *@param real_time_to_sim_time used to modify the statistics
+	 *dependent customer arrivals
+	 */
+	public SimState (RandVar iat, RandVar sct, RandVar na, long sd, long real_time_to_sim_time)
+	{
+		ec = new EventChain ();
+		queue = new Vector<Customer> (10);
+		stop = false;
+		this.iat = iat;
+		this.sct = sct;
+		this.cet = null;
+		simulationDuration = sd;
+		serverBusy = false;
+		min = 0;
+		max = 0;
+		queueingStrategy = FIFO;
+		this.real_time_to_sim_time = real_time_to_sim_time;
+		this.na = na;
+		this.isBatchMode = true;
 	}
 	
 	
