@@ -136,9 +136,9 @@ public abstract class  Histogram
 		String sPDF=tmp;
 		String sDist=tmp;
 
-		sHist+=(".hist.csv");
-		sPDF +=(".epdf.csv");
-		sDist+=(".dist.csv");
+		sHist+=(".hist");
+		sPDF +=(".epdf");
+		sDist+=(".dist");
 
 		File fhist = new File(sHist);
 		File fpdf = new File(sPDF);

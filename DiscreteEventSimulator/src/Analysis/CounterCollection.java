@@ -91,13 +91,4 @@ public class CounterCollection
 		dh_cwt.report();
 		ch_qo.report();
 	}
-	
-	public void fileReport() {
-		try {
-			dh_cwt.fileReport();
-			ch_qo.fileReport();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

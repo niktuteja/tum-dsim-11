@@ -62,17 +62,14 @@ public class ServiceCompletion extends SimEvent
 		 */
 		if (SimState.s.queue.size() > 0) 
 		{
-			long sct = 0;
-			if (SimState.s.queue.size() > SimState.s.lazyCashierThreshold)
-			{
-//				sct -= sct*SimState.s.lazyCashierSpeedUp;
-				sct =  Math.round(SimState.s.sctSpeedUp.getRV());
-			}
+			if ((SimState.s.queue.size() < SimState.s.lazyThreshold) && (SimState.s.lazyThreshold  != -1))
+				SimState.s.ec.insert (new ServiceCompletion 
+						(SimState.s.now + Math.round(SimState.s.sct.getRV())));
 			else
-				 sct = Math.round(SimState.s.sct.getRV());
-			
-			SimState.s.ec.insert (new ServiceCompletion (SimState.s.now + sct));
-			
+				SimState.s.ec.insert (new ServiceCompletion 
+						(SimState.s.now + Math.round((1-SimState.s.speedFactor)*SimState.s.sct.getRV())));
+					
+						
 			switch (SimState.s.queueingStrategy)
             {
               case 0:

@@ -39,6 +39,14 @@ public class SimState
 	 */
 	public RandVar cet = null;
 	/**
+	 * Attribute: time between batch arrivals
+	 */
+	public RandVar biat = null;
+	/**
+	 * Attribute: time between batch arrivals
+	 */
+	public RandVar batchSize = null;
+	/**
 	 * Attribute: Duration of the Simulation
 	 */
 	public long simulationDuration;
@@ -59,9 +67,21 @@ public class SimState
 	 */	
 	long maxQueueSize = Long.MAX_VALUE;
 	/**
-	 * Attribute: maximum allowed queue size 
+	 * Attribute: Dry waiting places 
 	 */		
 	long preferablePlaces = -1;
+	/**
+	 * Attribute: lazy threshold
+	 * The lazy cashier works faster if more the waiting queue
+	 * gets longer than the lazyThreshold 
+	 */		
+	public long lazyThreshold = -1;
+	/**
+	 * Attribute: speedFactor
+	 * Defines the speed-up of the cashier if more than lazyThreshold
+	 * customers are waiting
+	 */		
+	public double speedFactor = 0;
 	/**
 	 * Attribute: 1s in real time corresponds real_time_to_sim_time
 	 * ticks in the simulation 
@@ -78,12 +98,6 @@ public class SimState
 	
 	public final int FIFO = 0;
 	public final int EDF = 1;
-	public long lazyCashierThreshold = Long.MAX_VALUE;
-	public double lazyCashierSpeedUp = 0;
-	
-	public boolean isBatchMode = false;
-	public RandVar na = null;
-	public RandVar sctSpeedUp;
 	
 	public static SimState s;
 	/**
@@ -154,6 +168,69 @@ public class SimState
 	 *@param sct <-> RandVar serviceCompletionTime
 	 *@param sd <-> simulationDuration
 	 *@param maxQueueSize <-> maximum queue size
+	 *@param lazyThreshold - Service Unit works faster if more than
+	 *lazyThreshold customers are waiting
+	 *@param speedFactor - speed-up factor of the lazy cashier
+	 */
+	public SimState (RandVar iat, RandVar sct, RandVar biat, RandVar batchSize, long sd, long maxQueueSize, long lazyThreshold, double speedFactor, long real_time_to_sim_time)
+	{
+		ec = new EventChain ();
+		queue = new Vector<Customer> (10);
+		stop = false;
+		this.iat = iat;
+		this.sct = sct;
+		this.cet = null;
+		this.biat = biat;
+		this.batchSize = batchSize;
+		simulationDuration = sd;
+		serverBusy = false;
+		min = 0;
+		max = 0;
+		this.maxQueueSize = Long.MAX_VALUE;
+		this.preferablePlaces = -1;
+		this.lazyThreshold = lazyThreshold;
+		this.speedFactor = speedFactor;
+		queueingStrategy = FIFO;
+		this.real_time_to_sim_time = real_time_to_sim_time;
+	}
+	
+	
+	
+	/* SimState constructor
+	 * Using the given arguments to initialize the SimState
+	 *@param iat <-> RandVar interArrivalTime 
+	 *@param sct <-> RandVar serviceCompletionTime
+	 *@param sd <-> simulationDuration
+	 *@param maxQueueSize <-> maximum queue size
+	 *@param lazyThreshold - Service Unit works faster if more than
+	 *lazyThreshold customers are waiting
+	 *@param speedFactor - speed-up factor of the lazy cashier
+	 */
+	public SimState (RandVar iat, RandVar sct, long sd, long maxQueueSize, long lazyThreshold, double speedFactor, long real_time_to_sim_time)
+	{
+		ec = new EventChain ();
+		queue = new Vector<Customer> (10);
+		stop = false;
+		this.iat = iat;
+		this.sct = sct;
+		this.cet = null;
+		simulationDuration = sd;
+		serverBusy = false;
+		min = 0;
+		max = 0;
+		this.maxQueueSize = Long.MAX_VALUE;
+		this.preferablePlaces = -1;
+		this.lazyThreshold = lazyThreshold;
+		this.speedFactor = speedFactor;
+		queueingStrategy = FIFO;
+		this.real_time_to_sim_time = real_time_to_sim_time;
+	}
+	/* SimState constructor
+	 * Using the given arguments to initialize the SimState
+	 *@param iat <-> RandVar interArrivalTime 
+	 *@param sct <-> RandVar serviceCompletionTime
+	 *@param sd <-> simulationDuration
+	 *@param maxQueueSize <-> maximum queue size
 	 *@param preferablePlaces Attribute is used in Exercise 3 to modify state
 	 *dependent customer arrivals
 	 */
@@ -173,7 +250,6 @@ public class SimState
 		this.preferablePlaces = preferablePlaces;
 		queueingStrategy = FIFO;
 	}
-	
 	/* SimState constructor
 	 * Using the given arguments to initialize the SimState
 	 *@param iat <-> RandVar interArrivalTime 
@@ -200,66 +276,6 @@ public class SimState
 		this.preferablePlaces = preferablePlaces;
 		queueingStrategy = FIFO;
 		this.real_time_to_sim_time = real_time_to_sim_time;
-	}
-	
-	/* SimState constructor
-	 * Using the given arguments to initialize the SimState
-	 *@param iat <-> RandVar interArrivalTime 
-	 *@param sct <-> RandVar serviceCompletionTime
-	 *@param sd <-> simulationDuration
-	 *@param maxQueueSize <-> maximum queue size
-	 *@param preferablePlaces Attribute is used in Exercise 3 to modify state
-	 *@param real_time_to_sim_time used to modify the statistics
-	 *dependent customer arrivals
-	 */
-	public SimState (RandVar iat, RandVar sct, long sd, long maxQueueSize, long preferablePlaces, long lazyCashierThreshold, double lazyCashierSpeedUp, RandVar sctSpeedUp, long real_time_to_sim_time)
-	{
-		ec = new EventChain ();
-		queue = new Vector<Customer> (10);
-		stop = false;
-		this.iat = iat;
-		this.sct = sct;
-		this.cet = null;
-		simulationDuration = sd;
-		serverBusy = false;
-		min = 0;
-		max = 0;
-		this.maxQueueSize = maxQueueSize;
-		this.preferablePlaces = preferablePlaces;
-		queueingStrategy = FIFO;
-		this.real_time_to_sim_time = real_time_to_sim_time;
-		this.lazyCashierSpeedUp = lazyCashierSpeedUp;
-		this.lazyCashierThreshold = lazyCashierThreshold;
-		this.sctSpeedUp = sctSpeedUp;
-	}
-	
-	
-	/* SimState constructor
-	 * Using the given arguments to initialize the SimState
-	 *@param iat <-> RandVar interArrivalTime 
-	 *@param sct <-> RandVar serviceCompletionTime
-	 *@param sd <-> simulationDuration
-	 *@param maxQueueSize <-> maximum queue size
-	 *@param preferablePlaces Attribute is used in Exercise 3 to modify state
-	 *@param real_time_to_sim_time used to modify the statistics
-	 *dependent customer arrivals
-	 */
-	public SimState (RandVar iat, RandVar sct, RandVar na, long sd, long real_time_to_sim_time)
-	{
-		ec = new EventChain ();
-		queue = new Vector<Customer> (10);
-		stop = false;
-		this.iat = iat;
-		this.sct = sct;
-		this.cet = null;
-		simulationDuration = sd;
-		serverBusy = false;
-		min = 0;
-		max = 0;
-		queueingStrategy = FIFO;
-		this.real_time_to_sim_time = real_time_to_sim_time;
-		this.na = na;
-		this.isBatchMode = true;
 	}
 	
 	
