@@ -252,6 +252,11 @@ discrete counter
 || G        || 0.19 ||  9 ||
 || H        ||  0.11 || 8 ||
 
+- In M/M systems a single but fast service unit yields smaller average and maximum waiting queue lengths.
+
+- In M/D and D/M systems the ten (slow) service units perform slightly better than one singe fast unit.
+
+
 *Answer for Exercise 1.b*:
 || System   || Avg waiting times || Maximum waiting times ||
 || A        || 0 ||  0 ||
@@ -266,6 +271,11 @@ discrete counter
 || G        || 2.06 ||  45  ||
 || H        || 0.12 ||  44  ||
 
+- In M/M systems a single but fast service unit yields smaller average and maximum waiting times.
+
+- In M/D and D/M systems the ten (slow) service units perform slightly better than one singe fast unit.
+
+
 *Answer for Exercise 1.c*:
 || System   || Avg waiting times || Maximum waiting times || Avg service times || Maximumg service times ||
 || A        || 0 ||  0 || 10 || 146 ||
@@ -279,6 +289,10 @@ discrete counter
 ||----------|| 
 || G        || 2.06 ||  45  || 5 || 5 ||
 || H        || 0.12 ||  44  || 50 || 50 ||
+
+- In M/M systems a single but fast service unit yields much smaller average and maximum passthrough times.
+
+- In M/D and D/M systems the ten (slow) service units yield smaller average and maximum waiting times but much slower service times
 
 
 *Answer for Exercise 1.d*:
