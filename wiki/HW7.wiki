@@ -1,0 +1,284 @@
+Ex1A
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 10.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 1
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     0.0
+variance:                 0.0
+standard deviation:       0.0
+coefficient of variation: 0.0
+minimum:                  0.0
+maximum:                  4.9E-324
+number of samples: 900235
+discrete counter
+
+observed random variable: service time per customer
+mean:                     9.996778618916172
+variance:                 100.232797981408
+standard deviation:       10.011633132581716
+coefficient of variation: 1.001485930041247
+minimum:                  0.0
+maximum:                  146.0
+number of samples: 900235
+discrete counter
+}}}
+
+Ex1B
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 100.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 18
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     10.610313597984513
+variance:                 223.0015221503532
+standard deviation:       14.933235488344554
+coefficient of variation: 1.4074264017211708
+minimum:                  0.0
+maximum:                  138.0
+number of samples: 900229
+discrete counter
+
+observed random variable: service time per customer
+mean:                     100.0058262953093
+variance:                 10006.199794319975
+standard deviation:       100.0309941684075
+coefficient of variation: 1.0002516640682901
+minimum:                  0.0
+maximum:                  1458.0
+number of samples: 900229
+discrete counter
+}}}
+
+Ex1C
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 5.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 1
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     0.0
+variance:                 0.0
+standard deviation:       0.0
+coefficient of variation: 0.0
+minimum:                  0.0
+maximum:                  4.9E-324
+number of samples: 900236
+discrete counter
+
+observed random variable: service time per customer
+mean:                     4.991693289315246
+variance:                 25.179885121571033
+standard deviation:       5.017956269396041
+coefficient of variation: 1.0052613368968424
+minimum:                  0.0
+maximum:                  73.0
+number of samples: 900236
+discrete counter
+}}}
+
+Ex1D
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 50.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 3
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     5.931817424435977E-4
+variance:                 0.0014592767406399205
+standard deviation:       0.03820048089540131
+coefficient of variation: 64.39928636042532
+minimum:                  0.0
+maximum:                  9.0
+number of samples: 900230
+discrete counter
+
+observed random variable: service time per customer
+mean:                     50.00244048743099
+variance:                 2501.7707112726307
+standard deviation:       50.01770397841779
+coefficient of variation: 1.0003052549203202
+minimum:                  0.0
+maximum:                  729.0
+number of samples: 900230
+discrete counter
+}}}
+
+Ex1E
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 10.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 44
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     45.93109035528975
+variance:                 2951.654020463703
+standard deviation:       54.329126814846774
+coefficient of variation: 1.1828399107139822
+minimum:                  0.0
+maximum:                  479.0
+number of samples: 909089
+discrete counter
+
+observed random variable: service time per customer
+mean:                     9.994959789415558
+variance:                 100.20073843869362
+standard deviation:       10.010031889993838
+coefficient of variation: 1.0015079701065173
+minimum:                  0.0
+maximum:                  146.0
+number of samples: 909089
+discrete counter
+}}}
+
+Ex1F
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 100.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 41
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     31.228924939829543
+variance:                 2464.659686709489
+standard deviation:       49.64533902300889
+coefficient of variation: 1.5897229609620966
+minimum:                  0.0
+maximum:                  448.0
+number of samples: 909084
+discrete counter
+
+observed random variable: service time per customer
+mean:                     99.98870511415886
+variance:                 10003.75719491412
+standard deviation:       100.01878421033781
+coefficient of variation: 1.000300824939623
+minimum:                  0.0
+maximum:                  1458.0
+number of samples: 909084
+discrete counter
+}}}
+
+Ex1G
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 5.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 9
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     2.0610828716025575
+variance:                 11.351644974893718
+standard deviation:       3.369220232471264
+coefficient of variation: 1.6346845043894755
+minimum:                  0.0
+maximum:                  45.0
+number of samples: 900236
+discrete counter
+
+observed random variable: service time per customer
+mean:                     5.0
+variance:                 0.0
+standard deviation:       0.0
+coefficient of variation: 0.0
+minimum:                  5.0
+maximum:                  5.0
+number of samples: 900236
+discrete counter
+}}}
+
+Ex1H
+{{{
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 50.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 8
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     0.12454122937198411
+variance:                 1.4690550931124686
+standard deviation:       1.2120458296254597
+coefficient of variation: 9.732084994964026
+minimum:                  0.0
+maximum:                  44.0
+number of samples: 900232
+discrete counter
+
+observed random variable: service time per customer
+mean:                     50.0
+variance:                 0.0
+standard deviation:       0.0
+coefficient of variation: 0.0
+minimum:                  50.0
+maximum:                  50.0
+number of samples: 900232
+discrete counter
+}}}
+
+*Answer for Exercise 1.a*:
+|| System   || Avg waiting queue length || Maximum queue length ||
+|| A        || 0 || 1 ||
+|| B        || 0.96 ||  18 ||
+||----------||
+|| C        || 0 ||  1 ||
+|| D        || 5.40 ||  3 ||
+||----------||
+|| E        ||  4.18 || 44 ||
+|| F        ||  2.84 || 41 ||
+||----------||
+|| G        || 0.19 ||  9 ||
+|| H        ||  0.11 || 8 ||
+
+*Answer for Exercise 1.b*:
+|| System   || Avg waiting times || Maximum waiting times ||
+|| A        || 0 ||  0 ||
+|| B        || 10.61 || 138 ||
+||----------||
+|| C        || 0 ||  0  ||
+|| D        || 5.93 ||  9  ||
+||----------||
+|| E        || 45.93 ||  479  ||
+|| F        || 31.23 || 448  ||
+||----------|| 
+|| G        || 2.06 ||  45  ||
+|| H        || 0.12 ||  44  ||
+
+*Answer for Exercise 1.c*:
+|| System   || Avg waiting times || Maximum waiting times || Avg service times || Maximumg service times ||
+|| A        || 0 ||  0 || 10 || 146 ||
+|| B        || 10.61 || 138 || 100 || 1458 ||
+||----------||
+|| C        || 0 ||  0  || 5 || 73 ||
+|| D        || 5.93 ||  9  || 50 || 729 ||
+||----------||
+|| E        || 45.93 ||  479  || 10 || 146 ||
+|| F        || 31.23 || 448  || 100 || 1458 ||
+||----------|| 
+|| G        || 2.06 ||  45  || 5 || 5 ||
+|| H        || 0.12 ||  44  || 50 || 50 ||
+
+
+*Answer for Exercise 1.d*:
