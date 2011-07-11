@@ -1,3 +1,75 @@
+=Exercise 1=
+*Answer for Exercise 1.a*:
+|| System   || Avg waiting queue length || Maximum queue length ||
+|| A        || 0 || 1 ||
+|| B        || 0.96 ||  18 ||
+||----------||
+|| C        || 0 ||  1 ||
+|| D        || 5.40 ||  3 ||
+||----------||
+|| E        ||  4.18 || 44 ||
+|| F        ||  2.84 || 41 ||
+||----------||
+|| G        || 0.19 ||  9 ||
+|| H        ||  0.11 || 8 ||
+
+- In M/M systems a single but fast service unit yields smaller average and maximum waiting queue lengths.
+
+- In M/D and D/M systems the ten (slow) service units perform slightly better than one singe fast unit.
+
+
+*Answer for Exercise 1.b*:
+|| System   || Avg waiting times || Maximum waiting times ||
+|| A        || 0 ||  0 ||
+|| B        || 10.61 || 138 ||
+||----------||
+|| C        || 0 ||  0  ||
+|| D        || 5.93 ||  9  ||
+||----------||
+|| E        || 45.93 ||  479  ||
+|| F        || 31.23 || 448  ||
+||----------|| 
+|| G        || 2.06 ||  45  ||
+|| H        || 0.12 ||  44  ||
+
+- In M/M systems a single but fast service unit yields smaller average and maximum waiting times.
+
+- In M/D and D/M systems the ten (slow) service units perform slightly better than one singe fast unit.
+
+
+*Answer for Exercise 1.c*:
+|| System   || Avg waiting times || Maximum waiting times || Avg service times || Maximumg service times ||
+|| A        || 0 ||  0 || 10 || 146 ||
+|| B        || 10.61 || 138 || 100 || 1458 ||
+||----------||
+|| C        || 0 ||  0  || 5 || 73 ||
+|| D        || 5.93 ||  9  || 50 || 729 ||
+||----------||
+|| E        || 45.93 ||  479  || 10 || 146 ||
+|| F        || 31.23 || 448  || 100 || 1458 ||
+||----------|| 
+|| G        || 2.06 ||  45  || 5 || 5 ||
+|| H        || 0.12 ||  44  || 50 || 50 ||
+
+- In M/M systems a single but fast service unit yields much smaller average and maximum passthrough times.
+
+- In M/D and D/M systems the ten (slow) service units yield smaller average and maximum waiting times but much slower service times
+
+
+*Answer for Exercise 1.d*:
+
+Best performance from...
+
+... a customer's perspective:
+  * If customers prefer shorter passthrough times then they prefer having a single, fast service unit.
+  * If customers prefer shorter waiting times then they either prefer a single fast service unit in an M/M system or several slower service units in an M/D or D/M system.
+
+... the shop owner's perspective
+  * prefers a small passthrough time in order to process as many customers as possible. Therefore the shop owner prefers one fast service unit.
+
+
+Data for Ex1:
+
 Ex1A
 {{{
 E[inter-arrival time] = 11.11111111111111
@@ -237,71 +309,3 @@ maximum:                  50.0
 number of samples: 900232
 discrete counter
 }}}
-
-*Answer for Exercise 1.a*:
-|| System   || Avg waiting queue length || Maximum queue length ||
-|| A        || 0 || 1 ||
-|| B        || 0.96 ||  18 ||
-||----------||
-|| C        || 0 ||  1 ||
-|| D        || 5.40 ||  3 ||
-||----------||
-|| E        ||  4.18 || 44 ||
-|| F        ||  2.84 || 41 ||
-||----------||
-|| G        || 0.19 ||  9 ||
-|| H        ||  0.11 || 8 ||
-
-- In M/M systems a single but fast service unit yields smaller average and maximum waiting queue lengths.
-
-- In M/D and D/M systems the ten (slow) service units perform slightly better than one singe fast unit.
-
-
-*Answer for Exercise 1.b*:
-|| System   || Avg waiting times || Maximum waiting times ||
-|| A        || 0 ||  0 ||
-|| B        || 10.61 || 138 ||
-||----------||
-|| C        || 0 ||  0  ||
-|| D        || 5.93 ||  9  ||
-||----------||
-|| E        || 45.93 ||  479  ||
-|| F        || 31.23 || 448  ||
-||----------|| 
-|| G        || 2.06 ||  45  ||
-|| H        || 0.12 ||  44  ||
-
-- In M/M systems a single but fast service unit yields smaller average and maximum waiting times.
-
-- In M/D and D/M systems the ten (slow) service units perform slightly better than one singe fast unit.
-
-
-*Answer for Exercise 1.c*:
-|| System   || Avg waiting times || Maximum waiting times || Avg service times || Maximumg service times ||
-|| A        || 0 ||  0 || 10 || 146 ||
-|| B        || 10.61 || 138 || 100 || 1458 ||
-||----------||
-|| C        || 0 ||  0  || 5 || 73 ||
-|| D        || 5.93 ||  9  || 50 || 729 ||
-||----------||
-|| E        || 45.93 ||  479  || 10 || 146 ||
-|| F        || 31.23 || 448  || 100 || 1458 ||
-||----------|| 
-|| G        || 2.06 ||  45  || 5 || 5 ||
-|| H        || 0.12 ||  44  || 50 || 50 ||
-
-- In M/M systems a single but fast service unit yields much smaller average and maximum passthrough times.
-
-- In M/D and D/M systems the ten (slow) service units yield smaller average and maximum waiting times but much slower service times
-
-
-*Answer for Exercise 1.d*:
-
-Best performance from...
-
-... a customer's perspective:
-  * If customers prefer shorter passthrough times then they prefer having a single, fast service unit.
-  * If customers prefer shorter waiting times then they either prefer a single fast service unit in an M/M system or several slower service units in an M/D or D/M system.
-
-... the shop owner's perspective
-  * prefers a small passthrough time in order to process as many customers as possible. Therefore the shop owner prefers one fast service unit.
