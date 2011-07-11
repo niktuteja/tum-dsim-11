@@ -94,7 +94,7 @@ public class ServiceCompletion extends SimEvent {
 		}
 
 		//SimState measurements below
-		double util = (SimState.s.numBusyServers < SimState.s.numServers ? 1 : 0);
+		double util = (SimState.s.numBusyServers < SimState.s.numServers ? 0 : 1);
 
 		CounterCollection.cc.cc_su.count(util);
 		CounterCollection.cc.cc_qo.count(SimState.s.queue.size());
