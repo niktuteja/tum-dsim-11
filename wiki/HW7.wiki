@@ -299,9 +299,9 @@ discrete counter
 
 Best performance from...
 
-- ... a customer's perspective:
--- If customers prefer shorter passthrough times then they prefer having a single, fast service unit.
--- If customers prefer shorter waiting times then they either prefer a single fast service unit in an M/M system or several slower service units in an M/D or D/M system.
+... a customer's perspective:
+  * If customers prefer shorter passthrough times then they prefer having a single, fast service unit.
+  * If customers prefer shorter waiting times then they either prefer a single fast service unit in an M/M system or several slower service units in an M/D or D/M system.
 
-- ... the shop owner's perspective
--- prefers a small passthrough time in order to process as many customers as possible. Therefore the shop owner prefers one fast service unit.
+... the shop owner's perspective
+  * prefers a small passthrough time in order to process as many customers as possible. Therefore the shop owner prefers one fast service unit.
