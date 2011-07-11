@@ -1,4 +1,5 @@
 import Analysis.CounterCollection;
+import RandVar.Constant;
 import RandVar.Exponential;
 import RandVar.RandVar;
 import RandVar.Rng;
@@ -17,7 +18,7 @@ import Simulator.SimulationTermination;
  * @version 1.0.0
  * @since 2011-07-06
  */
-public class DES06 {
+public class DES07 {
 	static long real_time_to_sim_time = 100;
 	static Rng a = new Rng(100, 16807, 0, (1 << 31) - 1);
 	static Rng b = new Rng(200, 16807, 0, (1 << 31) - 1);
@@ -34,26 +35,97 @@ public class DES06 {
 	 */
 	public static void main(String[] args) {
 		// Exercise 1
-		exercise1A();
-
-		//		//System A:-------------- M / M / 1 - Infty -----------------------
-		//		long real_time_to_sim_time = 100;
-		//		iat = new Exponential((double) 10 / real_time_to_sim_time);
-		//		iat.rng = a;
-		//		sct = new Exponential((double) 8 / real_time_to_sim_time);
-		//		sct.rng = b;
-		//
-		//		long simulation_duration = (long) (Math.pow(10, 5) * real_time_to_sim_time);
-		//		long maxQueueSize = Long.MAX_VALUE;
-		//
-		//		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize, lazyThreshold, speedFactor, real_time_to_sim_time);
-		//		runSimulation(args[0]);
+		exercise1H();
 	}
 
 	private static void exercise1A() {
 		RandVar iat, sct;
 		iat = new Exponential(9.0 / real_time_to_sim_time);
 		sct = new Exponential(10.0 / real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 1;
+
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
+		SimState.s.numServers = numServers;
+		runSimulation("1");
+	}
+
+	private static void exercise1B() {
+		RandVar iat, sct;
+		iat = new Exponential(9.0 / real_time_to_sim_time);
+		sct = new Exponential(1.0 / real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 10;
+
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
+		SimState.s.numServers = numServers;
+		runSimulation("1");
+	}
+
+	private static void exercise1C() {
+		RandVar iat, sct;
+		iat = new Exponential(9.0 / real_time_to_sim_time);
+		sct = new Exponential(20.0 / real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 1;
+
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
+		SimState.s.numServers = numServers;
+		runSimulation("1");
+	}
+
+	private static void exercise1D() {
+		RandVar iat, sct;
+		iat = new Exponential(9.0 / real_time_to_sim_time);
+		sct = new Exponential(2.0 / real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 10;
+
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
+		SimState.s.numServers = numServers;
+		runSimulation("1");
+	}
+
+	private static void exercise1E() {
+		RandVar iat, sct;
+		iat = new Constant(1.0 / 9.0 * real_time_to_sim_time);
+		sct = new Exponential(10.0 / real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 1;
+
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
+		SimState.s.numServers = numServers;
+		runSimulation("1");
+	}
+
+	private static void exercise1F() {
+		RandVar iat, sct;
+		iat = new Constant(1.0 / 9.0 * real_time_to_sim_time);
+		sct = new Exponential(1.0 / real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 10;
+
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
+		SimState.s.numServers = numServers;
+		runSimulation("1");
+	}
+
+	private static void exercise1G() {
+		RandVar iat, sct;
+		iat = new Exponential(9.0 / real_time_to_sim_time);
+		sct = new Constant(1.0 / 20.0 * real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 1;
+
+		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
+		SimState.s.numServers = numServers;
+		runSimulation("1");
+	}
+
+	private static void exercise1H() {
+		RandVar iat, sct;
+		iat = new Exponential(9.0 / real_time_to_sim_time);
+		sct = new Constant(1.0 / 2.0 * real_time_to_sim_time);
 		long maxQueueSize = Long.MAX_VALUE;
 		int numServers = 10;
 
