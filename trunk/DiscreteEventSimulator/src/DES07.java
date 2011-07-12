@@ -137,17 +137,17 @@ public class DES07 {
 	private static void exercise2A() {
 		RandVar iat, sct;
 		iat = new Exponential(9.0 / real_time_to_sim_time);
-		sct = new Constant(1.0 / 2.0 * real_time_to_sim_time);
+		sct = new Exponential(10.0 / real_time_to_sim_time);
 		long maxQueueSize = Long.MAX_VALUE;
-		int numServers = 10;
+		int numServers = 1;
 		
 		RandVar biat = new Exponential((double) 9 / (double) 5 / real_time_to_sim_time);
 		RandVar batchSize = new Constant ((double) 5);
 //		iat = new Constant ((double) 0); // J
 //		iat = new Exponential(10.0 / real_time_to_sim_time); // K
 //		iat = new Exponential(0.1 / real_time_to_sim_time); // L
-//		iat = new Constant ((double) 0.1); // M
-		iat = new Constant ((double) 10.0); // N
+//		iat = new Constant ((double) 0.1 * real_time_to_sim_time); // M
+		iat = new Constant ((double) 10.0 * real_time_to_sim_time); // N
         biat.rng = a;
         sct.rng = b;
         batchSize.rng = c;
@@ -178,7 +178,7 @@ public class DES07 {
 		while (SimState.s.stop != true) {
 			// Get the next SimEvent from the EventChain
 			SimEvent e = SimState.s.ec.removeOldestEvent();
-
+			
 			if (e != null) {
 				if (SimState.s.now > e.value) {
 					System.out.println("_____________________________________________________");
@@ -220,6 +220,8 @@ public class DES07 {
 		//Report includes histograms
 		CounterCollection.cc.report();
 		System.out.println("___________________________________________________________________");
+		
+		System.out.printf("|| %f || %f || %f || %f ||", CounterCollection.cc.dc_cwt.getMean(), CounterCollection.cc.dc_cwt.getMax(), CounterCollection.cc.cc_qo.getMean(), CounterCollection.cc.cc_qo.getMax());
 
 	}
 }
