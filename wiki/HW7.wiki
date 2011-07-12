@@ -310,41 +310,50 @@ number of samples: 900232
 discrete counter
 }}}
 
+
 =Exercise 2=
 || System   || avg cwt || max cwt || avg wql || max wql ||
-|| J        || 38920 ||  77768 || 351366 || 703218 ||
-|| K        || 38920 || 77767 || 351364 || 703218 ||
+|| J || 3.021582 || 24.940000 || 27.291424 || 229.000000 ||
+|| K || 2.907523 || 24.910000 || 26.261191 || 227.000000 ||
+|| L || 1.845778 || 18.920000 || 16.666663 || 180.000000 ||
+|| M || 2.885423 || 24.640000 || 26.061497 || 227.000000 ||
+|| N || 1.742308 || 18.880000 || 15.732460 || 188.000000 ||
 
+
+== Answers ==
+Having slower inter arrival rates within a batch process reduces the waiting queue length and the waiting time of the customers (Compare System L/N vs System J, System K/M lies in between since customers are coming faster than for L/N).
+
+But between the systems L/N and K/M, where we just distinguish between Exponential or Constant distribution (with same mean), there are no marginal differences. (The average waiting time/queue length seems to be slightly better, but we would need more measurements to verify this)
 
 == J == 
 {{{
 E[batch-inter-arrival time] = 55.55555555555555
 E[batch-size] = 5.0
 E[inter-arrival time] = 11.11111111111111
-E[service completion time] = 50.0
+E[service completion time] = 10.0
 simulation duration = 10000000
 minimum queue length = 0
-maximum queue length = 703218
+maximum queue length = 229
 discrete counter
 
 observed random variable: waiting time per customer
-mean:                     38920.71728405789
-variance:                 5.054621714781305E8
-standard deviation:       22482.485882974117
-coefficient of variation: 0.5776482925247385
+mean:                     3.0215815503505863
+variance:                 9.367313872887559
+standard deviation:       3.060606781814279
+coefficient of variation: 1.012915498328736
 minimum:                  0.0
-maximum:                  77768.33
-number of samples: 199997
+maximum:                  24.94
+number of samples: 903215
 continuous counter
 
 observed random variable: queue occupancy over time
-mean:                     351366.9250225775
-variance:                 4.125044703969011E10
-standard deviation:       203102.06064855697
-coefficient of variation: 0.5780340896784932
+mean:                     27.291424195421133
+variance:                 891.6439533774216
+standard deviation:       29.86040778987155
+coefficient of variation: 1.0941315328967491
 minimum:                  0.0
-maximum:                  703218.0
-interval length: 9999997
+maximum:                  229.0
+interval length: 9999983
 }}}
 
 == K ==
@@ -352,30 +361,30 @@ interval length: 9999997
 E[batch-inter-arrival time] = 55.55555555555555
 E[batch-size] = 5.0
 E[inter-arrival time] = 11.11111111111111
-E[service completion time] = 50.0
+E[service completion time] = 10.0
 simulation duration = 10000000
 minimum queue length = 0
-maximum queue length = 703218
+maximum queue length = 227
 discrete counter
 
 observed random variable: waiting time per customer
-mean:                     38920.446735501595
-variance:                 5.0546215452427113E8
-standard deviation:       22482.48550592819
-coefficient of variation: 0.5776522982563973
+mean:                     2.9075234467984594
+variance:                 9.342108303784437
+standard deviation:       3.056486267560258
+coefficient of variation: 1.051233575063969
 minimum:                  0.0
-maximum:                  77767.88
-number of samples: 199997
+maximum:                  24.91
+number of samples: 903215
 continuous counter
 
 observed random variable: queue occupancy over time
-mean:                     351364.44973228994
-variance:                 4.125045418182536E10
-standard deviation:       203102.07823118247
-coefficient of variation: 0.5780382118507695
+mean:                     26.26119052611905
+variance:                 884.6965782855455
+standard deviation:       29.743849419426958
+coefficient of variation: 1.1326161847020644
 minimum:                  0.0
-maximum:                  703218.0
-interval length: 9999998
+maximum:                  227.0
+interval length: 9999999
 }}}
 
 == L == 
@@ -383,30 +392,30 @@ interval length: 9999998
 E[batch-inter-arrival time] = 55.55555555555555
 E[batch-size] = 5.0
 E[inter-arrival time] = 11.11111111111111
-E[service completion time] = 50.0
+E[service completion time] = 10.0
 simulation duration = 10000000
 minimum queue length = 0
-maximum queue length = 702985
+maximum queue length = 180
 discrete counter
 
 observed random variable: waiting time per customer
-mean:                     38897.98136359306
-variance:                 5.053709514866279E8
-standard deviation:       22480.457101372023
-coefficient of variation: 0.5779337722243042
+mean:                     1.8457782626038302
+variance:                 5.588485564331794
+standard deviation:       2.3639977927933424
+coefficient of variation: 1.2807593635101449
 minimum:                  0.0
-maximum:                  77741.72
-number of samples: 199979
+maximum:                  18.92
+number of samples: 902960
 continuous counter
 
 observed random variable: queue occupancy over time
-mean:                     351132.244249171
-variance:                 4.1250588934061646E10
-standard deviation:       203102.4099661588
-coefficient of variation: 0.5784214161261504
+mean:                     16.666662533331266
+variance:                 515.2800397288917
+standard deviation:       22.69978060970836
+coefficient of variation: 1.3619871743554897
 minimum:                  0.0
-maximum:                  702985.0
-interval length: 9999993
+maximum:                  180.0
+interval length: 9999995
 }}}
 
 == M ==
@@ -414,29 +423,29 @@ interval length: 9999993
 E[batch-inter-arrival time] = 55.55555555555555
 E[batch-size] = 5.0
 E[inter-arrival time] = 11.11111111111111
-E[service completion time] = 50.0
+E[service completion time] = 10.0
 simulation duration = 10000000
 minimum queue length = 0
-maximum queue length = 703218
+maximum queue length = 227
 discrete counter
 
 observed random variable: waiting time per customer
-mean:                     38920.71728405789
-variance:                 5.054621714781305E8
-standard deviation:       22482.485882974117
-coefficient of variation: 0.5776482925247385
+mean:                     2.885423289327524
+variance:                 9.306274436499978
+standard deviation:       3.050618697330097
+coefficient of variation: 1.0572517067473568
 minimum:                  0.0
-maximum:                  77768.33
-number of samples: 199997
+maximum:                  24.64
+number of samples: 903212
 continuous counter
 
 observed random variable: queue occupancy over time
-mean:                     351366.9250225775
-variance:                 4.125044703969011E10
-standard deviation:       203102.06064855697
-coefficient of variation: 0.5780340896784932
+mean:                     26.061497218449166
+variance:                 880.5362844541429
+standard deviation:       29.673831644298026
+coefficient of variation: 1.1386080928340394
 minimum:                  0.0
-maximum:                  703218.0
+maximum:                  227.0
 interval length: 9999997
 }}}
 
@@ -445,28 +454,28 @@ interval length: 9999997
 E[batch-inter-arrival time] = 55.55555555555555
 E[batch-size] = 5.0
 E[inter-arrival time] = 11.11111111111111
-E[service completion time] = 50.0
+E[service completion time] = 10.0
 simulation duration = 10000000
 minimum queue length = 0
-maximum queue length = 703216
+maximum queue length = 188
 discrete counter
 
 observed random variable: waiting time per customer
-mean:                     38920.34304411044
-variance:                 5.054571528885147E8
-standard deviation:       22482.374271604738
-coefficient of variation: 0.5776509792353139
+mean:                     1.742307541522426
+variance:                 5.664397999203403
+standard deviation:       2.3799995796645432
+coefficient of variation: 1.366004291977582
 minimum:                  0.0
-maximum:                  77767.63
-number of samples: 199996
+maximum:                  18.88
+number of samples: 902961
 continuous counter
 
 observed random variable: queue occupancy over time
-mean:                     351364.5960188788
-variance:                 4.125044607677843E10
-standard deviation:       203102.0582780451
-coefficient of variation: 0.5780379144036824
+mean:                     15.732459566229783
+variance:                 518.8266652654196
+standard deviation:       22.7777669069077
+coefficient of variation: 1.4478198282359416
 minimum:                  0.0
-maximum:                  703216.0
-interval length: 9999997
+maximum:                  188.0
+interval length: 9999995
 }}}
