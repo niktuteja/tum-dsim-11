@@ -309,3 +309,164 @@ maximum:                  50.0
 number of samples: 900232
 discrete counter
 }}}
+
+=Exercise 2=
+|| System   || avg cwt || max cwt || avg wql || max wql ||
+|| J        || 38920 ||  77768 || 351366 || 703218 ||
+|| K        || 38920 || 77767 || 351364 || 703218 ||
+
+
+== J == 
+{{{
+E[batch-inter-arrival time] = 55.55555555555555
+E[batch-size] = 5.0
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 50.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 703218
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     38920.71728405789
+variance:                 5.054621714781305E8
+standard deviation:       22482.485882974117
+coefficient of variation: 0.5776482925247385
+minimum:                  0.0
+maximum:                  77768.33
+number of samples: 199997
+continuous counter
+
+observed random variable: queue occupancy over time
+mean:                     351366.9250225775
+variance:                 4.125044703969011E10
+standard deviation:       203102.06064855697
+coefficient of variation: 0.5780340896784932
+minimum:                  0.0
+maximum:                  703218.0
+interval length: 9999997
+}}}
+
+== K ==
+{{{
+E[batch-inter-arrival time] = 55.55555555555555
+E[batch-size] = 5.0
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 50.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 703218
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     38920.446735501595
+variance:                 5.0546215452427113E8
+standard deviation:       22482.48550592819
+coefficient of variation: 0.5776522982563973
+minimum:                  0.0
+maximum:                  77767.88
+number of samples: 199997
+continuous counter
+
+observed random variable: queue occupancy over time
+mean:                     351364.44973228994
+variance:                 4.125045418182536E10
+standard deviation:       203102.07823118247
+coefficient of variation: 0.5780382118507695
+minimum:                  0.0
+maximum:                  703218.0
+interval length: 9999998
+}}}
+
+== L == 
+{{{
+E[batch-inter-arrival time] = 55.55555555555555
+E[batch-size] = 5.0
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 50.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 702985
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     38897.98136359306
+variance:                 5.053709514866279E8
+standard deviation:       22480.457101372023
+coefficient of variation: 0.5779337722243042
+minimum:                  0.0
+maximum:                  77741.72
+number of samples: 199979
+continuous counter
+
+observed random variable: queue occupancy over time
+mean:                     351132.244249171
+variance:                 4.1250588934061646E10
+standard deviation:       203102.4099661588
+coefficient of variation: 0.5784214161261504
+minimum:                  0.0
+maximum:                  702985.0
+interval length: 9999993
+}}}
+
+== M ==
+{{{
+E[batch-inter-arrival time] = 55.55555555555555
+E[batch-size] = 5.0
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 50.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 703218
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     38920.71728405789
+variance:                 5.054621714781305E8
+standard deviation:       22482.485882974117
+coefficient of variation: 0.5776482925247385
+minimum:                  0.0
+maximum:                  77768.33
+number of samples: 199997
+continuous counter
+
+observed random variable: queue occupancy over time
+mean:                     351366.9250225775
+variance:                 4.125044703969011E10
+standard deviation:       203102.06064855697
+coefficient of variation: 0.5780340896784932
+minimum:                  0.0
+maximum:                  703218.0
+interval length: 9999997
+}}}
+
+== N ==
+{{{
+E[batch-inter-arrival time] = 55.55555555555555
+E[batch-size] = 5.0
+E[inter-arrival time] = 11.11111111111111
+E[service completion time] = 50.0
+simulation duration = 10000000
+minimum queue length = 0
+maximum queue length = 703216
+discrete counter
+
+observed random variable: waiting time per customer
+mean:                     38920.34304411044
+variance:                 5.054571528885147E8
+standard deviation:       22482.374271604738
+coefficient of variation: 0.5776509792353139
+minimum:                  0.0
+maximum:                  77767.63
+number of samples: 199996
+continuous counter
+
+observed random variable: queue occupancy over time
+mean:                     351364.5960188788
+variance:                 4.125044607677843E10
+standard deviation:       203102.0582780451
+coefficient of variation: 0.5780379144036824
+minimum:                  0.0
+maximum:                  703216.0
+interval length: 9999997
+}}}
