@@ -47,15 +47,19 @@ public class BatchArrival extends SimEvent {
 		else
 			batchSize = 0;
 
-		//Note: The iat of the last customer is given by the biat
+		long iatS = 0;
 		for (int i = 0; i < batchSize; i++) {
-			if (i < (batchSize - 1))
-				insertCustomer(0);
-			else
-				insertCustomer(biat);
+			long iat = 0;
+			if (i < batchSize -1)
+				iat += Math.round(SimState.s.iat.getRV());
+			
+			SimState.s.ec.insert(new CustomerArrival(SimState.s.now + iatS + iat));
+			CounterCollection.cc.dc_ciat.count((double) iat / SimState.s.real_time_to_sim_time);
+			iatS += iat;
 		}
 	}
 
+	// unused now, since we need to create real events
 	public void insertCustomer(double iat) {
 		Customer c = new Customer();
 		c.arrivalTime = SimState.s.now;

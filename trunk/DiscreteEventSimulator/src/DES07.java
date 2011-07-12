@@ -35,7 +35,7 @@ public class DES07 {
 	 */
 	public static void main(String[] args) {
 		// Exercise 1
-		exercise1H();
+		exercise2A();
 	}
 
 	private static void exercise1A() {
@@ -132,6 +132,28 @@ public class DES07 {
 		SimState.s = new SimState(iat, sct, simulation_duration, maxQueueSize);
 		SimState.s.numServers = numServers;
 		runSimulation("1");
+	}
+	
+	private static void exercise2A() {
+		RandVar iat, sct;
+		iat = new Exponential(9.0 / real_time_to_sim_time);
+		sct = new Constant(1.0 / 2.0 * real_time_to_sim_time);
+		long maxQueueSize = Long.MAX_VALUE;
+		int numServers = 10;
+		
+		RandVar biat = new Exponential((double) 9 / (double) 5 / real_time_to_sim_time);
+		RandVar batchSize = new Constant ((double) 5);
+//		iat = new Constant ((double) 0); // J
+//		iat = new Exponential(10.0 / real_time_to_sim_time); // K
+//		iat = new Exponential(0.1 / real_time_to_sim_time); // L
+//		iat = new Constant ((double) 0.1); // M
+		iat = new Constant ((double) 10.0); // N
+        biat.rng = a;
+        sct.rng = b;
+        batchSize.rng = c;
+        
+        SimState.s = new SimState (iat, sct, biat, batchSize, simulation_duration, maxQueueSize, -1, 0, real_time_to_sim_time);
+		runSimulation("0");
 	}
 
 	static void runSimulation(String args) {

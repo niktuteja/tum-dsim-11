@@ -80,12 +80,12 @@ public class CounterCollection
 	public void report ()
 	{
 		dc_cwt.report();
-		dc_cst.report();
-		dc_ciat.report();
-		dc_bp.report();
-		dc_uc.report();
-		dc_sc.report();
-		cc_su.report();
+//		dc_cst.report();
+//		dc_ciat.report();
+//		dc_bp.report();
+//		dc_uc.report();
+//		dc_sc.report();
+//		cc_su.report();
 		cc_qo.report();
 		
 		dh_cwt.report();
