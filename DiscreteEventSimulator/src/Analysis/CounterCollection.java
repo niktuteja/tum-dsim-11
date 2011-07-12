@@ -88,7 +88,7 @@ public class CounterCollection
 //		cc_su.report();
 		cc_qo.report();
 		
-		dh_cwt.report();
-		ch_qo.report();
+//		dh_cwt.report();
+//		ch_qo.report();
 	}
 }
